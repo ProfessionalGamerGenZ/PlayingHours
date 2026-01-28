@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Game Lobby - PlayingHours</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--primary:#667eea;
+--secondary:#764ba2;
+--accent:#10b981;
+--dark:#0f172a;
+}
+body{font-family:'Poppins',sans-serif;background:var(--dark);color:#fff;min-height:100vh}
+.header{background:rgba(0,0,0,.3);backdrop-filter:blur(20px);padding:1rem 2rem;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.1);position:sticky;top:0;z-index:100}
+.logo{font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+.user-section{display:flex;align-items:center;gap:1.5rem}
+.coins{background:rgba(251,191,36,.2);color:#fbbf24;padding:.5rem 1rem;border-radius:50px;font-weight:700;display:flex;align-items:center;gap:.5rem}
+.user-profile{background:rgba(255,255,255,.1);padding:.5rem 1rem;border-radius:12px;display:flex;align-items:center;gap:.75rem;cursor:pointer;transition:.3s}
+.user-profile:hover{background:rgba(255,255,255,.15)}
+.avatar{width:36px;height:36px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.125rem}
+.container{max-width:1400px;margin:0 auto;padding:2rem}
+.welcome{text-align:center;margin-bottom:3rem}
+.welcome h1{font-size:clamp(2rem,5vw,3rem);font-weight:900;margin-bottom:.5rem}
+.welcome p{font-size:1.125rem;color:rgba(255,255,255,.6)}
+.games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:2rem}
+.game-card{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:2rem;transition:all .3s;cursor:pointer;text-decoration:none;display:block;position:relative;overflow:hidden}
+.game-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(102,126,234,.1),rgba(118,75,162,.1));opacity:0;transition:.3s}
+.game-card:hover::before{opacity:1}
+.game-card:hover{transform:translateY(-8px);border-color:var(--primary);box-shadow:0 20px 40px rgba(102,126,234,.3)}
+.game-icon{width:70px;height:70px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;margin-bottom:1.5rem;position:relative;z-index:1}
+.game-card h3{font-size:1.5rem;font-weight:800;margin-bottom:.75rem;position:relative;z-index:1}
+.game-meta{display:flex;gap:1rem;margin-bottom:1rem;font-size:.875rem;color:rgba(255,255,255,.6);position:relative;z-index:1}
+.game-stats{display:flex;justify-content:space-between;padding-top:1rem;border-top:1px solid rgba(255,255,255,.1);font-size:.875rem;color:rgba(255,255,255,.5);position:relative;z-index:1}
+.game-stats span{display:flex;align-items:center;gap:.25rem}
+.btn{padding:.75rem 1.5rem;border-radius:12px;font-weight:700;cursor:pointer;transition:all .3s;border:none;font-size:.9375rem}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;box-shadow:0 4px 15px rgba(102,126,234,.4)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,126,234,.6)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:1000;backdrop-filter:blur(10px)}
+.modal.active{display:flex}
+.modal-content{background:linear-gradient(135deg,rgba(30,41,59,.95),rgba(51,65,85,.95));backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:2.5rem;max-width:500px;width:90%;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.modal-header{text-align:center;margin-bottom:2rem}
+.modal-header h2{font-size:2rem;font-weight:900;margin-bottom:.5rem}
+.modal-header p{color:rgba(255,255,255,.6)}
+.modal-options{display:grid;gap:1rem}
+.option-btn{background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);padding:1.5rem;border-radius:16px;cursor:pointer;transition:all .3s;text-align:left}
+.option-btn:hover{border-color:var(--primary);background:rgba(102,126,234,.1);transform:translateX(8px)}
+.option-btn h3{font-size:1.125rem;font-weight:800;margin-bottom:.5rem;display:flex;align-items:center;gap:.75rem}
+.option-btn p{font-size:.875rem;color:rgba(255,255,255,.6)}
+.input-group{margin-bottom:1.5rem}
+.input-group label{display:block;margin-bottom:.5rem;font-weight:600;font-size:.9375rem}
+.input-group input{width:100%;padding:.875rem;background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);border-radius:12px;color:#fff;font-size:1rem;font-weight:600;text-transform:uppercase;text-align:center;letter-spacing:2px}
+.input-group input:focus{outline:none;border-color:var(--primary);background:rgba(102,126,234,.1)}
+.modal-footer{display:flex;gap:1rem;margin-top:2rem}
+.btn-secondary{background:rgba(255,255,255,.1);color:#fff;border:2px solid rgba(255,255,255,.2)}
+.btn-secondary:hover{border-color:#fff;background:rgba(255,255,255,.15)}
+.close-btn{position:absolute;top:1.5rem;right:1.5rem;background:none;border:none;color:rgba(255,255,255,.6);font-size:1.5rem;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;transition:.3s}
+.close-btn:hover{background:rgba(255,255,255,.1);color:#fff}
+@media(max-width:768px){
+.container{padding:1rem}
+.games-grid{grid-template-columns:1fr}
+.user-section{gap:.75rem}
+.user-name{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+<a href="index.html" class="logo">
+<div class="logo-icon">🎮</div>
+<span>PlayingHours</span>
+</a>
+<div class="user-section">
+<div class="coins">💰 <span id="userCoins">500</span></div>
+<div class="user-profile">
+<div class="avatar">👤</div>
+<span class="user-name" id="userName">Player</span>
+</div>
+</div>
+</header>
+
+<div class="container">
+<div class="welcome">
+<h1>Choose Your Game</h1>
+<p>Select a game and start playing with friends!</p>
+</div>
+
+<div class="games-grid">
+<div class="game-card" onclick="openGameModal('ludo')">
+<div class="game-icon">🎲</div>
+<h3>Ludo King</h3>
+<div class="game-meta">
+<span>👥 2-4 Players</span>
+<span>⏱️ 15-30 min</span>
+</div>
+<div class="game-stats">
+<span>🔥 234 Online</span>
+<span>🚪 45 Rooms</span>
+</div>
+</div>
+
+<div class="game-card" onclick="openGameModal('scribble')">
+<div class="game-icon">🎨</div>
+<h3>Scribble.io</h3>
+<div class="game-meta">
+<span>👥 4-12 Players</span>
+<span>⏱️ 10-20 min</span>
+</div>
+<div class="game-stats">
+<span>🔥 156 Online</span>
+<span>🚪 23 Rooms</span>
+</div>
+</div>
+
+<div class="game-card" onclick="openGameModal('chess')">
+<div class="game-icon">♟️</div>
+<h3>Chess</h3>
+<div class="game-meta">
+<span>👥 2 Players</span>
+<span>⏱️ 5-60 min</span>
+</div>
+<div class="game-stats">
+<span>🔥 189 Online</span>
+<span>🚪 38 Rooms</span>
+</div>
+</div>
+
+<div class="game-card" onclick="openGameModal('snake')">
+<div class="game-icon">🐍</div>
+<h3>Snake Battle</h3>
+<div class="game-meta">
+<span>👥 1-4 Players</span>
+<span>⏱️ 5-10 min</span>
+</div>
+<div class="game-stats">
+<span>🔥 98 Online</span>
+<span>🚪 18 Rooms</span>
+</div>
+</div>
+
+<div class="game-card" onclick="openGameModal('quiz')">
+<div class="game-icon">🧠</div>
+<h3>Quiz Master</h3>
+<div class="game-meta">
+<span>👥 2-20 Players</span>
+<span>⏱️ 10-15 min</span>
+</div>
+<div class="game-stats">
+<span>🔥 127 Online</span>
+<span>🚪 15 Rooms</span>
+</div>
+</div>
+
+<div class="game-card" onclick="openGameModal('memory')">
+<div class="game-icon">🃏</div>
+<h3>Memory Match</h3>
+<div class="game-meta">
+<span>👥 2-6 Players</span>
+<span>⏱️ 5-10 min</span>
+</div>
+<div class="game-stats">
+<span>🔥 76 Online</span>
+<span>🚪 11 Rooms</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal" id="gameModal">
+<div class="modal-content">
+<button class="close-btn" onclick="closeModal()">×</button>
+<div class="modal-header">
+<h2 id="modalGameName">Select Mode</h2>
+<p>Choose how you want to play</p>
+</div>
+<div class="modal-options">
+<div class="option-btn" onclick="quickPlay()">
+<h3>⚡ Quick Play</h3>
+<p>Join a random match instantly</p>
+</div>
+<div class="option-btn" onclick="showCreateRoom()">
+<h3>➕ Create Room</h3>
+<p>Start a private room with friends</p>
+</div>
+<div class="option-btn" onclick="showJoinRoom()">
+<h3>🚪 Join Room</h3>
+<p>Enter a room code to join</p>
+</div>
+</div>
+</div>
+</div>
+
+<div class="modal" id="joinModal">
+<div class="modal-content">
+<button class="close-btn" onclick="closeModal()">×</button>
+<div class="modal-header">
+<h2>Join Room</h2>
+<p>Enter the room code to join</p>
+</div>
+<div class="input-group">
+<label>Room Code</label>
+<input type="text" id="roomCodeInput" placeholder="ABCD12" maxlength="6">
+</div>
+<div class="modal-footer">
+<button class="btn btn-secondary" style="flex:1" onclick="closeModal()">Cancel</button>
+<button class="btn btn-primary" style="flex:1" onclick="joinRoom()">Join Game</button>
+</div>
+</div>
+</div>
+
+<script>
+let currentGame='';
+
+function openGameModal(game){
+currentGame=game;
+const names={
+ludo:'Ludo King',
+scribble:'Scribble.io',
+chess:'Chess',
+snake:'Snake Battle',
+quiz:'Quiz Master',
+memory:'Memory Match'
+};
+document.getElementById('modalGameName').textContent=names[game]||'Select Mode';
+document.getElementById('gameModal').classList.add('active');
+}
+
+function closeModal(){
+document.querySelectorAll('.modal').forEach(m=>m.classList.remove('active'));
+}
+
+function quickPlay(){
+alert('Finding match...\n\nNote: This is demo mode. Connect to backend for real multiplayer!');
+closeModal();
+}
+
+function showCreateRoom(){
+const code=generateRoomCode();
+alert(`Room Created!\n\nRoom Code: ${code}\n\nShare this code with friends!\n\nNote: Connect backend for real rooms.`);
+closeModal();
+}
+
+function showJoinRoom(){
+document.getElementById('gameModal').classList.remove('active');
+document.getElementById('joinModal').classList.add('active');
+}
+
+function joinRoom(){
+const code=document.getElementById('roomCodeInput').value.toUpperCase();
+if(code.length===6){
+alert(`Joining room: ${code}\n\nNote: Connect backend to join real rooms!`);
+closeModal();
+}else{
+alert('Please enter a valid 6-character room code');
+}
+}
+
+function generateRoomCode(){
+return Math.random().toString(36).substr(2,6).toUpperCase();
+}
+
+// Load user data
+const user=localStorage.getItem('username')||'Player'+Math.floor(Math.random()*9999);
+document.getElementById('userName').textContent=user;
+localStorage.setItem('username',user);
+</script>
+</body>
+</html>
+<script>
+// Check if user is logged in
+if(!localStorage.getItem('isLoggedIn')){
+window.location.href='auth.html';
+}
+</script>
