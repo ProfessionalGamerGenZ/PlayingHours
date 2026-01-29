@@ -1,13 +1,11 @@
-// Supabase Configuration for PlayingHours
-// Location: Root directory (same level as index.html)
+// Supabase Configuration - UPDATED
+const SUPABASE_URL = 'https://chcepamgczwfguzroddn.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoY2VwYW1nY3p3Zmd1enJvZGRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1NTQxODgsImV4cCI6MjA1NDEzMDE4OH0.ojtRcp7dUNGMlon33jkKuw_gYzkSLPM';
 
-const SUPABASE_URL = 'https://pnvhciuclghgbweltttt.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBudmhjaXVjbGdoZ2J3ZWx0dHR0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzc5NjU5MTksImV4cCI6MjA1MzU0MTkxOX0.eNigOtFRljKSNF0hIsdD4A_reAnOnre';
-
-// Initialize Supabase client
+// Initialize Supabase
 const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-// Helper function to get current user from localStorage
+// Helper: Get current user
 function getCurrentUser(){
   return {
     id: localStorage.getItem('userId'),
@@ -18,7 +16,7 @@ function getCurrentUser(){
   };
 }
 
-// Helper function to check auth
+// Helper: Check auth
 function checkAuth(){
   const user = getCurrentUser();
   if(!user.isLoggedIn){
@@ -28,10 +26,12 @@ function checkAuth(){
   return true;
 }
 
-// Helper function to logout
+// Helper: Logout
 function logout(){
-  localStorage.clear();
-  window.location.href = 'index.html';
+  if(confirm('Are you sure you want to logout?')){
+    localStorage.clear();
+    window.location.href = 'index.html';
+  }
 }
 
-console.log('✅ Supabase configured successfully!');
+console.log('✅ Supabase connected:', SUPABASE_URL);
