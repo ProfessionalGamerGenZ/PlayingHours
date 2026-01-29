@@ -8,240 +8,299 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--primary:#667eea;--secondary:#764ba2;--accent:#10b981;--dark:#0f172a}
-body{font-family:'Poppins',sans-serif;background:var(--dark);color:#fff;min-height:100vh;overflow-x:hidden}
+body{font-family:'Poppins',sans-serif;background:var(--dark);color:#fff;min-height:100vh}
 
-/* HEADER */
-.header{background:rgba(0,0,0,.3);backdrop-filter:blur(20px);padding:1rem;border-bottom:1px solid rgba(255,255,255,.1);position:sticky;top:0;z-index:100}
-.header-content{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:1rem}
-.logo{font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;text-decoration:none;display:flex;align-items:center;gap:.5rem}
-.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem}
-.header-right{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
-.coins-display{background:rgba(251,191,36,.2);color:#fbbf24;padding:.5rem 1rem;border-radius:50px;font-weight:700;display:flex;align-items:center;gap:.5rem;font-size:.9375rem;border:1px solid rgba(251,191,36,.3)}
-.user-menu{position:relative}
-.user-btn{background:rgba(255,255,255,.1);padding:.5rem 1rem;border-radius:12px;display:flex;align-items:center;gap:.75rem;cursor:pointer;border:1px solid rgba(255,255,255,.2);transition:.3s}
-.user-btn:hover{background:rgba(255,255,255,.15);border-color:rgba(255,255,255,.3)}
-.avatar{width:36px;height:36px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.125rem}
-.username{font-weight:700;font-size:.9375rem}
-.dropdown{position:absolute;top:calc(100% + .5rem);right:0;background:rgba(30,41,59,.95);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:.5rem;min-width:200px;display:none;box-shadow:0 10px 30px rgba(0,0,0,.5)}
-.dropdown.active{display:block}
-.dropdown-item{padding:.75rem 1rem;border-radius:8px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:.75rem;font-size:.9375rem}
-.dropdown-item:hover{background:rgba(255,255,255,.1)}
+/* SIDEBAR */
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:260px;background:rgba(15,23,42,.95);backdrop-filter:blur(20px);border-right:1px solid rgba(255,255,255,.1);padding:1rem;display:flex;flex-direction:column;transition:.3s;z-index:100}
+.sidebar.collapsed{transform:translateX(-100%)}
+.logo{display:flex;align-items:center;gap:.75rem;margin-bottom:2rem;padding:.5rem}
+.logo-icon{width:45px;height:45px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.logo-text{font-size:1.25rem;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.user-card{background:rgba(255,255,255,.05);border-radius:12px;padding:1rem;margin-bottom:1.5rem;border:1px solid rgba(255,255,255,.1)}
+.user-info{display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem}
+.user-avatar{width:45px;height:45px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+.user-details{flex:1;min-width:0}
+.user-name{font-weight:800;font-size:.9375rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.user-level{font-size:.75rem;color:rgba(255,255,255,.6)}
+.user-stats{display:flex;gap:.5rem}
+.stat-pill{background:rgba(251,191,36,.2);color:#fbbf24;padding:.375rem .75rem;border-radius:50px;font-size:.75rem;font-weight:700;display:flex;align-items:center;gap:.375rem;border:1px solid rgba(251,191,36,.3)}
+.nav-menu{flex:1;overflow-y:auto}
+.nav-item{padding:.875rem 1rem;border-radius:10px;cursor:pointer;transition:.3s;margin-bottom:.5rem;display:flex;align-items:center;gap:.75rem;font-weight:600;font-size:.9375rem;color:rgba(255,255,255,.8)}
+.nav-item:hover{background:rgba(255,255,255,.1);color:#fff}
+.nav-item.active{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff}
+.nav-icon{font-size:1.125rem;width:24px;text-align:center}
+.sidebar-footer{padding-top:1rem;border-top:1px solid rgba(255,255,255,.1)}
 
-/* CONTAINER */
-.container{max-width:1400px;margin:0 auto;padding:2rem 1rem}
+/* MAIN CONTENT */
+.main-content{margin-left:260px;padding:1rem;transition:.3s;min-height:100vh}
+.main-content.expanded{margin-left:0}
 
-/* WELCOME SECTION */
-.welcome{text-align:center;margin-bottom:3rem}
-.welcome h1{font-size:clamp(2rem,5vw,3rem);font-weight:900;margin-bottom:.5rem}
-.welcome h1 .emoji{display:inline-block;animation:wave 2s infinite}
-@keyframes wave{0%,100%{transform:rotate(0deg)}25%{transform:rotate(20deg)}75%{transform:rotate(-20deg)}}
-.welcome p{font-size:clamp(1rem,2vw,1.125rem);color:rgba(255,255,255,.6)}
+/* TOP BAR */
+.top-bar{background:rgba(15,23,42,.8);backdrop-filter:blur(20px);border-radius:12px;padding:1rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;border:1px solid rgba(255,255,255,.1)}
+.menu-toggle{background:rgba(255,255,255,.1);border:none;color:#fff;width:40px;height:40px;border-radius:10px;cursor:pointer;font-size:1.25rem;display:none}
+.search-bar{flex:1;max-width:400px;position:relative}
+.search-input{width:100%;padding:.75rem 1rem .75rem 3rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-size:.9375rem}
+.search-input:focus{outline:none;border-color:var(--primary);background:rgba(255,255,255,.08)}
+.search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.5)}
+.top-actions{display:flex;gap:.75rem;align-items:center}
+.action-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#fff;padding:.75rem 1rem;border-radius:10px;cursor:pointer;font-weight:600;font-size:.875rem;display:flex;align-items:center;gap:.5rem;transition:.3s}
+.action-btn:hover{background:rgba(255,255,255,.1);border-color:var(--primary)}
+.action-btn.primary{background:linear-gradient(135deg,var(--primary),var(--secondary));border:none}
 
-/* STATS BAR */
-.stats-bar{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:2rem}
-.stat-card{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1rem;text-align:center;transition:.3s}
+/* STATS CARDS */
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem}
+.stat-card{background:rgba(15,23,42,.8);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.25rem;transition:.3s}
 .stat-card:hover{transform:translateY(-4px);border-color:var(--primary);box-shadow:0 10px 30px rgba(102,126,234,.3)}
-.stat-icon{font-size:2rem;margin-bottom:.5rem}
-.stat-value{font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.stat-label{font-size:.875rem;color:rgba(255,255,255,.6);margin-top:.25rem}
+.stat-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.75rem}
+.stat-icon{width:45px;height:45px;background:rgba(102,126,234,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.stat-value{font-size:1.75rem;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.25rem}
+.stat-label{font-size:.875rem;color:rgba(255,255,255,.6)}
 
-/* SECTION HEADER */
-.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem}
+/* GAMES SECTION */
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
 .section-title{font-size:1.5rem;font-weight:800}
-.filter-buttons{display:flex;gap:.5rem;flex-wrap:wrap}
-.filter-btn{background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);color:rgba(255,255,255,.6);padding:.5rem 1rem;border-radius:8px;cursor:pointer;font-weight:600;font-size:.875rem;transition:.3s}
-.filter-btn.active{background:linear-gradient(135deg,var(--primary),var(--secondary));border-color:transparent;color:#fff}
-.filter-btn:hover{border-color:var(--primary)}
+.filter-chips{display:flex;gap:.5rem;flex-wrap:wrap}
+.chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);padding:.5rem 1rem;border-radius:50px;cursor:pointer;font-weight:600;font-size:.8125rem;transition:.3s}
+.chip.active{background:linear-gradient(135deg,var(--primary),var(--secondary));border:none;color:#fff}
+.chip:hover{border-color:var(--primary)}
 
-/* GAMES GRID */
-.games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.5rem;margin-bottom:3rem}
-.game-card{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:1.5rem;transition:all .3s;cursor:pointer;position:relative;overflow:hidden}
+.games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
+.game-card{background:rgba(15,23,42,.8);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.25rem;cursor:pointer;transition:.3s;position:relative;overflow:hidden}
 .game-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(102,126,234,.1),rgba(118,75,162,.1));opacity:0;transition:.3s}
 .game-card:hover::before{opacity:1}
-.game-card:hover{transform:translateY(-8px);border-color:var(--primary);box-shadow:0 20px 40px rgba(102,126,234,.3)}
-.game-header{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;position:relative;z-index:1}
-.game-icon{width:60px;height:60px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:2rem;flex-shrink:0}
+.game-card:hover{transform:translateY(-6px);border-color:var(--primary);box-shadow:0 15px 40px rgba(102,126,234,.4)}
+.game-top{display:flex;gap:1rem;margin-bottom:1rem;position:relative;z-index:1}
+.game-icon{width:55px;height:55px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.75rem;flex-shrink:0}
 .game-info{flex:1;min-width:0}
-.game-name{font-size:1.25rem;font-weight:800;margin-bottom:.25rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.game-players{font-size:.875rem;color:rgba(255,255,255,.6)}
-.game-status{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;font-size:.875rem;position:relative;z-index:1}
-.status-item{display:flex;align-items:center;gap:.5rem;color:rgba(255,255,255,.7)}
-.status-dot{width:8px;height:8px;background:#10b981;border-radius:50%;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-.game-meta{display:flex;gap:.75rem;flex-wrap:wrap;position:relative;z-index:1}
-.meta-badge{background:rgba(255,255,255,.1);padding:.375rem .75rem;border-radius:6px;font-size:.8125rem;font-weight:600;display:flex;align-items:center;gap:.375rem}
-.play-btn{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;padding:.75rem;border-radius:10px;font-weight:700;cursor:pointer;width:100%;margin-top:1rem;font-size:.9375rem;transition:.3s;position:relative;z-index:1}
-.play-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,126,234,.6)}
+.game-name{font-size:1.125rem;font-weight:800;margin-bottom:.25rem}
+.game-players{font-size:.8125rem;color:rgba(255,255,255,.6)}
+.game-badges{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;position:relative;z-index:1}
+.badge{background:rgba(255,255,255,.08);padding:.375rem .625rem;border-radius:6px;font-size:.75rem;font-weight:600;display:flex;align-items:center;gap:.375rem}
+.badge.online{background:rgba(16,185,129,.2);color:#6ee7b7}
+.game-footer{display:flex;gap:.5rem;position:relative;z-index:1}
+.game-btn{flex:1;background:linear-gradient(135deg,var(--primary),var(--secondary));border:none;color:#fff;padding:.75rem;border-radius:8px;font-weight:700;cursor:pointer;font-size:.875rem;transition:.3s}
+.game-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,126,234,.6)}
+.game-btn.secondary{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)}
+.game-btn.secondary:hover{background:rgba(255,255,255,.15)}
 
 /* MODAL */
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.95);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:1000;padding:1rem}
-.modal.active{display:flex}
-.modal-content{background:linear-gradient(135deg,#1e293b,#334155);border:1px solid rgba(255,255,255,.1);border-radius:20px;padding:2rem;max-width:500px;width:100%;max-height:90vh;overflow-y:auto;position:relative}
+.modal.show{display:flex}
+.modal-box{background:linear-gradient(135deg,#1e293b,#334155);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:2rem;max-width:500px;width:100%;position:relative;max-height:90vh;overflow-y:auto}
 .modal-header{margin-bottom:1.5rem;text-align:center}
 .modal-header h2{font-size:1.75rem;font-weight:900;margin-bottom:.5rem}
-.modal-header p{color:rgba(255,255,255,.6);font-size:.9375rem}
-.close-btn{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.6);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.25rem;display:flex;align-items:center;justify-content:center;transition:.3s}
-.close-btn:hover{background:rgba(255,255,255,.2);color:#fff}
+.modal-header p{color:rgba(255,255,255,.6)}
+.close-modal{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.6);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.25rem;transition:.3s}
+.close-modal:hover{background:rgba(255,255,255,.2);color:#fff}
 .modal-options{display:grid;gap:1rem}
-.option-card{background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);padding:1.25rem;border-radius:12px;cursor:pointer;transition:.3s}
-.option-card:hover{border-color:var(--primary);background:rgba(102,126,234,.1);transform:translateX(4px)}
-.option-card h3{font-size:1.125rem;font-weight:800;margin-bottom:.5rem;display:flex;align-items:center;gap:.75rem}
-.option-card p{font-size:.875rem;color:rgba(255,255,255,.6)}
+.option{background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);padding:1.25rem;border-radius:12px;cursor:pointer;transition:.3s}
+.option:hover{border-color:var(--primary);background:rgba(102,126,234,.1);transform:translateX(4px)}
+.option h3{font-size:1.125rem;font-weight:800;margin-bottom:.5rem;display:flex;align-items:center;gap:.75rem}
+.option p{font-size:.875rem;color:rgba(255,255,255,.6)}
 .input-group{margin-bottom:1.5rem}
-.input-group label{display:block;margin-bottom:.5rem;font-weight:600;font-size:.9375rem}
-.input-group input{width:100%;padding:.875rem;background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-size:1rem;font-weight:700;text-transform:uppercase;text-align:center;letter-spacing:2px}
-.input-group input:focus{outline:none;border-color:var(--primary);background:rgba(102,126,234,.1)}
-.modal-footer{display:flex;gap:1rem;margin-top:1.5rem}
-.btn{padding:.875rem 1.5rem;border-radius:10px;font-weight:700;cursor:pointer;transition:.3s;border:none;font-size:.9375rem}
-.btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;flex:1}
+.input-group label{display:block;margin-bottom:.5rem;font-weight:600}
+.input-group input{width:100%;padding:.875rem;background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-size:1rem;font-weight:700;text-transform:uppercase;text-align:center;letter-spacing:3px}
+.input-group input:focus{outline:none;border-color:var(--primary)}
+.modal-actions{display:flex;gap:1rem}
+.btn{padding:.875rem 1.5rem;border-radius:10px;font-weight:700;cursor:pointer;border:none;font-size:.9375rem;flex:1;transition:.3s}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,126,234,.6)}
-.btn-secondary{background:rgba(255,255,255,.1);color:#fff;border:2px solid rgba(255,255,255,.2);flex:1}
-.btn-secondary:hover{border-color:#fff;background:rgba(255,255,255,.15)}
+.btn-secondary{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)}
+.btn-secondary:hover{background:rgba(255,255,255,.15)}
+
+/* LOADING */
+.loading{display:none;text-align:center;padding:2rem;color:rgba(255,255,255,.6)}
+.loading.show{display:block}
 
 /* RESPONSIVE */
+@media(max-width:1024px){
+.sidebar{transform:translateX(-100%)}
+.sidebar.show{transform:translateX(0)}
+.main-content{margin-left:0}
+.menu-toggle{display:flex;align-items:center;justify-content:center}
+}
 @media(max-width:768px){
-.header-right{width:100%;justify-content:space-between}
-.username{display:none}
-.dropdown{right:auto;left:0}
-.stats-bar{grid-template-columns:repeat(2,1fr)}
+.stats-grid{grid-template-columns:repeat(2,1fr)}
 .games-grid{grid-template-columns:1fr}
-.section-header{flex-direction:column;align-items:stretch}
-.filter-buttons{justify-content:center}
+.top-bar{flex-direction:column}
+.search-bar{max-width:100%}
 }
 @media(max-width:480px){
-.stats-bar{grid-template-columns:1fr}
-.modal-footer{flex-direction:column}
+.stats-grid{grid-template-columns:1fr}
+.modal-actions{flex-direction:column}
 }
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="header">
-<div class="header-content">
-<a href="index.html" class="logo">
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+<div class="logo">
 <div class="logo-icon">🎮</div>
-<span class="hide-mobile">PlayingHours</span>
-</a>
-<div class="header-right">
-<div class="coins-display">
-💰 <span id="userCoins">500</span>
-</div>
-<div class="user-menu">
-<div class="user-btn" onclick="toggleDropdown()">
-<div class="avatar">👤</div>
-<span class="username" id="userName">Player</span>
-<span>▼</span>
-</div>
-<div class="dropdown" id="userDropdown">
-<div class="dropdown-item" onclick="window.location.href='profile.html'">
-👤 Profile
-</div>
-<div class="dropdown-item" onclick="window.location.href='leaderboard.html'">
-🏆 Leaderboard
-</div>
-<div class="dropdown-item" onclick="window.location.href='settings.html'">
-⚙️ Settings
-</div>
-<div class="dropdown-item" onclick="logout()">
-🚪 Logout
-</div>
-</div>
-</div>
-</div>
-</div>
-</header>
-
-<!-- MAIN CONTAINER -->
-<div class="container">
-
-<!-- WELCOME -->
-<div class="welcome">
-<h1>Welcome back, <span id="welcomeName">Player</span>! <span class="emoji">👋</span></h1>
-<p>Choose a game and start playing with friends</p>
+<div class="logo-text">PlayingHours</div>
 </div>
 
-<!-- STATS BAR -->
-<div class="stats-bar">
+<div class="user-card">
+<div class="user-info">
+<div class="user-avatar">👤</div>
+<div class="user-details">
+<div class="user-name" id="sidebarUsername">Loading...</div>
+<div class="user-level">Level <span id="userLevel">1</span></div>
+</div>
+</div>
+<div class="user-stats">
+<div class="stat-pill">💰 <span id="sidebarCoins">0</span></div>
+<div class="stat-pill">💎 <span id="sidebarGems">0</span></div>
+</div>
+</div>
+
+<nav class="nav-menu">
+<div class="nav-item active" onclick="showSection('games')">
+<span class="nav-icon">🎮</span> Games
+</div>
+<div class="nav-item" onclick="location.href='profile.html'">
+<span class="nav-icon">👤</span> My Profile
+</div>
+<div class="nav-item" onclick="location.href='leaderboard.html'">
+<span class="nav-icon">🏆</span> Leaderboard
+</div>
+<div class="nav-item" onclick="location.href='tournaments.html'">
+<span class="nav-icon">🎯</span> Tournaments
+</div>
+<div class="nav-item" onclick="location.href='friends.html'">
+<span class="nav-icon">👥</span> Friends
+</div>
+<div class="nav-item" onclick="location.href='shop.html'">
+<span class="nav-icon">🛒</span> Shop
+</div>
+<div class="nav-item" onclick="location.href='settings.html'">
+<span class="nav-icon">⚙️</span> Settings
+</div>
+</nav>
+
+<div class="sidebar-footer">
+<div class="nav-item" onclick="logout()">
+<span class="nav-icon">🚪</span> Logout
+</div>
+</div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main-content" id="mainContent">
+
+<!-- TOP BAR -->
+<div class="top-bar">
+<button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+<div class="search-bar">
+<span class="search-icon">🔍</span>
+<input type="text" class="search-input" placeholder="Search games..." id="searchInput" oninput="searchGames()">
+</div>
+<div class="top-actions">
+<button class="action-btn" onclick="location.href='notifications.html'">
+🔔 <span id="notifCount"></span>
+</button>
+<button class="action-btn primary" onclick="showQuickPlay()">
+⚡ Quick Play
+</button>
+</div>
+</div>
+
+<!-- STATS GRID -->
+<div class="stats-grid">
 <div class="stat-card">
-<div class="stat-icon">👥</div>
+<div class="stat-header">
+<div>
 <div class="stat-value" id="onlinePlayers">—</div>
 <div class="stat-label">Players Online</div>
 </div>
+<div class="stat-icon">👥</div>
+</div>
+</div>
 <div class="stat-card">
-<div class="stat-icon">🚪</div>
+<div class="stat-header">
+<div>
 <div class="stat-value" id="activeRooms">—</div>
 <div class="stat-label">Active Rooms</div>
 </div>
-<div class="stat-card">
-<div class="stat-icon">🎮</div>
-<div class="stat-value" id="yourMatches">—</div>
-<div class="stat-label">Your Matches</div>
+<div class="stat-icon">🚪</div>
+</div>
 </div>
 <div class="stat-card">
+<div class="stat-header">
+<div>
+<div class="stat-value" id="totalMatches">—</div>
+<div class="stat-label">Your Matches</div>
+</div>
+<div class="stat-icon">🎮</div>
+</div>
+</div>
+<div class="stat-card">
+<div class="stat-header">
+<div>
+<div class="stat-value" id="winRate">—%</div>
+<div class="stat-label">Win Rate</div>
+</div>
 <div class="stat-icon">🏆</div>
-<div class="stat-value" id="yourWins">—</div>
-<div class="stat-label">Your Wins</div>
+</div>
 </div>
 </div>
 
 <!-- GAMES SECTION -->
 <div class="section-header">
 <h2 class="section-title">🎮 All Games</h2>
-<div class="filter-buttons">
-<button class="filter-btn active" onclick="filterGames('all')">All</button>
-<button class="filter-btn" onclick="filterGames('board')">Board Games</button>
-<button class="filter-btn" onclick="filterGames('puzzle')">Puzzle</button>
-<button class="filter-btn" onclick="filterGames('trivia')">Trivia</button>
+<div class="filter-chips">
+<div class="chip active" onclick="filterGames('all')">All</div>
+<div class="chip" onclick="filterGames('board')">Board</div>
+<div class="chip" onclick="filterGames('puzzle')">Puzzle</div>
+<div class="chip" onclick="filterGames('trivia')">Trivia</div>
 </div>
 </div>
 
-<div class="games-grid" id="gamesGrid">
-<!-- Games will be loaded here -->
-</div>
+<div class="games-grid" id="gamesGrid"></div>
+<div class="loading" id="loading">Loading games...</div>
 
-</div>
+</main>
 
 <!-- GAME MODE MODAL -->
-<div class="modal" id="gameModeModal">
-<div class="modal-content">
-<button class="close-btn" onclick="closeModal()">×</button>
+<div class="modal" id="modeModal">
+<div class="modal-box">
+<button class="close-modal" onclick="closeModals()">×</button>
 <div class="modal-header">
 <h2 id="modalGameName">Select Mode</h2>
 <p>Choose how you want to play</p>
 </div>
 <div class="modal-options">
-<div class="option-card" onclick="quickPlay()">
+<div class="option" onclick="quickPlay()">
 <h3>⚡ Quick Play</h3>
-<p>Join a random match instantly and start playing</p>
+<p>Join random match instantly</p>
 </div>
-<div class="option-card" onclick="showCreateRoom()">
+<div class="option" onclick="createRoom()">
 <h3>➕ Create Room</h3>
-<p>Create a private room and invite your friends</p>
+<p>Start private room with code</p>
 </div>
-<div class="option-card" onclick="showJoinRoom()">
+<div class="option" onclick="showJoinModal()">
 <h3>🚪 Join Room</h3>
-<p>Enter a room code to join your friends</p>
+<p>Enter room code to join</p>
 </div>
 </div>
 </div>
 </div>
 
 <!-- JOIN ROOM MODAL -->
-<div class="modal" id="joinRoomModal">
-<div class="modal-content">
-<button class="close-btn" onclick="closeModal()">×</button>
+<div class="modal" id="joinModal">
+<div class="modal-box">
+<button class="close-modal" onclick="closeModals()">×</button>
 <div class="modal-header">
 <h2>Join Room</h2>
-<p>Enter the 6-character room code</p>
+<p>Enter 6-character room code</p>
 </div>
 <div class="input-group">
 <label>Room Code</label>
-<input type="text" id="roomCodeInput" placeholder="ABC123" maxlength="6">
+<input type="text" id="roomCode" placeholder="ABC123" maxlength="6">
 </div>
-<div class="modal-footer">
-<button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-<button class="btn btn-primary" onclick="joinRoom()">Join Game</button>
+<div class="modal-actions">
+<button class="btn btn-secondary" onclick="closeModals()">Cancel</button>
+<button class="btn btn-primary" onclick="joinRoom()">Join</button>
 </div>
 </div>
 </div>
@@ -249,192 +308,211 @@ body{font-family:'Poppins',sans-serif;background:var(--dark);color:#fff;min-heig
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script>
-// Check authentication
-if(!checkAuth()){
-window.location.href='auth.html';
-}
+// Check auth
+if(!checkAuth())location.href='auth.html';
 
-// Current game state
-let currentGame='';
 const user=getCurrentUser();
+let currentGame='';
+let allGames=[];
 
-// Game definitions
+// Games data
 const games=[
-{id:'ludo',name:'Ludo King',icon:'🎲',players:'2-4',time:'15-30m',category:'board',online:234,rooms:45},
-{id:'scribble',name:'Scribble.io',icon:'🎨',players:'4-12',time:'10-20m',category:'puzzle',online:156,rooms:23},
-{id:'chess',name:'Chess',icon:'♟️',players:'2',time:'5-60m',category:'board',online:189,rooms:38},
-{id:'snake',name:'Snake Battle',icon:'🐍',players:'1-4',time:'5-10m',category:'puzzle',online:98,rooms:18},
-{id:'quiz',name:'Quiz Master',icon:'🧠',players:'2-20',time:'10-15m',category:'trivia',online:127,rooms:15},
-{id:'memory',name:'Memory Match',icon:'🃏',players:'2-6',time:'5-10m',category:'puzzle',online:76,rooms:11},
-{id:'wordfight',name:'Word Fight',icon:'📝',players:'2-6',time:'5-10m',category:'puzzle',online:64,rooms:9},
-{id:'tictactoe',name:'Tic Tac Toe',icon:'❌',players:'2',time:'1-3m',category:'board',online:52,rooms:7},
-{id:'trivia',name:'Trivia',icon:'❓',players:'2-16',time:'10-20m',category:'trivia',online:88,rooms:12},
-{id:'riddles',name:'Riddles',icon:'💡',players:'1-8',time:'5-15m',category:'trivia',online:45,rooms:6},
-{id:'wordsearch',name:'Word Search',icon:'🔍',players:'1-6',time:'5-10m',category:'puzzle',online:38,rooms:5},
-{id:'checkers',name:'Checkers',icon:'🏁',players:'2',time:'10-20m',category:'board',online:42,rooms:8},
-{id:'puzzle',name:'Puzzle Slider',icon:'🧩',players:'1-4',time:'5-15m',category:'puzzle',online:31,rooms:4}
+{id:'ludo',name:'Ludo King',icon:'🎲',players:'2-4',time:'15-30m',category:'board'},
+{id:'scribble',name:'Scribble.io',icon:'🎨',players:'4-12',time:'10-20m',category:'puzzle'},
+{id:'chess',name:'Chess',icon:'♟️',players:'2',time:'5-60m',category:'board'},
+{id:'snake',name:'Snake Battle',icon:'🐍',players:'1-4',time:'5-10m',category:'puzzle'},
+{id:'quiz',name:'Quiz Master',icon:'🧠',players:'2-20',time:'10-15m',category:'trivia'},
+{id:'memory',name:'Memory Match',icon:'🃏',players:'2-6',time:'5-10m',category:'puzzle'},
+{id:'wordfight',name:'Word Fight',icon:'📝',players:'2-6',time:'5-10m',category:'puzzle'},
+{id:'tictactoe',name:'Tic Tac Toe',icon:'❌',players:'2',time:'1-3m',category:'board'},
+{id:'trivia',name:'Trivia',icon:'❓',players:'2-16',time:'10-20m',category:'trivia'},
+{id:'riddles',name:'Riddles',icon:'💡',players:'1-8',time:'5-15m',category:'trivia'},
+{id:'wordsearch',name:'Word Search',icon:'🔍',players:'1-6',time:'5-10m',category:'puzzle'},
+{id:'checkers',name:'Checkers',icon:'🏁',players:'2',time:'10-20m',category:'board'},
+{id:'puzzle',name:'Puzzle Slider',icon:'🧩',players:'1-4',time:'5-15m',category:'puzzle'}
 ];
 
 // Initialize
-function init(){
-document.getElementById('userName').textContent=user.username;
-document.getElementById('welcomeName').textContent=user.username;
-document.getElementById('userCoins').textContent=user.coins;
+async function init(){
+document.getElementById('sidebarUsername').textContent=user.username;
+document.getElementById('sidebarCoins').textContent=user.coins||0;
+document.getElementById('sidebarGems').textContent=0;
 loadGames();
 loadStats();
 }
 
-// Load games
-function loadGames(filter='all'){
-const grid=document.getElementById('gamesGrid');
-const filtered=filter==='all'?games:games.filter(g=>g.category===filter);
-grid.innerHTML=filtered.map(game=>`
-<div class="game-card" onclick="openGameModal('${game.id}','${game.name}')">
-<div class="game-header">
-<div class="game-icon">${game.icon}</div>
-<div class="game-info">
-<div class="game-name">${game.name}</div>
-<div class="game-players">👥 ${game.players} Players</div>
-</div>
-</div>
-<div class="game-status">
-<div class="status-item">
-<span class="status-dot"></span>
-${game.online} online
-</div>
-<div class="status-item">
-🚪 ${game.rooms} rooms
-</div>
-</div>
-<div class="game-meta">
-<div class="meta-badge">⏱️ ${game.time}</div>
-<div class="meta-badge">🎯 ${game.category}</div>
-</div>
-<button class="play-btn">Play Now</button>
-</div>
-`).join('');
+// Load games with live data
+async function loadGames(filter='all'){
+document.getElementById('loading').classList.add('show');
+try{
+const{data:rooms}=await supabase.from('rooms').select('game_type').eq('status','waiting');
+const roomCounts={};
+rooms?.forEach(r=>roomCounts[r.game_type]=(roomCounts[r.game_type]||0)+1);
+allGames=games.map(g=>({...g,rooms:roomCounts[g.id]||0,online:Math.floor(Math.random()*200)+50}));
+renderGames(filter);
+}catch(e){
+allGames=games.map(g=>({...g,rooms:Math.floor(Math.random()*50),online:Math.floor(Math.random()*200)+50}));
+renderGames(filter);
+}
+document.getElementById('loading').classList.remove('show');
 }
 
-// Filter games
-function filterGames(category){
-document.querySelectorAll('.filter-btn').forEach(btn=>btn.classList.remove('active'));
-event.target.classList.add('active');
-loadGames(category);
+// Render games
+function renderGames(filter='all'){
+const filtered=filter==='all'?allGames:allGames.filter(g=>g.category===filter);
+document.getElementById('gamesGrid').innerHTML=filtered.map(g=>`
+<div class="game-card" onclick="openGameModal('${g.id}','${g.name}')">
+<div class="game-top">
+<div class="game-icon">${g.icon}</div>
+<div class="game-info">
+<div class="game-name">${g.name}</div>
+<div class="game-players">👥 ${g.players}</div>
+</div>
+</div>
+<div class="game-badges">
+<div class="badge online">🔥 ${g.online} online</div>
+<div class="badge">🚪 ${g.rooms} rooms</div>
+<div class="badge">⏱️ ${g.time}</div>
+</div>
+<div class="game-footer">
+<button class="game-btn">Play Now</button>
+</div>
+</div>
+`).join('');
 }
 
 // Load stats
 async function loadStats(){
 try{
 const{count:rooms}=await supabase.from('rooms').select('*',{count:'exact',head:true}).eq('status','waiting');
-document.getElementById('activeRooms').textContent=rooms||Math.floor(Math.random()*100)+50;
-const{count:matches}=await supabase.from('matches').select('*',{count:'exact',head:true}).eq('winner_id',user.id);
-document.getElementById('yourMatches').textContent=matches||0;
-document.getElementById('yourWins').textContent=matches||0;
+document.getElementById('activeRooms').textContent=rooms||0;
+const{data:userMatches}=await supabase.from('matches').select('*').or(`winner_id.eq.${user.id},players.cs.${user.id}`);
+const total=userMatches?.length||0;
+const wins=userMatches?.filter(m=>m.winner_id===user.id).length||0;
+document.getElementById('totalMatches').textContent=total;
+document.getElementById('winRate').textContent=total>0?Math.round(wins/total*100):0;
 }catch(e){
-document.getElementById('activeRooms').textContent=Math.floor(Math.random()*100)+50;
-document.getElementById('yourMatches').textContent='0';
-document.getElementById('yourWins').textContent='0';
+document.getElementById('activeRooms').textContent='0';
+document.getElementById('totalMatches').textContent='0';
+document.getElementById('winRate').textContent='0';
 }
 document.getElementById('onlinePlayers').textContent=Math.floor(Math.random()*500)+300;
 }
 
-// Open game modal
-function openGameModal(gameId,gameName){
-currentGame=gameId;
-document.getElementById('modalGameName').textContent=gameName;
-document.getElementById('gameModeModal').classList.add('active');
+// Filter games
+function filterGames(cat){
+document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+event.target.classList.add('active');
+renderGames(cat);
 }
 
-// Close modals
-function closeModal(){
-document.querySelectorAll('.modal').forEach(m=>m.classList.remove('active'));
+// Search games
+function searchGames(){
+const query=document.getElementById('searchInput').value.toLowerCase();
+const filtered=allGames.filter(g=>g.name.toLowerCase().includes(query));
+document.getElementById('gamesGrid').innerHTML=filtered.map(g=>`
+<div class="game-card" onclick="openGameModal('${g.id}','${g.name}')">
+<div class="game-top">
+<div class="game-icon">${g.icon}</div>
+<div class="game-info">
+<div class="game-name">${g.name}</div>
+<div class="game-players">👥 ${g.players}</div>
+</div>
+</div>
+<div class="game-badges">
+<div class="badge online">🔥 ${g.online} online</div>
+<div class="badge">🚪 ${g.rooms} rooms</div>
+<div class="badge">⏱️ ${g.time}</div>
+</div>
+<div class="game-footer">
+<button class="game-btn">Play Now</button>
+</div>
+</div>
+`).join('');
+}
+
+// Open game modal
+function openGameModal(id,name){
+currentGame=id;
+document.getElementById('modalGameName').textContent=name;
+document.getElementById('modeModal').classList.add('show');
 }
 
 // Quick play
 async function quickPlay(){
-const code=generateRoomCode();
+const code=generateCode();
 try{
-await supabase.from('rooms').insert([{
+await supabase.from('rooms').insert({
 code,
 game_type:currentGame,
 host_id:user.id,
-players:JSON.stringify([{id:user.id,username:user.username}]),
+players:[{id:user.id,username:user.username}],
 player_count:1,
-created_at:new Date()
-}]);
-alert(`Searching for players...\n\nRoom: ${code}\n\n(Game pages coming soon)`);
+status:'waiting'
+});
+alert(`Room created: ${code}\n\nSearching for players...\n\n(Game pages coming soon)`);
+closeModals();
+loadStats();
 }catch(e){
-alert('Creating room...\n\n(Game pages coming soon)');
+alert('Creating room...');
+closeModals();
 }
-closeModal();
 }
 
-// Show create room
-async function showCreateRoom(){
-const code=generateRoomCode();
+// Create room
+async function createRoom(){
+const code=generateCode();
 try{
-await supabase.from('rooms').insert([{
+await supabase.from('rooms').insert({
 code,
 game_type:currentGame,
 host_id:user.id,
-players:JSON.stringify([{id:user.id,username:user.username}]),
+players:[{id:user.id,username:user.username}],
 player_count:1,
 is_private:true,
-created_at:new Date()
-}]);
-alert(`Room Created!\n\nRoom Code: ${code}\n\nShare this with friends!\n\n(Game pages coming soon)`);
+status:'waiting'
+});
+alert(`Room Created!\n\nCode: ${code}\n\nShare with friends!`);
+closeModals();
+loadStats();
 }catch(e){
-alert(`Room Created: ${code}\n\n(Game pages coming soon)`);
+alert(`Room: ${code}`);
+closeModals();
 }
-closeModal();
-}
-
-// Show join room
-function showJoinRoom(){
-document.getElementById('gameModeModal').classList.remove('active');
-document.getElementById('joinRoomModal').classList.add('active');
 }
 
 // Join room
-async function joinRoom(){
-const code=document.getElementById('roomCodeInput').value.toUpperCase().trim();
-if(code.length!==6){
-alert('Please enter a valid 6-character code');
-return;
+function showJoinModal(){
+document.getElementById('modeModal').classList.remove('show');
+document.getElementById('joinModal').classList.add('show');
 }
+
+async function joinRoom(){
+const code=document.getElementById('roomCode').value.toUpperCase().trim();
+if(code.length!==6)return alert('Enter valid 6-char code');
 try{
-const{data,error}=await supabase.from('rooms').select('*').eq('code',code).single();
+const{data}=await supabase.from('rooms').select('*').eq('code',code).single();
 if(data){
-alert(`Joining ${data.game_type} room: ${code}\n\n(Game pages coming soon)`);
+alert(`Joining ${data.game_type}...\n\n(Game pages coming soon)`);
+closeModals();
 }else{
-alert('Room not found! Check the code.');
+alert('Room not found!');
 }
 }catch(e){
-alert('Joining room...\n\n(Game pages coming soon)');
+alert('Joining...');
+closeModals();
 }
-closeModal();
-}
-
-// Generate room code
-function generateRoomCode(){
-return Math.random().toString(36).substr(2,6).toUpperCase();
 }
 
-// Toggle dropdown
-function toggleDropdown(){
-document.getElementById('userDropdown').classList.toggle('active');
-}
+// Helpers
+function generateCode(){return Math.random().toString(36).substr(2,6).toUpperCase();}
+function closeModals(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'));}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('show');}
+function showQuickPlay(){openGameModal('ludo','Random Game');}
 
-// Close dropdown when clicking outside
-document.addEventListener('click',e=>{
-if(!e.target.closest('.user-menu')){
-document.getElementById('userDropdown').classList.remove('active');
-}
-});
-
-// Initialize
+// Init
 init();
-setInterval(loadStats,30000); // Update stats every 30s
+setInterval(loadStats,30000);
 </script>
 </body>
 </html>
