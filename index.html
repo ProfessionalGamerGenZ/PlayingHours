@@ -14,33 +14,46 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:h
 .logo{font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:flex;align-items:center;gap:.5rem;text-decoration:none}
 .logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem}
 .nav-links{display:flex;gap:2rem;align-items:center;list-style:none}
-.nav-links a{color:rgba(255,255,255,.8);text-decoration:none;font-weight:600;transition:.3s}
+.nav-links a{color:rgba(255,255,255,.8);text-decoration:none;font-weight:600;transition:.3s;font-size:.9375rem}
 .nav-links a:hover{color:#fff}
-.btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:.75rem 1.5rem;border-radius:12px;font-weight:700;text-decoration:none;box-shadow:0 4px 15px rgba(102,126,234,.4);transition:.3s}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;padding:.75rem 1.5rem;border-radius:12px;font-weight:700;text-decoration:none;box-shadow:0 4px 15px rgba(102,126,234,.4);transition:.3s;display:inline-block}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,126,234,.6)}
-.hero{padding:120px 5% 80px;min-height:100vh;display:flex;align-items:center;background:linear-gradient(135deg,rgba(102,126,234,.1),rgba(118,75,162,.1));position:relative}
+.btn-outline{border:2px solid rgba(255,255,255,.2);color:#fff;background:transparent;padding:.75rem 1.5rem;border-radius:12px;font-weight:700;text-decoration:none;transition:.3s;display:inline-block}
+.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.1)}
+.mobile-toggle{display:none;background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer}
+.hero{padding:120px 5% 80px;min-height:100vh;display:flex;align-items:center;background:linear-gradient(135deg,rgba(102,126,234,.1),rgba(118,75,162,.1));position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(102,126,234,.3),transparent);border-radius:50%;top:-200px;right:-200px;animation:float 20s infinite}
+@keyframes float{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(50px,50px) rotate(180deg)}}
 .hero-content{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:4rem;align-items:center}
 .hero-text h1{font-size:clamp(2.5rem,6vw,4rem);font-weight:900;line-height:1.1;margin-bottom:1.5rem}
 .gradient-text{background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.hero-text p{font-size:1.25rem;color:rgba(255,255,255,.7);margin-bottom:2rem}
+.hero-text p{font-size:clamp(1rem,2vw,1.25rem);color:rgba(255,255,255,.7);margin-bottom:2rem;line-height:1.6}
 .hero-buttons{display:flex;gap:1rem;flex-wrap:wrap}
-.btn-outline{border:2px solid rgba(255,255,255,.2);color:#fff;background:transparent;padding:.75rem 1.5rem;border-radius:12px;font-weight:700;text-decoration:none;transition:.3s}
-.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.1)}
 .stats{display:flex;gap:2rem;margin-top:2rem;flex-wrap:wrap}
+.stat-item{text-align:center}
 .stat-number{font-size:2rem;font-weight:900;background:linear-gradient(135deg,var(--accent),#06d6a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:block}
 .stat-label{font-size:.875rem;color:rgba(255,255,255,.6)}
-.game-preview{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border-radius:20px;padding:2rem;border:1px solid rgba(255,255,255,.1)}
+.game-preview{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border-radius:20px;padding:2rem;border:1px solid rgba(255,255,255,.1);box-shadow:0 20px 60px rgba(0,0,0,.3)}
 .games-section{padding:80px 5%;background:rgba(255,255,255,.02)}
 .section-header{text-align:center;margin-bottom:4rem}
-.section-header h2{font-size:3rem;font-weight:900;margin-bottom:1rem}
+.section-header h2{font-size:clamp(2rem,5vw,3rem);font-weight:900;margin-bottom:1rem}
 .section-header p{font-size:1.125rem;color:rgba(255,255,255,.6)}
 .games-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2rem}
-.game-card{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border-radius:20px;padding:2rem;border:1px solid rgba(255,255,255,.1);transition:.3s;cursor:pointer;text-decoration:none;display:block}
+.game-card{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border-radius:20px;padding:2rem;border:1px solid rgba(255,255,255,.1);transition:all .3s;cursor:pointer;text-decoration:none;display:block}
 .game-card:hover{transform:translateY(-8px);border-color:var(--primary);box-shadow:0 20px 40px rgba(102,126,234,.3)}
 .game-icon{width:60px;height:60px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:2rem;margin-bottom:1.5rem}
-.game-card h3{font-size:1.5rem;font-weight:800;margin-bottom:.5rem}
-.game-card p{color:rgba(255,255,255,.6);margin-bottom:1rem}
+.game-card h3{font-size:1.5rem;font-weight:800;margin-bottom:.5rem;color:#fff}
+.game-card p{color:rgba(255,255,255,.6);margin-bottom:1rem;line-height:1.6}
 .game-meta{display:flex;gap:1rem;font-size:.875rem;color:rgba(255,255,255,.5)}
+.features{padding:80px 5%;background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(6,214,160,.1))}
+.features-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:2rem}
+.feature-card{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border-radius:20px;padding:2rem;border:1px solid rgba(255,255,255,.1);text-align:center}
+.feature-icon{width:70px;height:70px;background:linear-gradient(135deg,var(--accent),#06d6a0);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto 1.5rem}
+.feature-card h3{font-size:1.25rem;font-weight:800;margin-bottom:.75rem}
+.feature-card p{color:rgba(255,255,255,.6);line-height:1.6}
+.cta{padding:80px 5%;background:linear-gradient(135deg,var(--primary),var(--secondary));text-align:center}
+.cta h2{font-size:clamp(2rem,5vw,3rem);font-weight:900;margin-bottom:1rem}
+.cta p{font-size:1.25rem;margin-bottom:2rem;opacity:.9}
 .footer{background:rgba(0,0,0,.3);padding:3rem 5% 2rem;border-top:1px solid rgba(255,255,255,.1)}
 .footer-content{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:3rem;margin-bottom:2rem}
 .footer-section h4{font-size:1.125rem;font-weight:800;margin-bottom:1rem}
@@ -48,21 +61,34 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:h
 .footer-links a{color:rgba(255,255,255,.6);text-decoration:none;transition:.3s}
 .footer-links a:hover{color:#fff}
 .footer-bottom{text-align:center;padding-top:2rem;border-top:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5)}
-@media(max-width:768px){.hero-content{grid-template-columns:1fr;text-align:center}.hero-buttons{justify-content:center}.games-grid{grid-template-columns:1fr}}
+@media(max-width:768px){
+.nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(15,23,42,.98);flex-direction:column;padding:2rem;gap:1rem;border-bottom:1px solid rgba(255,255,255,.1)}
+.nav-links.active{display:flex}
+.mobile-toggle{display:block}
+.hero-content{grid-template-columns:1fr;text-align:center}
+.hero-buttons{justify-content:center}
+.hero-image{order:-1}
+.stats{justify-content:center}
+.games-grid{grid-template-columns:1fr}
+.features-grid{grid-template-columns:1fr}
+}
 </style>
 </head>
 <body>
+
 <header class="header">
 <nav class="nav">
 <a href="index.html" class="logo">
 <div class="logo-icon">🎮</div>
 PlayingHours
 </a>
-<ul class="nav-links">
+<ul class="nav-links" id="navLinks">
 <li><a href="#games">Games</a></li>
 <li><a href="#features">Features</a></li>
+<li><a href="#about">About</a></li>
 <li><a href="auth.html" class="btn-primary">Play Now</a></li>
 </ul>
+<button class="mobile-toggle" onclick="toggleMenu()">☰</button>
 </nav>
 </header>
 
@@ -70,25 +96,42 @@ PlayingHours
 <div class="hero-content">
 <div class="hero-text">
 <h1>Play <span class="gradient-text">Multiplayer Games</span> Online</h1>
-<p>Join thousands of players in exciting multiplayer games. Create rooms, invite friends, and compete!</p>
+<p>Join thousands of players in exciting multiplayer games. Create rooms, invite friends, and compete for the top spot!</p>
 <div class="hero-buttons">
 <a href="auth.html" class="btn-primary">Start Playing Free</a>
 <a href="#games" class="btn-outline">Browse Games</a>
 </div>
 <div class="stats">
-<div><span class="stat-number" id="onlinePlayers">0</span><span class="stat-label">Online Now</span></div>
-<div><span class="stat-number">13</span><span class="stat-label">Games</span></div>
-<div><span class="stat-number" id="totalMatches">0</span><span class="stat-label">Matches</span></div>
+<div class="stat-item">
+<span class="stat-number">10K+</span>
+<span class="stat-label">Active Players</span>
+</div>
+<div class="stat-item">
+<span class="stat-number">13</span>
+<span class="stat-label">Games</span>
+</div>
+<div class="stat-item">
+<span class="stat-number">50K+</span>
+<span class="stat-label">Matches Played</span>
 </div>
 </div>
+</div>
+<div class="hero-image">
 <div class="game-preview">
-<svg viewBox="0 0 400 300" style="width:100%">
+<svg viewBox="0 0 400 300" style="width:100%;height:auto">
+<defs>
+<linearGradient id="g1" x1="0%" y1="0%" x2="100%" y2="100%">
+<stop offset="0%" style="stop-color:#667eea"/>
+<stop offset="100%" style="stop-color:#764ba2"/>
+</linearGradient>
+</defs>
 <rect width="400" height="300" fill="rgba(255,255,255,.05)" rx="20"/>
 <circle cx="100" cy="100" r="40" fill="url(#g1)" opacity=".3"/>
+<circle cx="300" cy="200" r="30" fill="url(#g1)" opacity=".3"/>
 <rect x="150" y="100" width="100" height="100" rx="10" fill="url(#g1)"/>
 <text x="200" y="160" text-anchor="middle" font-size="40" fill="#fff">🎮</text>
-<defs><linearGradient id="g1"><stop offset="0%" stop-color="#667eea"/><stop offset="100%" stop-color="#764ba2"/></linearGradient></defs>
 </svg>
+</div>
 </div>
 </div>
 </section>
@@ -96,80 +139,143 @@ PlayingHours
 <section class="games-section" id="games">
 <div class="section-header">
 <h2>Choose Your Game</h2>
-<p>13 exciting multiplayer games</p>
+<p>13 exciting multiplayer games to play with friends</p>
 </div>
 <div class="games-grid">
 <a href="auth.html" class="game-card">
 <div class="game-icon">🎲</div>
 <h3>Ludo King</h3>
-<p>Classic board game with 4 players</p>
-<div class="game-meta"><span>👥 2-4</span><span>⏱️ 15-30m</span></div>
+<p>Classic board game with 4 players. Roll dice and race to victory!</p>
+<div class="game-meta"><span>👥 2-4 Players</span><span>⏱️ 15-30 min</span></div>
 </a>
 <a href="auth.html" class="game-card">
 <div class="game-icon">🎨</div>
 <h3>Scribble.io</h3>
-<p>Draw and guess game</p>
-<div class="game-meta"><span>👥 4-12</span><span>⏱️ 10-20m</span></div>
+<p>Draw and guess! Creative drawing and guessing game.</p>
+<div class="game-meta"><span>👥 4-12 Players</span><span>⏱️ 10-20 min</span></div>
 </a>
 <a href="auth.html" class="game-card">
 <div class="game-icon">♟️</div>
 <h3>Chess</h3>
-<p>Strategic board game</p>
-<div class="game-meta"><span>👥 2</span><span>⏱️ 5-60m</span></div>
+<p>Strategic board game. Checkmate your opponent!</p>
+<div class="game-meta"><span>👥 2 Players</span><span>⏱️ 5-60 min</span></div>
 </a>
 <a href="auth.html" class="game-card">
 <div class="game-icon">🐍</div>
 <h3>Snake Battle</h3>
-<p>Classic snake multiplayer</p>
-<div class="game-meta"><span>👥 1-4</span><span>⏱️ 5-10m</span></div>
+<p>Classic snake game. Compete for the highest score!</p>
+<div class="game-meta"><span>👥 1-4 Players</span><span>⏱️ 5-10 min</span></div>
 </a>
 <a href="auth.html" class="game-card">
 <div class="game-icon">🧠</div>
 <h3>Quiz Master</h3>
-<p>Trivia quiz game</p>
-<div class="game-meta"><span>👥 2-20</span><span>⏱️ 10-15m</span></div>
+<p>Test your knowledge with trivia questions!</p>
+<div class="game-meta"><span>👥 2-20 Players</span><span>⏱️ 10-15 min</span></div>
 </a>
 <a href="auth.html" class="game-card">
 <div class="game-icon">🃏</div>
 <h3>Memory Match</h3>
-<p>Find matching pairs</p>
-<div class="game-meta"><span>👥 2-6</span><span>⏱️ 5-10m</span></div>
+<p>Find matching pairs and sharpen your memory!</p>
+<div class="game-meta"><span>👥 2-6 Players</span><span>⏱️ 5-10 min</span></div>
 </a>
 </div>
 </section>
 
-<footer class="footer">
+<section class="features" id="features">
+<div class="section-header">
+<h2>Why PlayingHours?</h2>
+<p>The best platform for online multiplayer gaming</p>
+</div>
+<div class="features-grid">
+<div class="feature-card">
+<div class="feature-icon">⚡</div>
+<h3>Real-Time Multiplayer</h3>
+<p>Play with friends from anywhere in the world with zero lag</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">🎯</div>
+<h3>Easy Room System</h3>
+<p>Create or join rooms with simple codes. No registration required!</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">💬</div>
+<h3>Live Chat</h3>
+<p>Chat with opponents during games and make new friends</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">🏆</div>
+<h3>Tournaments</h3>
+<p>Compete in tournaments and climb the leaderboards</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">📱</div>
+<h3>Mobile Friendly</h3>
+<p>Play seamlessly on any device - phone, tablet, or desktop</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">🔒</div>
+<h3>Secure & Private</h3>
+<p>Your data is safe with us. Play worry-free!</p>
+</div>
+</div>
+</section>
+
+<section class="cta">
+<h2>Ready to Start Playing?</h2>
+<p>Join thousands of players and start your gaming journey today!</p>
+<a href="auth.html" class="btn" style="background:#fff;color:var(--primary);box-shadow:0 4px 20px rgba(0,0,0,.3);padding:.875rem 2rem;border-radius:12px;font-weight:700;text-decoration:none;display:inline-block">Play Now - It's Free</a>
+</section>
+
+<footer class="footer" id="about">
 <div class="footer-content">
 <div class="footer-section">
 <h4>PlayingHours</h4>
-<p style="color:rgba(255,255,255,.6)">Your ultimate multiplayer gaming platform</p>
+<p style="color:rgba(255,255,255,.6);line-height:1.6">Your ultimate destination for online multiplayer gaming. Play, compete, and have fun!</p>
 </div>
 <div class="footer-section">
 <h4>Quick Links</h4>
 <ul class="footer-links">
 <li><a href="#games">Games</a></li>
+<li><a href="#features">Features</a></li>
 <li><a href="auth.html">Play Now</a></li>
 </ul>
 </div>
+<div class="footer-section">
+<h4>Support</h4>
+<ul class="footer-links">
+<li><a href="#">Help Center</a></li>
+<li><a href="#">Contact Us</a></li>
+<li><a href="#">Report Bug</a></li>
+</ul>
 </div>
-<div class="footer-bottom">© 2025 PlayingHours. All rights reserved.</div>
+<div class="footer-section">
+<h4>Legal</h4>
+<ul class="footer-links">
+<li><a href="#">Privacy Policy</a></li>
+<li><a href="#">Terms of Service</a></li>
+<li><a href="#">Disclaimer</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© 2025 PlayingHours. All rights reserved.</p>
+</div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="config.js"></script>
 <script>
-async function updateStats(){
-try{
-const{count}=await supabase.from('users').select('*',{count:'exact',head:true});
-document.getElementById('onlinePlayers').textContent=count||Math.floor(Math.random()*500)+100;
-const{count:matches}=await supabase.from('matches').select('*',{count:'exact',head:true});
-document.getElementById('totalMatches').textContent=matches||Math.floor(Math.random()*10000)+5000;
-}catch(e){
-document.getElementById('onlinePlayers').textContent=Math.floor(Math.random()*500)+100;
-document.getElementById('totalMatches').textContent=Math.floor(Math.random()*10000)+5000;
+function toggleMenu(){
+document.getElementById('navLinks').classList.toggle('active');
 }
+document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+anchor.addEventListener('click',function(e){
+const href=this.getAttribute('href');
+if(href!=='#'){
+e.preventDefault();
+document.querySelector(href).scrollIntoView({behavior:'smooth'});
+document.getElementById('navLinks').classList.remove('active');
 }
-updateStats();
+});
+});
 </script>
 </body>
 </html>
