@@ -7,110 +7,109 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--primary:#667eea;--secondary:#764ba2;--accent:#10b981;--dark:#0f172a}
-body{font-family:'Poppins',sans-serif;background:var(--dark);color:#fff;min-height:100vh}
+body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;min-height:100vh}
 
 /* SIDEBAR */
-.sidebar{position:fixed;left:0;top:0;bottom:0;width:260px;background:rgba(15,23,42,.95);backdrop-filter:blur(20px);border-right:1px solid rgba(255,255,255,.1);padding:1rem;display:flex;flex-direction:column;transition:.3s;z-index:100}
-.sidebar.collapsed{transform:translateX(-100%)}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:260px;background:rgba(15,23,42,.98);border-right:1px solid rgba(255,255,255,.1);padding:1rem;display:flex;flex-direction:column;transition:.3s;z-index:100}
+.sidebar.hidden{transform:translateX(-100%)}
 .logo{display:flex;align-items:center;gap:.75rem;margin-bottom:2rem;padding:.5rem}
-.logo-icon{width:45px;height:45px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
-.logo-text{font-size:1.25rem;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.logo-icon{width:45px;height:45px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.logo-text{font-size:1.25rem;font-weight:900;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .user-card{background:rgba(255,255,255,.05);border-radius:12px;padding:1rem;margin-bottom:1.5rem;border:1px solid rgba(255,255,255,.1)}
 .user-info{display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem}
-.user-avatar{width:45px;height:45px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem}
+.user-avatar{width:45px;height:45px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem}
 .user-details{flex:1;min-width:0}
 .user-name{font-weight:800;font-size:.9375rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .user-level{font-size:.75rem;color:rgba(255,255,255,.6)}
 .user-stats{display:flex;gap:.5rem}
-.stat-pill{background:rgba(251,191,36,.2);color:#fbbf24;padding:.375rem .75rem;border-radius:50px;font-size:.75rem;font-weight:700;display:flex;align-items:center;gap:.375rem;border:1px solid rgba(251,191,36,.3)}
+.stat-pill{background:rgba(251,191,36,.15);color:#fbbf24;padding:.375rem .75rem;border-radius:50px;font-size:.75rem;font-weight:700;display:flex;align-items:center;gap:.375rem;border:1px solid rgba(251,191,36,.2)}
 .nav-menu{flex:1;overflow-y:auto}
-.nav-item{padding:.875rem 1rem;border-radius:10px;cursor:pointer;transition:.3s;margin-bottom:.5rem;display:flex;align-items:center;gap:.75rem;font-weight:600;font-size:.9375rem;color:rgba(255,255,255,.8)}
-.nav-item:hover{background:rgba(255,255,255,.1);color:#fff}
-.nav-item.active{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff}
+.nav-item{padding:.875rem 1rem;border-radius:10px;cursor:pointer;transition:.2s;margin-bottom:.5rem;display:flex;align-items:center;gap:.75rem;font-weight:600;font-size:.9375rem;color:rgba(255,255,255,.8)}
+.nav-item:hover{background:rgba(255,255,255,.08);color:#fff}
+.nav-item.active{background:rgba(102,126,234,.2);color:#fff;border:1px solid rgba(102,126,234,.3)}
 .nav-icon{font-size:1.125rem;width:24px;text-align:center}
 .sidebar-footer{padding-top:1rem;border-top:1px solid rgba(255,255,255,.1)}
 
-/* MAIN CONTENT */
+/* MAIN */
 .main-content{margin-left:260px;padding:1rem;transition:.3s;min-height:100vh}
 .main-content.expanded{margin-left:0}
 
 /* TOP BAR */
-.top-bar{background:rgba(15,23,42,.8);backdrop-filter:blur(20px);border-radius:12px;padding:1rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;border:1px solid rgba(255,255,255,.1)}
-.menu-toggle{background:rgba(255,255,255,.1);border:none;color:#fff;width:40px;height:40px;border-radius:10px;cursor:pointer;font-size:1.25rem;display:none}
+.top-bar{background:rgba(15,23,42,.9);border-radius:12px;padding:1rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;border:1px solid rgba(255,255,255,.1)}
+.menu-toggle{background:rgba(255,255,255,.08);border:none;color:#fff;width:40px;height:40px;border-radius:10px;cursor:pointer;font-size:1.25rem;display:none;border:1px solid rgba(255,255,255,.1)}
 .search-bar{flex:1;max-width:400px;position:relative}
 .search-input{width:100%;padding:.75rem 1rem .75rem 3rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-size:.9375rem}
-.search-input:focus{outline:none;border-color:var(--primary);background:rgba(255,255,255,.08)}
+.search-input:focus{outline:none;border-color:#667eea;background:rgba(255,255,255,.08)}
 .search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.5)}
-.top-actions{display:flex;gap:.75rem;align-items:center}
-.action-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#fff;padding:.75rem 1rem;border-radius:10px;cursor:pointer;font-weight:600;font-size:.875rem;display:flex;align-items:center;gap:.5rem;transition:.3s}
-.action-btn:hover{background:rgba(255,255,255,.1);border-color:var(--primary)}
-.action-btn.primary{background:linear-gradient(135deg,var(--primary),var(--secondary));border:none}
+.top-actions{display:flex;gap:.75rem}
+.action-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#fff;padding:.75rem 1rem;border-radius:10px;cursor:pointer;font-weight:600;font-size:.875rem;display:flex;align-items:center;gap:.5rem;transition:.2s}
+.action-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(102,126,234,.5)}
+.action-btn.primary{background:linear-gradient(135deg,#667eea,#764ba2);border:none}
 
-/* STATS CARDS */
+/* STATS */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem}
-.stat-card{background:rgba(15,23,42,.8);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.25rem;transition:.3s}
-.stat-card:hover{transform:translateY(-4px);border-color:var(--primary);box-shadow:0 10px 30px rgba(102,126,234,.3)}
+.stat-card{background:rgba(15,23,42,.9);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.25rem;transition:.2s}
+.stat-card:hover{transform:translateY(-4px);border-color:rgba(102,126,234,.5)}
 .stat-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.75rem}
-.stat-icon{width:45px;height:45px;background:rgba(102,126,234,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
-.stat-value{font-size:1.75rem;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.25rem}
+.stat-icon{width:45px;height:45px;background:rgba(102,126,234,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+.stat-value{font-size:1.75rem;font-weight:900;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.25rem}
 .stat-label{font-size:.875rem;color:rgba(255,255,255,.6)}
 
-/* GAMES SECTION */
-.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem}
+/* GAMES */
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:1rem}
 .section-title{font-size:1.5rem;font-weight:800}
 .filter-chips{display:flex;gap:.5rem;flex-wrap:wrap}
-.chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);padding:.5rem 1rem;border-radius:50px;cursor:pointer;font-weight:600;font-size:.8125rem;transition:.3s}
-.chip.active{background:linear-gradient(135deg,var(--primary),var(--secondary));border:none;color:#fff}
-.chip:hover{border-color:var(--primary)}
-
+.chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);padding:.5rem 1rem;border-radius:50px;cursor:pointer;font-weight:600;font-size:.8125rem;transition:.2s}
+.chip.active{background:rgba(102,126,234,.2);border-color:rgba(102,126,234,.5);color:#fff}
+.chip:hover{border-color:rgba(102,126,234,.3)}
 .games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
-.game-card{background:rgba(15,23,42,.8);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.25rem;cursor:pointer;transition:.3s;position:relative;overflow:hidden}
-.game-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(102,126,234,.1),rgba(118,75,162,.1));opacity:0;transition:.3s}
-.game-card:hover::before{opacity:1}
-.game-card:hover{transform:translateY(-6px);border-color:var(--primary);box-shadow:0 15px 40px rgba(102,126,234,.4)}
+.game-card{background:rgba(15,23,42,.9);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.25rem;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
+.game-card:hover{transform:translateY(-6px);border-color:rgba(102,126,234,.5)}
 .game-top{display:flex;gap:1rem;margin-bottom:1rem;position:relative;z-index:1}
-.game-icon{width:55px;height:55px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.75rem;flex-shrink:0}
+.game-icon{width:55px;height:55px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.75rem;flex-shrink:0}
 .game-info{flex:1;min-width:0}
 .game-name{font-size:1.125rem;font-weight:800;margin-bottom:.25rem}
 .game-players{font-size:.8125rem;color:rgba(255,255,255,.6)}
-.game-badges{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;position:relative;z-index:1}
+.game-badges{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
 .badge{background:rgba(255,255,255,.08);padding:.375rem .625rem;border-radius:6px;font-size:.75rem;font-weight:600;display:flex;align-items:center;gap:.375rem}
-.badge.online{background:rgba(16,185,129,.2);color:#6ee7b7}
-.game-footer{display:flex;gap:.5rem;position:relative;z-index:1}
-.game-btn{flex:1;background:linear-gradient(135deg,var(--primary),var(--secondary));border:none;color:#fff;padding:.75rem;border-radius:8px;font-weight:700;cursor:pointer;font-size:.875rem;transition:.3s}
-.game-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,126,234,.6)}
-.game-btn.secondary{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2)}
-.game-btn.secondary:hover{background:rgba(255,255,255,.15)}
+.badge.online{background:rgba(16,185,129,.15);color:#6ee7b7}
+.game-footer{display:flex;gap:.5rem}
+.game-btn{flex:1;background:linear-gradient(135deg,#667eea,#764ba2);border:none;color:#fff;padding:.75rem;border-radius:8px;font-weight:700;cursor:pointer;font-size:.875rem;transition:.2s}
+.game-btn:hover{transform:translateY(-2px)}
 
 /* MODAL */
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.95);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;z-index:1000;padding:1rem}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;z-index:1000;padding:1rem}
 .modal.show{display:flex}
 .modal-box{background:linear-gradient(135deg,#1e293b,#334155);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:2rem;max-width:500px;width:100%;position:relative;max-height:90vh;overflow-y:auto}
 .modal-header{margin-bottom:1.5rem;text-align:center}
 .modal-header h2{font-size:1.75rem;font-weight:900;margin-bottom:.5rem}
 .modal-header p{color:rgba(255,255,255,.6)}
-.close-modal{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.6);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.25rem;transition:.3s}
+.close-modal{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.6);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.25rem;transition:.2s}
 .close-modal:hover{background:rgba(255,255,255,.2);color:#fff}
 .modal-options{display:grid;gap:1rem}
-.option{background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);padding:1.25rem;border-radius:12px;cursor:pointer;transition:.3s}
-.option:hover{border-color:var(--primary);background:rgba(102,126,234,.1);transform:translateX(4px)}
+.option{background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);padding:1.25rem;border-radius:12px;cursor:pointer;transition:.2s}
+.option:hover{border-color:rgba(102,126,234,.5);background:rgba(102,126,234,.1);transform:translateX(4px)}
 .option h3{font-size:1.125rem;font-weight:800;margin-bottom:.5rem;display:flex;align-items:center;gap:.75rem}
 .option p{font-size:.875rem;color:rgba(255,255,255,.6)}
 .input-group{margin-bottom:1.5rem}
 .input-group label{display:block;margin-bottom:.5rem;font-weight:600}
 .input-group input{width:100%;padding:.875rem;background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-size:1rem;font-weight:700;text-transform:uppercase;text-align:center;letter-spacing:3px}
-.input-group input:focus{outline:none;border-color:var(--primary)}
+.input-group input:focus{outline:none;border-color:#667eea}
 .modal-actions{display:flex;gap:1rem}
-.btn{padding:.875rem 1.5rem;border-radius:10px;font-weight:700;cursor:pointer;border:none;font-size:.9375rem;flex:1;transition:.3s}
-.btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,126,234,.6)}
+.btn{padding:.875rem 1.5rem;border-radius:10px;font-weight:700;cursor:pointer;border:none;font-size:.9375rem;flex:1;transition:.2s}
+.btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.btn-primary:hover{transform:translateY(-2px)}
 .btn-secondary{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)}
 .btn-secondary:hover{background:rgba(255,255,255,.15)}
 
-/* LOADING */
-.loading{display:none;text-align:center;padding:2rem;color:rgba(255,255,255,.6)}
-.loading.show{display:block}
+/* FOOTER */
+.footer{background:rgba(0,0,0,.3);padding:2rem 1rem;margin-top:3rem;border-top:1px solid rgba(255,255,255,.1)}
+.footer-content{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem}
+.footer-section h4{font-size:1rem;font-weight:800;margin-bottom:.75rem}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.footer-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:.875rem;transition:.2s}
+.footer-links a:hover{color:#fff}
+.footer-bottom{text-align:center;padding-top:1.5rem;margin-top:1.5rem;border-top:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:.875rem}
 
 /* RESPONSIVE */
 @media(max-width:1024px){
@@ -124,6 +123,7 @@ body{font-family:'Poppins',sans-serif;background:var(--dark);color:#fff;min-heig
 .games-grid{grid-template-columns:1fr}
 .top-bar{flex-direction:column}
 .search-bar{max-width:100%}
+.footer-content{grid-template-columns:repeat(2,1fr)}
 }
 @media(max-width:480px){
 .stats-grid{grid-template-columns:1fr}
@@ -145,35 +145,35 @@ body{font-family:'Poppins',sans-serif;background:var(--dark);color:#fff;min-heig
 <div class="user-avatar">👤</div>
 <div class="user-details">
 <div class="user-name" id="sidebarUsername">Loading...</div>
-<div class="user-level">Level <span id="userLevel">1</span></div>
+<div class="user-level">Level 1</div>
 </div>
 </div>
 <div class="user-stats">
 <div class="stat-pill">💰 <span id="sidebarCoins">0</span></div>
-<div class="stat-pill">💎 <span id="sidebarGems">0</span></div>
+<div class="stat-pill">💎 0</div>
 </div>
 </div>
 
 <nav class="nav-menu">
-<div class="nav-item active" onclick="showSection('games')">
+<div class="nav-item active">
 <span class="nav-icon">🎮</span> Games
 </div>
-<div class="nav-item" onclick="location.href='profile.html'">
+<div class="nav-item" onclick="alert('Profile page coming soon!')">
 <span class="nav-icon">👤</span> My Profile
 </div>
-<div class="nav-item" onclick="location.href='leaderboard.html'">
+<div class="nav-item" onclick="alert('Leaderboard coming soon!')">
 <span class="nav-icon">🏆</span> Leaderboard
 </div>
-<div class="nav-item" onclick="location.href='tournaments.html'">
+<div class="nav-item" onclick="alert('Tournaments coming soon!')">
 <span class="nav-icon">🎯</span> Tournaments
 </div>
-<div class="nav-item" onclick="location.href='friends.html'">
+<div class="nav-item" onclick="alert('Friends coming soon!')">
 <span class="nav-icon">👥</span> Friends
 </div>
-<div class="nav-item" onclick="location.href='shop.html'">
+<div class="nav-item" onclick="alert('Shop coming soon!')">
 <span class="nav-icon">🛒</span> Shop
 </div>
-<div class="nav-item" onclick="location.href='settings.html'">
+<div class="nav-item" onclick="alert('Settings coming soon!')">
 <span class="nav-icon">⚙️</span> Settings
 </div>
 </nav>
@@ -185,7 +185,7 @@ body{font-family:'Poppins',sans-serif;background:var(--dark);color:#fff;min-heig
 </div>
 </aside>
 
-<!-- MAIN CONTENT -->
+<!-- MAIN -->
 <main class="main-content" id="mainContent">
 
 <!-- TOP BAR -->
@@ -196,16 +196,13 @@ body{font-family:'Poppins',sans-serif;background:var(--dark);color:#fff;min-heig
 <input type="text" class="search-input" placeholder="Search games..." id="searchInput" oninput="searchGames()">
 </div>
 <div class="top-actions">
-<button class="action-btn" onclick="location.href='notifications.html'">
-🔔 <span id="notifCount"></span>
-</button>
-<button class="action-btn primary" onclick="showQuickPlay()">
+<button class="action-btn primary" onclick="alert('Quick play feature coming soon!')">
 ⚡ Quick Play
 </button>
 </div>
 </div>
 
-<!-- STATS GRID -->
+<!-- STATS -->
 <div class="stats-grid">
 <div class="stat-card">
 <div class="stat-header">
@@ -228,7 +225,7 @@ body{font-family:'Poppins',sans-serif;background:var(--dark);color:#fff;min-heig
 <div class="stat-card">
 <div class="stat-header">
 <div>
-<div class="stat-value" id="totalMatches">—</div>
+<div class="stat-value" id="totalMatches">0</div>
 <div class="stat-label">Your Matches</div>
 </div>
 <div class="stat-icon">🎮</div>
@@ -237,7 +234,7 @@ body{font-family:'Poppins',sans-serif;background:var(--dark);color:#fff;min-heig
 <div class="stat-card">
 <div class="stat-header">
 <div>
-<div class="stat-value" id="winRate">—%</div>
+<div class="stat-value" id="winRate">0%</div>
 <div class="stat-label">Win Rate</div>
 </div>
 <div class="stat-icon">🏆</div>
@@ -245,7 +242,7 @@ body{font-family:'Poppins',sans-serif;background:var(--dark);color:#fff;min-heig
 </div>
 </div>
 
-<!-- GAMES SECTION -->
+<!-- GAMES -->
 <div class="section-header">
 <h2 class="section-title">🎮 All Games</h2>
 <div class="filter-chips">
@@ -257,11 +254,49 @@ body{font-family:'Poppins',sans-serif;background:var(--dark);color:#fff;min-heig
 </div>
 
 <div class="games-grid" id="gamesGrid"></div>
-<div class="loading" id="loading">Loading games...</div>
+
+<!-- FOOTER -->
+<div class="footer">
+<div class="footer-content">
+<div class="footer-section">
+<h4>PlayingHours</h4>
+<ul class="footer-links">
+<li><a href="index.html">Home</a></li>
+<li><a href="#">About</a></li>
+<li><a href="#">Contact</a></li>
+</ul>
+</div>
+<div class="footer-section">
+<h4>Support</h4>
+<ul class="footer-links">
+<li><a href="#">Help Center</a></li>
+<li><a href="#">FAQ</a></li>
+<li><a href="#">Report Bug</a></li>
+</ul>
+</div>
+<div class="footer-section">
+<h4>Legal</h4>
+<ul class="footer-links">
+<li><a href="#">Privacy Policy</a></li>
+<li><a href="#">Terms</a></li>
+<li><a href="#">Disclaimer</a></li>
+</ul>
+</div>
+<div class="footer-section">
+<h4>Community</h4>
+<ul class="footer-links">
+<li><a href="#">Discord</a></li>
+<li><a href="#">Twitter</a></li>
+<li><a href="#">Instagram</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">© 2025 PlayingHours. All rights reserved.</div>
+</div>
 
 </main>
 
-<!-- GAME MODE MODAL -->
+<!-- MODAL -->
 <div class="modal" id="modeModal">
 <div class="modal-box">
 <button class="close-modal" onclick="closeModals()">×</button>
@@ -286,7 +321,6 @@ body{font-family:'Poppins',sans-serif;background:var(--dark);color:#fff;min-heig
 </div>
 </div>
 
-<!-- JOIN ROOM MODAL -->
 <div class="modal" id="joinModal">
 <div class="modal-box">
 <button class="close-modal" onclick="closeModals()">×</button>
@@ -308,14 +342,12 @@ body{font-family:'Poppins',sans-serif;background:var(--dark);color:#fff;min-heig
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script>
-// Check auth
 if(!checkAuth())location.href='auth.html';
 
 const user=getCurrentUser();
 let currentGame='';
 let allGames=[];
 
-// Games data
 const games=[
 {id:'ludo',name:'Ludo King',icon:'🎲',players:'2-4',time:'15-30m',category:'board'},
 {id:'scribble',name:'Scribble.io',icon:'🎨',players:'4-12',time:'10-20m',category:'puzzle'},
@@ -332,32 +364,25 @@ const games=[
 {id:'puzzle',name:'Puzzle Slider',icon:'🧩',players:'1-4',time:'5-15m',category:'puzzle'}
 ];
 
-// Initialize
 async function init(){
 document.getElementById('sidebarUsername').textContent=user.username;
 document.getElementById('sidebarCoins').textContent=user.coins||0;
-document.getElementById('sidebarGems').textContent=0;
 loadGames();
 loadStats();
 }
 
-// Load games with live data
 async function loadGames(filter='all'){
-document.getElementById('loading').classList.add('show');
 try{
 const{data:rooms}=await supabase.from('rooms').select('game_type').eq('status','waiting');
 const roomCounts={};
 rooms?.forEach(r=>roomCounts[r.game_type]=(roomCounts[r.game_type]||0)+1);
 allGames=games.map(g=>({...g,rooms:roomCounts[g.id]||0,online:Math.floor(Math.random()*200)+50}));
-renderGames(filter);
 }catch(e){
 allGames=games.map(g=>({...g,rooms:Math.floor(Math.random()*50),online:Math.floor(Math.random()*200)+50}));
+}
 renderGames(filter);
 }
-document.getElementById('loading').classList.remove('show');
-}
 
-// Render games
 function renderGames(filter='all'){
 const filtered=filter==='all'?allGames:allGames.filter(g=>g.category===filter);
 document.getElementById('gamesGrid').innerHTML=filtered.map(g=>`
@@ -381,32 +406,22 @@ document.getElementById('gamesGrid').innerHTML=filtered.map(g=>`
 `).join('');
 }
 
-// Load stats
 async function loadStats(){
 try{
 const{count:rooms}=await supabase.from('rooms').select('*',{count:'exact',head:true}).eq('status','waiting');
 document.getElementById('activeRooms').textContent=rooms||0;
-const{data:userMatches}=await supabase.from('matches').select('*').or(`winner_id.eq.${user.id},players.cs.${user.id}`);
-const total=userMatches?.length||0;
-const wins=userMatches?.filter(m=>m.winner_id===user.id).length||0;
-document.getElementById('totalMatches').textContent=total;
-document.getElementById('winRate').textContent=total>0?Math.round(wins/total*100):0;
 }catch(e){
 document.getElementById('activeRooms').textContent='0';
-document.getElementById('totalMatches').textContent='0';
-document.getElementById('winRate').textContent='0';
 }
 document.getElementById('onlinePlayers').textContent=Math.floor(Math.random()*500)+300;
 }
 
-// Filter games
 function filterGames(cat){
 document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
 event.target.classList.add('active');
 renderGames(cat);
 }
 
-// Search games
 function searchGames(){
 const query=document.getElementById('searchInput').value.toLowerCase();
 const filtered=allGames.filter(g=>g.name.toLowerCase().includes(query));
@@ -431,14 +446,16 @@ document.getElementById('gamesGrid').innerHTML=filtered.map(g=>`
 `).join('');
 }
 
-// Open game modal
 function openGameModal(id,name){
 currentGame=id;
 document.getElementById('modalGameName').textContent=name;
 document.getElementById('modeModal').classList.add('show');
 }
 
-// Quick play
+function closeModals(){
+document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'));
+}
+
 async function quickPlay(){
 const code=generateCode();
 try{
@@ -450,7 +467,7 @@ players:[{id:user.id,username:user.username}],
 player_count:1,
 status:'waiting'
 });
-alert(`Room created: ${code}\n\nSearching for players...\n\n(Game pages coming soon)`);
+alert(`Room created: ${code}\n\n(Game pages coming soon)`);
 closeModals();
 loadStats();
 }catch(e){
@@ -459,7 +476,6 @@ closeModals();
 }
 }
 
-// Create room
 async function createRoom(){
 const code=generateCode();
 try{
@@ -472,7 +488,7 @@ player_count:1,
 is_private:true,
 status:'waiting'
 });
-alert(`Room Created!\n\nCode: ${code}\n\nShare with friends!`);
+alert(`Room: ${code}\nShare with friends!`);
 closeModals();
 loadStats();
 }catch(e){
@@ -481,7 +497,6 @@ closeModals();
 }
 }
 
-// Join room
 function showJoinModal(){
 document.getElementById('modeModal').classList.remove('show');
 document.getElementById('joinModal').classList.add('show');
@@ -504,13 +519,9 @@ closeModals();
 }
 }
 
-// Helpers
 function generateCode(){return Math.random().toString(36).substr(2,6).toUpperCase();}
-function closeModals(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'));}
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('show');}
-function showQuickPlay(){openGameModal('ludo','Random Game');}
 
-// Init
 init();
 setInterval(loadStats,30000);
 </script>
