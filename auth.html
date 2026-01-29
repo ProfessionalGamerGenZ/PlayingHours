@@ -7,55 +7,46 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem;overflow-y:auto}
-.auth-wrapper{width:100%;max-width:450px;margin:2rem auto}
-.auth-container{background:rgba(255,255,255,.1);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);border-radius:24px;padding:2.5rem;box-shadow:0 25px 70px rgba(0,0,0,.4)}
+body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem}
+.auth-container{background:rgba(255,255,255,.1);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);border-radius:24px;padding:2.5rem;width:100%;max-width:450px;box-shadow:0 25px 70px rgba(0,0,0,.4)}
 .logo{text-align:center;margin-bottom:2rem}
-.logo-icon{width:70px;height:70px;background:rgba(255,255,255,.2);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;margin:0 auto .75rem;border:2px solid rgba(255,255,255,.3);box-shadow:0 8px 20px rgba(0,0,0,.3)}
+.logo-icon{width:70px;height:70px;background:rgba(255,255,255,.2);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;margin:0 auto .75rem;border:2px solid rgba(255,255,255,.3)}
 .logo-text{font-size:2rem;font-weight:900;color:#fff}
 .tabs{display:flex;gap:.5rem;margin-bottom:2rem;background:rgba(0,0,0,.2);padding:.25rem;border-radius:12px}
-.tab{flex:1;padding:.875rem;background:transparent;border:none;color:rgba(255,255,255,.6);font-weight:700;border-radius:10px;cursor:pointer;transition:.3s;font-size:1rem}
-.tab.active{background:rgba(255,255,255,.25);color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.tab{flex:1;padding:.875rem;background:transparent;border:none;color:rgba(255,255,255,.6);font-weight:700;border-radius:10px;cursor:pointer;transition:.3s}
+.tab.active{background:rgba(255,255,255,.25);color:#fff}
 .form-content{display:none}
 .form-content.active{display:block}
 .form-group{margin-bottom:1.25rem}
-.form-group label{display:block;color:#fff;font-weight:700;margin-bottom:.5rem;font-size:1rem}
-.form-group input,.form-group select{width:100%;padding:1rem;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.25);border-radius:12px;color:#fff;font-size:1rem;transition:.3s;font-weight:600}
+.form-group label{display:block;color:#fff;font-weight:700;margin-bottom:.5rem}
+.form-group input,.form-group select{width:100%;padding:1rem;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.25);border-radius:12px;color:#fff;font-size:1rem;font-weight:600}
 .form-group input::placeholder{color:rgba(255,255,255,.5)}
 .form-group input:focus,.form-group select:focus{outline:none;border-color:#fff;background:rgba(255,255,255,.2)}
-.form-group select{cursor:pointer}
 .form-group select option{background:#1e293b;color:#fff}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.btn{width:100%;padding:1rem;border:none;border-radius:12px;font-weight:800;font-size:1.0625rem;cursor:pointer;transition:.3s}
-.btn-primary{background:#fff;color:#667eea;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.btn{width:100%;padding:1rem;border:none;border-radius:12px;font-weight:800;font-size:1rem;cursor:pointer;transition:.3s}
+.btn-primary{background:#fff;color:#667eea}
 .btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.4)}
-.btn-primary:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.btn-primary:disabled{opacity:.6;cursor:not-allowed}
 .divider{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;color:rgba(255,255,255,.7);font-size:.9375rem;font-weight:600}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.25)}
 .btn-guest{background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.3)}
-.btn-guest:hover{background:rgba(255,255,255,.2);border-color:#fff}
-.form-footer{text-align:center;margin-top:1.5rem;color:rgba(255,255,255,.9);font-size:1rem}
-.form-footer a{color:#fff;font-weight:800;text-decoration:none;cursor:pointer}
-.form-footer a:hover{text-decoration:underline}
+.form-footer{text-align:center;margin-top:1.5rem;color:rgba(255,255,255,.9)}
+.form-footer a{color:#fff;font-weight:800;cursor:pointer;text-decoration:none}
 .back-link{text-align:center;margin-top:1.5rem}
-.back-link a{color:rgba(255,255,255,.9);text-decoration:none;font-weight:700;display:inline-flex;align-items:center;gap:.5rem;transition:.3s;font-size:1rem}
-.back-link a:hover{color:#fff}
-.error,.success{padding:.875rem;border-radius:10px;margin-bottom:1.25rem;display:none;font-size:.9375rem;font-weight:600}
+.back-link a{color:rgba(255,255,255,.9);font-weight:700;text-decoration:none}
+.error,.success{padding:.875rem;border-radius:10px;margin-bottom:1.25rem;display:none;font-weight:600}
 .error{background:rgba(239,68,68,.25);color:#fca5a5;border:1px solid rgba(239,68,68,.4)}
 .success{background:rgba(16,185,129,.25);color:#6ee7b7;border:1px solid rgba(16,185,129,.4)}
 .guest-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);align-items:center;justify-content:center;z-index:1000}
 .guest-modal.active{display:flex}
 .guest-modal-content{background:linear-gradient(135deg,#1e293b,#334155);padding:2.5rem;border-radius:24px;max-width:420px;width:90%;border:2px solid rgba(255,255,255,.15)}
 .guest-modal h3{font-size:1.75rem;margin-bottom:1.25rem;text-align:center;font-weight:900}
-@media(max-width:640px){
-.auth-container{padding:2rem 1.5rem}
-.form-row{grid-template-columns:1fr}
-}
+@media(max-width:640px){.form-row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<div class="auth-wrapper">
 <div class="auth-container">
 <div class="logo">
 <div class="logo-icon">🎮</div>
@@ -70,7 +61,6 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#667eea,
 <button class="tab" onclick="switchTab('register')">Register</button>
 </div>
 
-<!-- LOGIN -->
 <div class="form-content active" id="loginForm">
 <form onsubmit="handleLogin(event)">
 <div class="form-group">
@@ -83,17 +73,13 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#667eea,
 </div>
 <button type="submit" class="btn btn-primary" id="loginBtn">Login</button>
 </form>
-
 <div class="divider">OR</div>
-
 <button class="btn btn-guest" onclick="showGuestModal()">Continue as Guest</button>
-
 <div class="form-footer">
 Don't have an account? <a onclick="switchTab('register')">Sign up</a>
 </div>
 </div>
 
-<!-- REGISTER -->
 <div class="form-content" id="registerForm">
 <form onsubmit="handleRegister(event)">
 <div class="form-group">
@@ -125,7 +111,6 @@ Don't have an account? <a onclick="switchTab('register')">Sign up</a>
 </div>
 <button type="submit" class="btn btn-primary" id="registerBtn">Create Account</button>
 </form>
-
 <div class="form-footer">
 Already have an account? <a onclick="switchTab('login')">Login</a>
 </div>
@@ -135,9 +120,7 @@ Already have an account? <a onclick="switchTab('login')">Login</a>
 <a href="index.html">← Back to Home</a>
 </div>
 </div>
-</div>
 
-<!-- GUEST MODAL -->
 <div class="guest-modal" id="guestModal">
 <div class="guest-modal-content">
 <h3>Choose Username</h3>
@@ -153,6 +136,9 @@ Already have an account? <a onclick="switchTab('login')">Login</a>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="config.js"></script>
 <script>
+// Test connection on load
+testConnection();
+
 function switchTab(tab){
 document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
 document.querySelectorAll('.form-content').forEach(f=>f.classList.remove('active'));
@@ -174,9 +160,12 @@ btn.textContent='Logging in...';
 const username=document.getElementById('loginUsername').value.trim();
 const password=document.getElementById('loginPassword').value;
 try{
+console.log('Attempting login for:', username);
 const{data,error}=await supabase.from('users').select('*').eq('username',username).eq('password',password).maybeSingle();
+console.log('Login response:', {data, error});
 if(error){
-showError('Login error: '+error.message);
+showError('Database error: '+error.message);
+console.error('Login error:', error);
 btn.disabled=false;
 btn.textContent='Login';
 return;
@@ -197,9 +186,10 @@ localStorage.setItem('userId',data.id);
 localStorage.setItem('username',data.username);
 localStorage.setItem('coins',data.coins);
 localStorage.setItem('isLoggedIn','true');
+console.log('Login successful!');
 window.location.href='lobby.html';
 }catch(err){
-console.error(err);
+console.error('Login exception:', err);
 showError('Login failed: '+err.message);
 btn.disabled=false;
 btn.textContent='Login';
@@ -217,24 +207,30 @@ const password=document.getElementById('regPassword').value;
 const gender=document.getElementById('regGender').value;
 const age=parseInt(document.getElementById('regAge').value);
 try{
+console.log('Attempting registration for:', username);
 const{data:existing}=await supabase.from('users').select('username').eq('username',username).maybeSingle();
+console.log('Username check:', existing);
 if(existing){
 showError('Username already taken');
 btn.disabled=false;
 btn.textContent='Create Account';
 return;
 }
-const{data,error}=await supabase.from('users').insert({
+const userData={
 username,
-email:email||null,
 password,
+email:email||null,
 gender,
 age,
 coins:500,
+gems:0,
 referral_code:Math.random().toString(36).substr(2,8).toUpperCase()
-}).select();
+};
+console.log('Inserting user:', userData);
+const{data,error}=await supabase.from('users').insert(userData).select();
+console.log('Registration response:', {data, error});
 if(error){
-console.error(error);
+console.error('Registration error:', error);
 showError('Registration failed: '+error.message);
 btn.disabled=false;
 btn.textContent='Create Account';
@@ -246,10 +242,11 @@ localStorage.setItem('userId',data[0].id);
 localStorage.setItem('username',username);
 localStorage.setItem('coins','500');
 localStorage.setItem('isLoggedIn','true');
+console.log('Registration successful!');
 window.location.href='lobby.html';
 },1500);
 }catch(err){
-console.error(err);
+console.error('Registration exception:', err);
 showError('Registration failed: '+err.message);
 btn.disabled=false;
 btn.textContent='Create Account';
@@ -275,6 +272,7 @@ localStorage.setItem('username',username);
 localStorage.setItem('coins','100');
 localStorage.setItem('isGuest','true');
 localStorage.setItem('isLoggedIn','true');
+console.log('Guest login successful!');
 window.location.href='lobby.html';
 }
 
