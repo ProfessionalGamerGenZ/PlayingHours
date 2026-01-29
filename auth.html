@@ -7,47 +7,46 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem;position:relative;overflow:hidden}
-body::before{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(255,255,255,.1),transparent);border-radius:50%;top:-200px;right:-200px;animation:float 20s infinite}
-@keyframes float{0%,100%{transform:translate(0,0)}50%{transform:translate(50px,50px)}}
-.auth-container{background:rgba(255,255,255,.1);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);border-radius:24px;padding:2.5rem;width:100%;max-width:450px;box-shadow:0 20px 60px rgba(0,0,0,.3);position:relative;z-index:1}
+body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem;overflow-y:auto}
+.auth-wrapper{width:100%;max-width:450px;margin:2rem auto}
+.auth-container{background:rgba(255,255,255,.1);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);border-radius:24px;padding:2.5rem;box-shadow:0 25px 70px rgba(0,0,0,.4)}
 .logo{text-align:center;margin-bottom:2rem}
-.logo-icon{width:60px;height:60px;background:rgba(255,255,255,.2);border-radius:15px;display:flex;align-items:center;justify-content:center;font-size:2rem;margin:0 auto .75rem;border:2px solid rgba(255,255,255,.3)}
-.logo-text{font-size:1.75rem;font-weight:900;color:#fff}
+.logo-icon{width:70px;height:70px;background:rgba(255,255,255,.2);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;margin:0 auto .75rem;border:2px solid rgba(255,255,255,.3);box-shadow:0 8px 20px rgba(0,0,0,.3)}
+.logo-text{font-size:2rem;font-weight:900;color:#fff}
 .tabs{display:flex;gap:.5rem;margin-bottom:2rem;background:rgba(0,0,0,.2);padding:.25rem;border-radius:12px}
-.tab{flex:1;padding:.75rem;background:transparent;border:none;color:rgba(255,255,255,.6);font-weight:700;border-radius:10px;cursor:pointer;transition:.3s;font-size:.9375rem}
-.tab.active{background:rgba(255,255,255,.2);color:#fff}
+.tab{flex:1;padding:.875rem;background:transparent;border:none;color:rgba(255,255,255,.6);font-weight:700;border-radius:10px;cursor:pointer;transition:.3s;font-size:1rem}
+.tab.active{background:rgba(255,255,255,.25);color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.2)}
 .form-content{display:none}
 .form-content.active{display:block}
 .form-group{margin-bottom:1.25rem}
-.form-group label{display:block;color:#fff;font-weight:600;margin-bottom:.5rem;font-size:.9375rem}
-.form-group input,.form-group select{width:100%;padding:.875rem 1rem;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);border-radius:12px;color:#fff;font-size:1rem;transition:.3s;font-weight:600}
+.form-group label{display:block;color:#fff;font-weight:700;margin-bottom:.5rem;font-size:1rem}
+.form-group input,.form-group select{width:100%;padding:1rem;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.25);border-radius:12px;color:#fff;font-size:1rem;transition:.3s;font-weight:600}
 .form-group input::placeholder{color:rgba(255,255,255,.5)}
-.form-group input:focus,.form-group select:focus{outline:none;border-color:#fff;background:rgba(255,255,255,.15)}
+.form-group input:focus,.form-group select:focus{outline:none;border-color:#fff;background:rgba(255,255,255,.2)}
 .form-group select{cursor:pointer}
 .form-group select option{background:#1e293b;color:#fff}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.btn{width:100%;padding:.875rem;border:none;border-radius:12px;font-weight:700;font-size:1rem;cursor:pointer;transition:.3s}
-.btn-primary{background:#fff;color:#667eea;box-shadow:0 4px 15px rgba(0,0,0,.2)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,.3)}
-.btn-primary:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.divider{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;color:rgba(255,255,255,.6);font-size:.875rem}
-.divider::before,.divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.2)}
-.btn-guest{background:rgba(255,255,255,.1);color:#fff;border:2px solid rgba(255,255,255,.3)}
-.btn-guest:hover{background:rgba(255,255,255,.15);border-color:#fff}
-.form-footer{text-align:center;margin-top:1.5rem;color:rgba(255,255,255,.8);font-size:.9375rem}
-.form-footer a{color:#fff;font-weight:700;text-decoration:none;cursor:pointer}
+.btn{width:100%;padding:1rem;border:none;border-radius:12px;font-weight:800;font-size:1.0625rem;cursor:pointer;transition:.3s}
+.btn-primary{background:#fff;color:#667eea;box-shadow:0 6px 20px rgba(0,0,0,.3)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.4)}
+.btn-primary:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.divider{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;color:rgba(255,255,255,.7);font-size:.9375rem;font-weight:600}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.25)}
+.btn-guest{background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.3)}
+.btn-guest:hover{background:rgba(255,255,255,.2);border-color:#fff}
+.form-footer{text-align:center;margin-top:1.5rem;color:rgba(255,255,255,.9);font-size:1rem}
+.form-footer a{color:#fff;font-weight:800;text-decoration:none;cursor:pointer}
 .form-footer a:hover{text-decoration:underline}
 .back-link{text-align:center;margin-top:1.5rem}
-.back-link a{color:rgba(255,255,255,.8);text-decoration:none;font-weight:600;display:inline-flex;align-items:center;gap:.5rem;transition:.3s}
+.back-link a{color:rgba(255,255,255,.9);text-decoration:none;font-weight:700;display:inline-flex;align-items:center;gap:.5rem;transition:.3s;font-size:1rem}
 .back-link a:hover{color:#fff}
-.error,.success{padding:.75rem;border-radius:8px;margin-bottom:1rem;display:none;font-size:.9375rem}
-.error{background:rgba(239,68,68,.2);color:#fca5a5;border:1px solid rgba(239,68,68,.3)}
-.success{background:rgba(16,185,129,.2);color:#6ee7b7;border:1px solid rgba(16,185,129,.3)}
-.guest-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);align-items:center;justify-content:center;z-index:1000}
+.error,.success{padding:.875rem;border-radius:10px;margin-bottom:1.25rem;display:none;font-size:.9375rem;font-weight:600}
+.error{background:rgba(239,68,68,.25);color:#fca5a5;border:1px solid rgba(239,68,68,.4)}
+.success{background:rgba(16,185,129,.25);color:#6ee7b7;border:1px solid rgba(16,185,129,.4)}
+.guest-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);align-items:center;justify-content:center;z-index:1000}
 .guest-modal.active{display:flex}
-.guest-modal-content{background:linear-gradient(135deg,#1e293b,#334155);padding:2rem;border-radius:20px;max-width:400px;width:90%;border:2px solid rgba(255,255,255,.1)}
-.guest-modal h3{font-size:1.5rem;margin-bottom:1rem;text-align:center}
+.guest-modal-content{background:linear-gradient(135deg,#1e293b,#334155);padding:2.5rem;border-radius:24px;max-width:420px;width:90%;border:2px solid rgba(255,255,255,.15)}
+.guest-modal h3{font-size:1.75rem;margin-bottom:1.25rem;text-align:center;font-weight:900}
 @media(max-width:640px){
 .auth-container{padding:2rem 1.5rem}
 .form-row{grid-template-columns:1fr}
@@ -56,6 +55,7 @@ body::before{content:'';position:absolute;width:500px;height:500px;background:ra
 </head>
 <body>
 
+<div class="auth-wrapper">
 <div class="auth-container">
 <div class="logo">
 <div class="logo-icon">🎮</div>
@@ -70,7 +70,7 @@ body::before{content:'';position:absolute;width:500px;height:500px;background:ra
 <button class="tab" onclick="switchTab('register')">Register</button>
 </div>
 
-<!-- LOGIN FORM -->
+<!-- LOGIN -->
 <div class="form-content active" id="loginForm">
 <form onsubmit="handleLogin(event)">
 <div class="form-group">
@@ -93,7 +93,7 @@ Don't have an account? <a onclick="switchTab('register')">Sign up</a>
 </div>
 </div>
 
-<!-- REGISTER FORM -->
+<!-- REGISTER -->
 <div class="form-content" id="registerForm">
 <form onsubmit="handleRegister(event)">
 <div class="form-group">
@@ -135,17 +135,18 @@ Already have an account? <a onclick="switchTab('login')">Login</a>
 <a href="index.html">← Back to Home</a>
 </div>
 </div>
+</div>
 
 <!-- GUEST MODAL -->
 <div class="guest-modal" id="guestModal">
 <div class="guest-modal-content">
-<h3>Choose Guest Username</h3>
+<h3>Choose Username</h3>
 <div class="form-group">
-<label>Username</label>
+<label>Guest Username</label>
 <input type="text" id="guestUsername" placeholder="Enter username" maxlength="15">
 </div>
 <button class="btn btn-primary" onclick="continueAsGuest()">Continue</button>
-<button class="btn btn-guest" onclick="closeGuestModal()" style="margin-top:.5rem">Cancel</button>
+<button class="btn btn-guest" onclick="closeGuestModal()" style="margin-top:.75rem">Cancel</button>
 </div>
 </div>
 
@@ -173,32 +174,33 @@ btn.textContent='Logging in...';
 const username=document.getElementById('loginUsername').value.trim();
 const password=document.getElementById('loginPassword').value;
 try{
-const{data,error}=await supabase
-.from('users')
-.select('*')
-.eq('username',username)
-.eq('password',password)
-.single();
-if(error||!data){
+const{data,error}=await supabase.from('users').select('*').eq('username',username).eq('password',password).maybeSingle();
+if(error){
+showError('Login error: '+error.message);
+btn.disabled=false;
+btn.textContent='Login';
+return;
+}
+if(!data){
 showError('Invalid username or password');
 btn.disabled=false;
 btn.textContent='Login';
 return;
 }
 if(data.is_banned){
-showError('Your account has been banned');
+showError('Account banned');
 btn.disabled=false;
 btn.textContent='Login';
 return;
 }
-await supabase.from('users').update({last_login:new Date()}).eq('id',data.id);
 localStorage.setItem('userId',data.id);
 localStorage.setItem('username',data.username);
 localStorage.setItem('coins',data.coins);
 localStorage.setItem('isLoggedIn','true');
 window.location.href='lobby.html';
 }catch(err){
-showError('Login failed. Please try again.');
+console.error(err);
+showError('Login failed: '+err.message);
 btn.disabled=false;
 btn.textContent='Login';
 }
@@ -215,31 +217,24 @@ const password=document.getElementById('regPassword').value;
 const gender=document.getElementById('regGender').value;
 const age=parseInt(document.getElementById('regAge').value);
 try{
-const{data:existing}=await supabase
-.from('users')
-.select('username')
-.eq('username',username);
-if(existing&&existing.length>0){
+const{data:existing}=await supabase.from('users').select('username').eq('username',username).maybeSingle();
+if(existing){
 showError('Username already taken');
 btn.disabled=false;
 btn.textContent='Create Account';
 return;
 }
-const referralCode=Math.random().toString(36).substr(2,8).toUpperCase();
-const{data,error}=await supabase
-.from('users')
-.insert([{
+const{data,error}=await supabase.from('users').insert({
 username,
 email:email||null,
 password,
 gender,
 age,
 coins:500,
-referral_code:referralCode,
-created_at:new Date()
-}])
-.select();
+referral_code:Math.random().toString(36).substr(2,8).toUpperCase()
+}).select();
 if(error){
+console.error(error);
 showError('Registration failed: '+error.message);
 btn.disabled=false;
 btn.textContent='Create Account';
@@ -254,7 +249,8 @@ localStorage.setItem('isLoggedIn','true');
 window.location.href='lobby.html';
 },1500);
 }catch(err){
-showError('Registration failed. Please try again.');
+console.error(err);
+showError('Registration failed: '+err.message);
 btn.disabled=false;
 btn.textContent='Create Account';
 }
@@ -286,7 +282,7 @@ function showError(msg){
 const el=document.getElementById('error');
 el.textContent=msg;
 el.style.display='block';
-setTimeout(()=>el.style.display='none',5000);
+setTimeout(()=>el.style.display='none',6000);
 }
 
 function showSuccess(msg){
