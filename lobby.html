@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
 <title>Game Lobby - PlayingHours</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
@@ -16,167 +16,143 @@
 --primary:#667eea;
 --secondary:#764ba2;
 }
-[data-theme="dark"]{
---bg:#0f172a;
---card:#1e293b;
---border:rgba(255,255,255,.1);
---text:#fff;
---text-dim:rgba(255,255,255,.6);
-}
-[data-theme="ocean"]{
---bg:#0a1929;
---card:#1e3a5f;
---border:rgba(59,130,246,.2);
---text:#e0f2fe;
---text-dim:#7dd3fc;
---primary:#3b82f6;
---secondary:#0ea5e9;
-}
-[data-theme="sunset"]{
---bg:#1a0b0e;
---card:#3d1a1f;
---border:rgba(251,113,133,.2);
---text:#ffe4e6;
---text-dim:#fda4af;
---primary:#f43f5e;
---secondary:#fb923c;
-}
-[data-theme="forest"]{
---bg:#0a1f0a;
---card:#1a3a1a;
---border:rgba(34,197,94,.2);
---text:#dcfce7;
---text-dim:#86efac;
---primary:#10b981;
---secondary:#34d399;
-}
-body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);transition:background .3s,color .3s;margin:0}
+[data-theme="dark"]{--bg:#0f172a;--card:#1e293b;--border:rgba(255,255,255,.1);--text:#fff;--text-dim:rgba(255,255,255,.6)}
+[data-theme="ocean"]{--bg:#0a1929;--card:#1e3a5f;--border:rgba(59,130,246,.2);--text:#e0f2fe;--text-dim:#7dd3fc;--primary:#3b82f6;--secondary:#0ea5e9}
+[data-theme="sunset"]{--bg:#1a0b0e;--card:#3d1a1f;--border:rgba(251,113,133,.2);--text:#ffe4e6;--text-dim:#fda4af;--primary:#f43f5e;--secondary:#fb923c}
+[data-theme="forest"]{--bg:#0a1f0a;--card:#1a3a1a;--border:rgba(34,197,94,.2);--text:#dcfce7;--text-dim:#86efac;--primary:#10b981;--secondary:#34d399}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);transition:all .3s;font-size:14px}
 
 /* HEADER */
-.header{background:var(--card);border-bottom:2px solid var(--border);padding:.875rem 1.5rem;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.05)}
-.header-content{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:1rem}
-.header-left{display:flex;align-items:center;gap:1rem}
-.menu-btn{background:var(--card);border:2px solid var(--border);width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.3s;color:var(--text)}
+.header{background:var(--card);border-bottom:2px solid var(--border);padding:.75rem 1rem;position:sticky;top:0;z-index:100;box-shadow:0 2px 4px rgba(0,0,0,.05)}
+.header-content{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:.75rem}
+.header-left{display:flex;align-items:center;gap:.75rem}
+.menu-btn{background:transparent;border:2px solid var(--border);width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);font-size:1.125rem;transition:.3s}
 .menu-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
-.logo{display:flex;align-items:center;gap:.625rem;text-decoration:none}
-.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;color:#fff}
-.logo-text{font-size:1.125rem;font-weight:900;color:var(--text)}
-.header-center{flex:1;max-width:500px;position:relative}
-.search-input{width:100%;padding:.75rem 1rem .75rem 3rem;background:var(--bg);border:2px solid var(--border);border-radius:10px;color:var(--text);font-size:.9375rem;transition:.3s}
+.logo{display:flex;align-items:center;gap:.5rem;text-decoration:none}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.125rem;color:#fff}
+.logo-text{font-size:1rem;font-weight:800;color:var(--text)}
+.header-center{flex:1;max-width:400px;position:relative}
+.search-input{width:100%;padding:.625rem .875rem .625rem 2.5rem;background:var(--bg);border:2px solid var(--border);border-radius:8px;color:var(--text);font-size:.875rem;transition:.3s}
 .search-input:focus{outline:none;border-color:var(--primary)}
-.search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--text-dim)}
-.online-badge{position:absolute;right:1rem;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:.5rem;font-size:.8125rem;color:var(--text-dim);font-weight:600}
-.online-dot{width:8px;height:8px;background:#10b981;border-radius:50%;animation:pulse 2s infinite}
+.search-icon{position:absolute;left:.75rem;top:50%;transform:translateY(-50%);font-size:.875rem}
+.online-badge{position:absolute;right:.75rem;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:.375rem;font-size:.75rem;color:var(--text-dim);font-weight:600}
+.online-dot{width:6px;height:6px;background:#10b981;border-radius:50%;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
-.header-right{display:flex;align-items:center;gap:.75rem}
-.theme-btn{width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;transition:.3s}
-.theme-btn:hover{transform:scale(1.1)}
-.theme-btn.active{border-color:var(--primary);box-shadow:0 0 0 2px rgba(102,126,234,.2)}
+.header-right{display:flex;align-items:center;gap:.5rem}
+.profile-btn{width:36px;height:36px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:1rem;position:relative;transition:.3s}
+.profile-btn:hover{transform:scale(1.1)}
+.dropdown{position:absolute;top:calc(100% + .5rem);right:0;background:var(--card);border:2px solid var(--border);border-radius:10px;padding:.375rem;min-width:180px;display:none;box-shadow:0 8px 20px rgba(0,0,0,.1)}
+.dropdown.show{display:block}
+.dropdown-item{padding:.625rem .875rem;border-radius:6px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:.625rem;font-size:.875rem;color:var(--text)}
+.dropdown-item:hover{background:var(--bg)}
+
+/* SIDEBAR */
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:240px;background:var(--card);border-right:2px solid var(--border);padding:.875rem;transform:translateX(-100%);transition:.3s;z-index:200;box-shadow:4px 0 8px rgba(0,0,0,.1)}
+.sidebar.show{transform:translateX(0)}
+.sidebar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;padding:.375rem}
+.sidebar-title{font-size:1rem;font-weight:800}
+.close-sidebar{background:transparent;border:none;color:var(--text-dim);font-size:1.375rem;cursor:pointer;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:.3s}
+.close-sidebar:hover{background:var(--bg);color:var(--text)}
+.sidebar-nav{display:flex;flex-direction:column;gap:.375rem}
+.nav-item{padding:.75rem .875rem;border-radius:8px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:.625rem;font-weight:600;color:var(--text);text-decoration:none;font-size:.875rem}
+.nav-item:hover{background:var(--bg)}
+.nav-item.active{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff}
+.theme-selector{margin-top:1rem;padding:.875rem;background:var(--bg);border-radius:8px}
+.theme-selector-title{font-size:.75rem;font-weight:700;margin-bottom:.625rem;color:var(--text-dim);text-transform:uppercase}
+.theme-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem}
+.theme-option{width:100%;aspect-ratio:1;border-radius:6px;border:2px solid var(--border);cursor:pointer;transition:.3s}
+.theme-option:hover{transform:scale(1.05)}
+.theme-option.active{border-color:var(--primary);box-shadow:0 0 0 2px rgba(102,126,234,.2)}
 .theme-light{background:linear-gradient(135deg,#fff,#f1f5f9)}
 .theme-dark{background:linear-gradient(135deg,#0f172a,#1e293b)}
 .theme-ocean{background:linear-gradient(135deg,#0ea5e9,#3b82f6)}
 .theme-sunset{background:linear-gradient(135deg,#f43f5e,#fb923c)}
 .theme-forest{background:linear-gradient(135deg,#10b981,#34d399)}
-.coins-display{background:rgba(251,191,36,.15);border:2px solid rgba(251,191,36,.3);color:#f59e0b;padding:.5rem 1rem;border-radius:50px;font-weight:700;font-size:.875rem;display:flex;align-items:center;gap:.5rem}
-.profile-btn{width:40px;height:40px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:1.125rem;position:relative;transition:.3s}
-.profile-btn:hover{transform:scale(1.1)}
-.dropdown{position:absolute;top:calc(100% + .5rem);right:0;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:.5rem;min-width:200px;display:none;box-shadow:0 10px 30px rgba(0,0,0,.1)}
-.dropdown.show{display:block}
-.dropdown-item{padding:.75rem 1rem;border-radius:8px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:.75rem;font-size:.9375rem;color:var(--text)}
-.dropdown-item:hover{background:var(--bg)}
-
-/* SIDEBAR */
-.sidebar{position:fixed;left:0;top:0;bottom:0;width:260px;background:var(--card);border-right:2px solid var(--border);padding:1rem;transform:translateX(-100%);transition:.3s;z-index:200;box-shadow:4px 0 12px rgba(0,0,0,.1)}
-.sidebar.show{transform:translateX(0)}
-.sidebar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;padding:.5rem}
-.sidebar-title{font-size:1.125rem;font-weight:800;color:var(--text)}
-.close-sidebar{background:transparent;border:none;color:var(--text-dim);font-size:1.5rem;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;transition:.3s}
-.close-sidebar:hover{background:var(--bg);color:var(--text)}
-.sidebar-nav{display:flex;flex-direction:column;gap:.5rem}
-.nav-item{padding:.875rem 1rem;border-radius:10px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:.75rem;font-weight:600;color:var(--text);text-decoration:none}
-.nav-item:hover{background:var(--bg)}
-.nav-item.active{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff}
 
 /* MAIN */
-.main{max-width:1400px;margin:0 auto;padding:1.5rem 1rem 3rem}
+.main{max-width:1200px;margin:0 auto;padding:1rem .875rem 2.5rem}
 
-/* GAMES GRID */
-.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap;gap:1rem}
-.section-title{font-size:1.5rem;font-weight:800;color:var(--text)}
-.filter-chips{display:flex;gap:.5rem;flex-wrap:wrap}
-.chip{background:var(--card);border:2px solid var(--border);color:var(--text-dim);padding:.5rem 1rem;border-radius:50px;cursor:pointer;font-weight:600;font-size:.8125rem;transition:.3s}
+/* GAMES */
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:.75rem}
+.section-title{font-size:1.25rem;font-weight:800}
+.filter-chips{display:flex;gap:.375rem;flex-wrap:wrap}
+.chip{background:var(--card);border:2px solid var(--border);color:var(--text-dim);padding:.5rem .875rem;border-radius:50px;cursor:pointer;font-weight:600;font-size:.75rem;transition:.3s}
 .chip.active{background:linear-gradient(135deg,var(--primary),var(--secondary));border-color:transparent;color:#fff}
 .chip:hover{border-color:var(--primary)}
-.games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-bottom:2rem}
-.game-card{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:1.25rem;cursor:pointer;transition:.3s;position:relative}
-.game-card:hover{transform:translateY(-4px);border-color:var(--primary);box-shadow:0 12px 30px rgba(0,0,0,.1)}
-.game-top{display:flex;gap:1rem;margin-bottom:1rem}
-.game-icon{width:55px;height:55px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.75rem;flex-shrink:0}
-.game-info{flex:1}
-.game-name{font-size:1.125rem;font-weight:800;margin-bottom:.25rem;color:var(--text)}
-.game-players{font-size:.8125rem;color:var(--text-dim)}
-.game-badges{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
-.badge{background:var(--bg);border:1px solid var(--border);padding:.375rem .625rem;border-radius:6px;font-size:.75rem;font-weight:600;color:var(--text-dim);display:flex;align-items:center;gap:.375rem}
-.badge.online{background:rgba(16,185,129,.15);border-color:rgba(16,185,129,.3);color:#10b981}
-.play-btn{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;padding:.75rem;border-radius:10px;font-weight:700;cursor:pointer;width:100%;font-size:.875rem;transition:.3s}
-.play-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,126,234,.4)}
+.games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.875rem;margin-bottom:2rem}
+.game-card{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:1rem;cursor:pointer;transition:.3s}
+.game-card:hover{transform:translateY(-3px);border-color:var(--primary);box-shadow:0 8px 20px rgba(0,0,0,.08)}
+.game-top{display:flex;gap:.75rem;margin-bottom:.75rem}
+.game-icon{width:48px;height:48px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;flex-shrink:0}
+.game-info{flex:1;min-width:0}
+.game-name{font-size:1rem;font-weight:800;margin-bottom:.25rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.game-players{font-size:.75rem;color:var(--text-dim)}
+.game-badges{display:flex;gap:.375rem;flex-wrap:wrap;margin-bottom:.75rem}
+.badge{background:var(--bg);border:1px solid var(--border);padding:.25rem .5rem;border-radius:4px;font-size:.6875rem;font-weight:600;color:var(--text-dim);display:flex;align-items:center;gap:.25rem}
+.badge.online{background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.25);color:#10b981}
+.play-btn{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;padding:.625rem;border-radius:8px;font-weight:700;cursor:pointer;width:100%;font-size:.8125rem;transition:.3s}
+.play-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(102,126,234,.4)}
 
-/* TOAST NOTIFICATIONS */
-.toast{position:fixed;top:5rem;right:1rem;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:1rem 1.25rem;display:none;align-items:center;gap:1rem;box-shadow:0 10px 30px rgba(0,0,0,.15);z-index:1000;animation:slideIn .3s}
+/* TOAST */
+.toast{position:fixed;top:4.5rem;right:.875rem;background:var(--card);border:2px solid var(--border);border-radius:10px;padding:.875rem 1rem;display:none;align-items:center;gap:.75rem;box-shadow:0 8px 20px rgba(0,0,0,.12);z-index:1000;max-width:calc(100vw - 1.75rem);animation:slideIn .3s}
 .toast.show{display:flex}
 @keyframes slideIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
-.toast-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0}
+.toast-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
 .toast.success .toast-icon{background:#d1fae5;color:#10b981}
 .toast.error .toast-icon{background:#fee2e2;color:#ef4444}
 .toast.info .toast-icon{background:#dbeafe;color:#3b82f6}
-.toast-content{flex:1}
-.toast-title{font-weight:700;margin-bottom:.25rem;color:var(--text)}
-.toast-message{font-size:.875rem;color:var(--text-dim)}
-.toast-close{background:transparent;border:none;color:var(--text-dim);font-size:1.25rem;cursor:pointer;padding:0;width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:.2s}
-.toast-close:hover{background:var(--bg);color:var(--text)}
+.toast-content{flex:1;min-width:0}
+.toast-title{font-weight:700;font-size:.875rem;margin-bottom:.125rem}
+.toast-message{font-size:.75rem;color:var(--text-dim)}
+.toast-close{background:transparent;border:none;color:var(--text-dim);font-size:1.125rem;cursor:pointer;padding:0;width:20px;height:20px;flex-shrink:0}
 
 /* MODAL */
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:300;padding:1rem}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:300;padding:.875rem}
 .modal.show{display:flex}
-.modal-box{background:var(--card);border:2px solid var(--border);border-radius:20px;padding:2rem;max-width:500px;width:100%;position:relative;animation:modalIn .3s}
-@keyframes modalIn{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
-.modal-header{margin-bottom:1.5rem;text-align:center}
-.modal-header h2{font-size:1.75rem;font-weight:900;margin-bottom:.5rem;color:var(--text)}
-.modal-header p{color:var(--text-dim)}
-.close-modal{position:absolute;top:1rem;right:1rem;background:var(--bg);border:none;color:var(--text-dim);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.25rem;transition:.3s}
-.close-modal:hover{background:var(--border);color:var(--text);transform:rotate(90deg)}
-.modal-options{display:grid;gap:1rem;margin-bottom:1.5rem}
-.option{background:var(--bg);border:2px solid var(--border);padding:1.25rem;border-radius:12px;cursor:pointer;transition:.3s}
-.option:hover{border-color:var(--primary);transform:translateX(4px)}
-.option h3{font-size:1.125rem;font-weight:800;margin-bottom:.5rem;display:flex;align-items:center;gap:.75rem;color:var(--text)}
-.option p{font-size:.875rem;color:var(--text-dim)}
-.input-group{margin-bottom:1.5rem}
-.input-group label{display:block;margin-bottom:.5rem;font-weight:600;color:var(--text)}
-.input-group input{width:100%;padding:.875rem;background:var(--bg);border:2px solid var(--border);border-radius:10px;color:var(--text);font-size:1rem;font-weight:700;text-transform:uppercase;text-align:center;letter-spacing:3px;transition:.3s}
+.modal-box{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:1.5rem;max-width:450px;width:100%;position:relative;animation:modalIn .3s;max-height:90vh;overflow-y:auto}
+@keyframes modalIn{from{transform:scale(.95);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-header{margin-bottom:1.25rem;text-align:center}
+.modal-header h2{font-size:1.375rem;font-weight:900;margin-bottom:.375rem}
+.modal-header p{color:var(--text-dim);font-size:.875rem}
+.close-modal{position:absolute;top:1rem;right:1rem;background:var(--bg);border:none;color:var(--text-dim);width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:1.125rem;transition:.3s}
+.close-modal:hover{background:var(--border);transform:rotate(90deg)}
+.modal-options{display:grid;gap:.75rem;margin-bottom:1.25rem}
+.option{background:var(--bg);border:2px solid var(--border);padding:1rem;border-radius:10px;cursor:pointer;transition:.3s}
+.option:hover{border-color:var(--primary);transform:translateX(3px)}
+.option h3{font-size:1rem;font-weight:800;margin-bottom:.375rem;display:flex;align-items:center;gap:.625rem}
+.option p{font-size:.8125rem;color:var(--text-dim)}
+.input-group{margin-bottom:1.25rem}
+.input-group label{display:block;margin-bottom:.5rem;font-weight:600;font-size:.875rem}
+.input-group input{width:100%;padding:.75rem;background:var(--bg);border:2px solid var(--border);border-radius:8px;color:var(--text);font-size:.9375rem;font-weight:700;text-transform:uppercase;text-align:center;letter-spacing:2px;transition:.3s}
 .input-group input:focus{outline:none;border-color:var(--primary)}
-.modal-footer{display:flex;gap:1rem}
-.btn{padding:.875rem 1.5rem;border-radius:10px;font-weight:700;cursor:pointer;border:none;font-size:.9375rem;flex:1;transition:.3s}
+.modal-footer{display:flex;gap:.75rem}
+.btn{padding:.75rem 1.25rem;border-radius:8px;font-weight:700;cursor:pointer;border:none;font-size:.875rem;flex:1;transition:.3s}
 .btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff}
 .btn-primary:hover{transform:translateY(-2px)}
 .btn-secondary{background:var(--bg);color:var(--text);border:2px solid var(--border)}
 
 /* FOOTER */
-.footer{background:var(--card);border-top:2px solid var(--border);padding:1.5rem 1rem;text-align:center;margin-top:3rem}
-.footer-content{max-width:1400px;margin:0 auto;display:flex;justify-content:center;align-items:center;gap:2rem;flex-wrap:wrap}
-.footer-link{color:var(--text-dim);text-decoration:none;font-size:.875rem;font-weight:600;transition:.3s}
+.footer{background:var(--card);border-top:2px solid var(--border);padding:1rem;text-align:center;margin-top:2rem}
+.footer-content{display:flex;justify-content:center;align-items:center;gap:1.5rem;flex-wrap:wrap;font-size:.8125rem}
+.footer-link{color:var(--text-dim);text-decoration:none;font-weight:600;transition:.3s}
 .footer-link:hover{color:var(--primary)}
-.footer-text{color:var(--text-dim);font-size:.875rem}
+.footer-text{color:var(--text-dim)}
 
 /* RESPONSIVE */
 @media(max-width:768px){
 .header-center{display:none}
 .games-grid{grid-template-columns:1fr}
+.logo-text{display:none}
+.modal-box{padding:1.25rem}
+.toast{right:.5rem;left:.5rem}
+}
+@media(min-width:769px) and (max-width:1024px){
+.games-grid{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
 <body data-theme="light">
 
-<!-- HEADER -->
 <header class="header">
 <div class="header-content">
 <div class="header-left">
@@ -191,21 +167,15 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 <input type="text" class="search-input" placeholder="Search games..." id="searchInput" oninput="searchGames()">
 <div class="online-badge">
 <span class="online-dot"></span>
-<span id="onlineCount">—</span> online
+<span id="onlineCount">—</span>
 </div>
 </div>
 <div class="header-right">
-<button class="theme-btn theme-light active" onclick="setTheme('light')" title="Light"></button>
-<button class="theme-btn theme-dark" onclick="setTheme('dark')" title="Dark"></button>
-<button class="theme-btn theme-ocean" onclick="setTheme('ocean')" title="Ocean"></button>
-<button class="theme-btn theme-sunset" onclick="setTheme('sunset')" title="Sunset"></button>
-<button class="theme-btn theme-forest" onclick="setTheme('forest')" title="Forest"></button>
-<div class="coins-display">💰 <span id="userCoins">500</span></div>
 <div class="profile-btn" onclick="toggleDropdown()">
 👤
-<div class="dropdown" id="profileDropdown">
-<div class="dropdown-item" onclick="showToast('info','Coming Soon','Profile page under development')">👤 My Profile</div>
-<div class="dropdown-item" onclick="showToast('info','Coming Soon','Settings page under development')">⚙️ Settings</div>
+<div class="dropdown" id="dropdown">
+<div class="dropdown-item" onclick="showToast('info','Coming Soon','Profile page in development')">👤 Profile</div>
+<div class="dropdown-item" onclick="showToast('info','Coming Soon','Settings in development')">⚙️ Settings</div>
 <div class="dropdown-item" onclick="confirmLogout()">🚪 Logout</div>
 </div>
 </div>
@@ -213,7 +183,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 </div>
 </header>
 
-<!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
 <div class="sidebar-header">
 <div class="sidebar-title">Menu</div>
@@ -221,17 +190,26 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 </div>
 <nav class="sidebar-nav">
 <a href="lobby.html" class="nav-item active">🎮 Games</a>
-<a href="#" class="nav-item" onclick="showToast('info','Coming Soon','Profile page under development')">👤 My Profile</a>
+<a href="#" class="nav-item" onclick="showToast('info','Coming Soon','Profile in development')">👤 My Profile</a>
 <a href="#" class="nav-item" onclick="showToast('info','Coming Soon','Leaderboard coming soon')">🏆 Leaderboard</a>
 <a href="#" class="nav-item" onclick="showToast('info','Coming Soon','Tournaments coming soon')">🎯 Tournaments</a>
-<a href="#" class="nav-item" onclick="showToast('info','Coming Soon','Friends system coming soon')">👥 Friends</a>
+<a href="#" class="nav-item" onclick="showToast('info','Coming Soon','Friends coming soon')">👥 Friends</a>
 <a href="#" class="nav-item" onclick="showToast('info','Coming Soon','Shop coming soon')">🛒 Shop</a>
-<a href="#" class="nav-item" onclick="showToast('info','Coming Soon','Settings page under development')">⚙️ Settings</a>
+<a href="#" class="nav-item" onclick="showToast('info','Coming Soon','Settings in development')">⚙️ Settings</a>
 <a href="#" class="nav-item" onclick="confirmLogout()">🚪 Logout</a>
 </nav>
+<div class="theme-selector">
+<div class="theme-selector-title">🎨 Themes</div>
+<div class="theme-grid">
+<div class="theme-option theme-light active" onclick="setTheme('light')" title="Light"></div>
+<div class="theme-option theme-dark" onclick="setTheme('dark')" title="Dark"></div>
+<div class="theme-option theme-ocean" onclick="setTheme('ocean')" title="Ocean"></div>
+<div class="theme-option theme-sunset" onclick="setTheme('sunset')" title="Sunset"></div>
+<div class="theme-option theme-forest" onclick="setTheme('forest')" title="Forest"></div>
+</div>
+</div>
 </aside>
 
-<!-- TOAST -->
 <div class="toast" id="toast">
 <div class="toast-icon">✓</div>
 <div class="toast-content">
@@ -241,7 +219,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 <button class="toast-close" onclick="hideToast()">×</button>
 </div>
 
-<!-- MAIN -->
 <main class="main">
 
 <div class="section-header">
@@ -258,7 +235,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 
 </main>
 
-<!-- FOOTER -->
 <footer class="footer">
 <div class="footer-content">
 <a href="index.html" class="footer-link">🏠 Home</a>
@@ -266,7 +242,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 </div>
 </footer>
 
-<!-- MODALS -->
 <div class="modal" id="gameModeModal">
 <div class="modal-box">
 <button class="close-modal" onclick="closeModal()">×</button>
@@ -275,13 +250,13 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 <p>Choose how you want to play</p>
 </div>
 <div class="modal-options">
-<div class="option" onclick="quickPlay()">
-<h3>⚡ Quick Play</h3>
-<p>Join random match instantly</p>
+<div class="option" onclick="quickPlayMatch()">
+<h3>⚡ Quick Match</h3>
+<p>Auto-match with players waiting</p>
 </div>
-<div class="option" onclick="createRoom()">
+<div class="option" onclick="createPrivateRoom()">
 <h3>➕ Create Room</h3>
-<p>Start private room</p>
+<p>Private room with code</p>
 </div>
 <div class="option" onclick="showJoinModal()">
 <h3>🚪 Join Room</h3>
@@ -304,25 +279,17 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 </div>
 <div class="modal-footer">
 <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-<button class="btn btn-primary" onclick="joinRoom()">Join</button>
+<button class="btn btn-primary" onclick="joinRoomByCode()">Join</button>
 </div>
 </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// Check auth
-const user={
-username:localStorage.getItem('username')||'Player',
-coins:parseInt(localStorage.getItem('coins'))||0,
-isLoggedIn:localStorage.getItem('isLoggedIn')==='true'
-};
+const user={username:localStorage.getItem('username')||'Player',coins:parseInt(localStorage.getItem('coins'))||0,isLoggedIn:localStorage.getItem('isLoggedIn')==='true'};
 if(!user.isLoggedIn)location.href='auth.html';
 
-document.getElementById('userCoins').textContent=user.coins;
-
-// Supabase (paste your full key)
-const YOUR_KEY='PASTE_YOUR_FULL_SUPABASE_KEY_HERE';
+const YOUR_KEY='PASTE_YOUR_FULL_KEY_HERE';
 const db=window.supabase.createClient('https://chcepamgczwfguzroddn.supabase.co',YOUR_KEY);
 
 let currentGame='';
@@ -354,7 +321,7 @@ document.getElementById('gamesGrid').innerHTML=filtered.map(g=>`
 </div>
 </div>
 <div class="game-badges">
-<div class="badge online">🔥 ${Math.floor(Math.random()*200)+50} online</div>
+<div class="badge online">🔥 ${Math.floor(Math.random()*200)+50}</div>
 <div class="badge">⏱️ ${g.time}</div>
 </div>
 <button class="play-btn">▶ Play Now</button>
@@ -364,7 +331,7 @@ document.getElementById('gamesGrid').innerHTML=filtered.map(g=>`
 
 function setTheme(theme){
 document.body.setAttribute('data-theme',theme);
-document.querySelectorAll('.theme-btn').forEach(b=>b.classList.remove('active'));
+document.querySelectorAll('.theme-option').forEach(b=>b.classList.remove('active'));
 document.querySelector('.theme-'+theme).classList.add('active');
 localStorage.setItem('theme',theme);
 }
@@ -390,7 +357,7 @@ document.getElementById('gamesGrid').innerHTML=filtered.map(g=>`
 </div>
 </div>
 <div class="game-badges">
-<div class="badge online">🔥 ${Math.floor(Math.random()*200)+50} online</div>
+<div class="badge online">🔥 ${Math.floor(Math.random()*200)+50}</div>
 <div class="badge">⏱️ ${g.time}</div>
 </div>
 <button class="play-btn">▶ Play Now</button>
@@ -398,53 +365,33 @@ document.getElementById('gamesGrid').innerHTML=filtered.map(g=>`
 `).join('');
 }
 
-function toggleSidebar(){
-document.getElementById('sidebar').classList.toggle('show');
-}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('show')}
+function toggleDropdown(){document.getElementById('dropdown').classList.toggle('show')}
+function openGameModal(id,name){currentGame=id;document.getElementById('modalGameName').textContent=name;document.getElementById('gameModeModal').classList.add('show')}
+function closeModal(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'))}
+function showJoinModal(){closeModal();document.getElementById('joinModal').classList.add('show')}
 
-function toggleDropdown(){
-document.getElementById('profileDropdown').classList.toggle('show');
-}
-
-function openGameModal(id,name){
-currentGame=id;
-document.getElementById('modalGameName').textContent=name;
-document.getElementById('gameModeModal').classList.add('show');
-}
-
-function closeModal(){
-document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'));
-}
-
-function showJoinModal(){
+async function quickPlayMatch(){
+showToast('info','Searching','Finding players...');
 closeModal();
-document.getElementById('joinModal').classList.add('show');
+setTimeout(()=>showToast('success','Match Found','Joining game...'),2000);
 }
 
-async function quickPlay(){
+async function createPrivateRoom(){
 const code=Math.random().toString(36).substr(2,6).toUpperCase();
-showToast('success','Room Created',`Room code: ${code}`);
+showToast('success','Room Created',`Code: ${code}`);
 closeModal();
 }
 
-async function createRoom(){
-const code=Math.random().toString(36).substr(2,6).toUpperCase();
-showToast('success','Private Room',`Share code: ${code}`);
-closeModal();
-}
-
-function joinRoom(){
+function joinRoomByCode(){
 const code=document.getElementById('roomCode').value.toUpperCase().trim();
-if(code.length!==6)return showToast('error','Invalid Code','Enter 6 characters');
-showToast('success','Joining','Connecting to room...');
+if(code.length!==6)return showToast('error','Invalid','6 characters required');
+showToast('success','Joining',`Room: ${code}`);
 closeModal();
 }
 
 function confirmLogout(){
-if(confirm('Logout?')){
-localStorage.clear();
-location.href='index.html';
-}
+if(confirm('Logout?')){localStorage.clear();location.href='index.html'}
 }
 
 function showToast(type,title,message){
@@ -455,20 +402,13 @@ document.getElementById('toastMessage').textContent=message;
 setTimeout(hideToast,4000);
 }
 
-function hideToast(){
-document.getElementById('toast').classList.remove('show');
-}
+function hideToast(){document.getElementById('toast').classList.remove('show')}
 
 document.addEventListener('click',e=>{
-if(!e.target.closest('.profile-btn')){
-document.getElementById('profileDropdown').classList.remove('show');
-}
-if(!e.target.closest('.sidebar')&&!e.target.closest('.menu-btn')){
-document.getElementById('sidebar').classList.remove('show');
-}
+if(!e.target.closest('.profile-btn'))document.getElementById('dropdown').classList.remove('show');
+if(!e.target.closest('.sidebar')&&!e.target.closest('.menu-btn'))document.getElementById('sidebar').classList.remove('show');
 });
 
-// Init
 loadGames();
 document.getElementById('onlineCount').textContent=Math.floor(Math.random()*500)+300;
 const savedTheme=localStorage.getItem('theme')||'light';
