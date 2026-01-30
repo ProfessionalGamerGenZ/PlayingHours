@@ -4,101 +4,102 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Login - PlayingHours</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem}
-.auth-container{background:rgba(255,255,255,.1);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.2);border-radius:24px;padding:2.5rem;width:100%;max-width:450px;box-shadow:0 25px 70px rgba(0,0,0,.4)}
+.auth-box{background:rgba(255,255,255,.95);border-radius:24px;padding:2.5rem;width:100%;max-width:450px;box-shadow:0 25px 70px rgba(0,0,0,.4)}
 .logo{text-align:center;margin-bottom:2rem}
-.logo-icon{width:70px;height:70px;background:rgba(255,255,255,.2);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;margin:0 auto .75rem;border:2px solid rgba(255,255,255,.3)}
-.logo-text{font-size:2rem;font-weight:900;color:#fff}
-.tabs{display:flex;gap:.5rem;margin-bottom:2rem;background:rgba(0,0,0,.2);padding:.25rem;border-radius:12px}
-.tab{flex:1;padding:.875rem;background:transparent;border:none;color:rgba(255,255,255,.6);font-weight:700;border-radius:10px;cursor:pointer;transition:.3s}
-.tab.active{background:rgba(255,255,255,.25);color:#fff}
+.logo-icon{width:70px;height:70px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;margin:0 auto .75rem;color:#fff}
+.logo-text{font-size:2rem;font-weight:900;color:#1e293b}
+.tabs{display:flex;gap:.5rem;margin-bottom:2rem;background:#f1f5f9;padding:.25rem;border-radius:12px}
+.tab{flex:1;padding:.875rem;background:transparent;border:none;color:#64748b;font-weight:700;border-radius:10px;cursor:pointer;transition:.3s;font-size:1rem}
+.tab.active{background:#fff;color:#1e293b;box-shadow:0 2px 8px rgba(0,0,0,.1)}
 .form-content{display:none}
 .form-content.active{display:block}
 .form-group{margin-bottom:1.25rem}
-.form-group label{display:block;color:#fff;font-weight:700;margin-bottom:.5rem}
-.form-group input,.form-group select{width:100%;padding:1rem;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.25);border-radius:12px;color:#fff;font-size:1rem;font-weight:600}
-.form-group input::placeholder{color:rgba(255,255,255,.5)}
-.form-group input:focus,.form-group select:focus{outline:none;border-color:#fff;background:rgba(255,255,255,.2)}
-.form-group select option{background:#1e293b;color:#fff}
+.form-group label{display:block;color:#1e293b;font-weight:700;margin-bottom:.5rem;font-size:.9375rem}
+.form-group input,.form-group select{width:100%;padding:1rem;background:#f8fafc;border:2px solid #e2e8f0;border-radius:12px;color:#1e293b;font-size:1rem;font-weight:600;transition:.3s}
+.form-group input::placeholder{color:#94a3b8}
+.form-group input:focus,.form-group select:focus{outline:none;border-color:#667eea;background:#fff}
+.form-group select option{background:#fff;color:#1e293b}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .btn{width:100%;padding:1rem;border:none;border-radius:12px;font-weight:800;font-size:1rem;cursor:pointer;transition:.3s}
-.btn-primary{background:#fff;color:#667eea}
-.btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.4)}
+.btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;box-shadow:0 4px 12px rgba(102,126,234,.4)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(102,126,234,.6)}
 .btn-primary:disabled{opacity:.6;cursor:not-allowed;transform:none}
-.divider{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;color:rgba(255,255,255,.7);font-size:.9375rem;font-weight:600}
-.divider::before,.divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.25)}
-.btn-guest{background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.3)}
-.btn-guest:hover{background:rgba(255,255,255,.2)}
-.form-footer{text-align:center;margin-top:1.5rem;color:rgba(255,255,255,.9)}
-.form-footer a{color:#fff;font-weight:800;cursor:pointer;text-decoration:none}
+.divider{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;color:#64748b;font-size:.9375rem;font-weight:600}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:#e2e8f0}
+.btn-guest{background:#f1f5f9;color:#1e293b;border:2px solid #e2e8f0}
+.btn-guest:hover{background:#e2e8f0}
+.form-footer{text-align:center;margin-top:1.5rem;color:#64748b;font-size:.9375rem}
+.form-footer a{color:#667eea;font-weight:800;cursor:pointer;text-decoration:none}
+.form-footer a:hover{text-decoration:underline}
 .back-link{text-align:center;margin-top:1.5rem}
-.back-link a{color:rgba(255,255,255,.9);font-weight:700;text-decoration:none}
-.error,.success{padding:.875rem;border-radius:10px;margin-bottom:1.25rem;display:none;font-weight:600}
-.error{background:rgba(239,68,68,.25);color:#fca5a5;border:1px solid rgba(239,68,68,.4)}
-.success{background:rgba(16,185,129,.25);color:#6ee7b7;border:1px solid rgba(16,185,129,.4)}
+.back-link a{color:#64748b;font-weight:700;text-decoration:none;font-size:.9375rem}
+.back-link a:hover{color:#1e293b}
+.message{padding:.875rem;border-radius:10px;margin-bottom:1.25rem;display:none;font-weight:600;font-size:.9375rem}
+.error{background:#fee2e2;color:#dc2626;border:1px solid #fca5a5}
+.success{background:#d1fae5;color:#059669;border:1px solid #6ee7b7}
 .guest-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);align-items:center;justify-content:center;z-index:1000}
 .guest-modal.active{display:flex}
-.guest-modal-content{background:linear-gradient(135deg,#1e293b,#334155);padding:2.5rem;border-radius:24px;max-width:420px;width:90%;border:2px solid rgba(255,255,255,.15)}
-.guest-modal h3{font-size:1.75rem;margin-bottom:1.25rem;text-align:center;font-weight:900}
+.guest-modal-box{background:#fff;padding:2.5rem;border-radius:24px;max-width:420px;width:90%;box-shadow:0 25px 70px rgba(0,0,0,.5)}
+.guest-modal h3{font-size:1.75rem;margin-bottom:1.25rem;text-align:center;font-weight:900;color:#1e293b}
 @media(max-width:640px){.form-row{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<div class="auth-container">
+<div class="auth-box">
 <div class="logo">
 <div class="logo-icon">🎮</div>
 <div class="logo-text">PlayingHours</div>
 </div>
 
-<div id="error" class="error"></div>
-<div id="success" class="success"></div>
+<div id="message" class="message"></div>
 
 <div class="tabs">
-<button class="tab active" id="loginTab">Login</button>
-<button class="tab" id="registerTab">Register</button>
+<button class="tab active" data-tab="login">Login</button>
+<button class="tab" data-tab="register">Register</button>
 </div>
 
-<div class="form-content active" id="loginForm">
-<form id="loginFormEl">
+<div class="form-content active" id="login-form">
+<form id="login">
 <div class="form-group">
 <label>Username</label>
-<input type="text" id="loginUsername" placeholder="Enter username" required minlength="3">
+<input type="text" name="username" placeholder="Enter username" required minlength="3">
 </div>
 <div class="form-group">
 <label>Password</label>
-<input type="password" id="loginPassword" placeholder="Enter password" required minlength="6">
+<input type="password" name="password" placeholder="Enter password" required minlength="6">
 </div>
-<button type="submit" class="btn btn-primary" id="loginBtn">Login</button>
+<button type="submit" class="btn btn-primary">Login</button>
 </form>
 <div class="divider">OR</div>
-<button class="btn btn-guest" id="guestBtn">Continue as Guest</button>
+<button class="btn btn-guest" id="guest-btn">Continue as Guest</button>
 <div class="form-footer">
-Don't have an account? <a id="showRegisterLink">Sign up</a>
+Don't have an account? <a data-switch="register">Sign up</a>
 </div>
 </div>
 
-<div class="form-content" id="registerForm">
-<form id="registerFormEl">
+<div class="form-content" id="register-form">
+<form id="register">
 <div class="form-group">
 <label>Username</label>
-<input type="text" id="regUsername" placeholder="Choose username" required minlength="3" maxlength="20">
+<input type="text" name="username" placeholder="Choose username" required minlength="3" maxlength="20">
 </div>
 <div class="form-group">
 <label>Email (Optional)</label>
-<input type="email" id="regEmail" placeholder="your@email.com">
+<input type="email" name="email" placeholder="your@email.com">
 </div>
 <div class="form-group">
 <label>Password</label>
-<input type="password" id="regPassword" placeholder="Create password" required minlength="6">
+<input type="password" name="password" placeholder="Create password" required minlength="6">
 </div>
 <div class="form-row">
 <div class="form-group">
 <label>Gender</label>
-<select id="regGender" required>
+<select name="gender" required>
 <option value="">Select</option>
 <option value="male">Male</option>
 <option value="female">Female</option>
@@ -107,13 +108,13 @@ Don't have an account? <a id="showRegisterLink">Sign up</a>
 </div>
 <div class="form-group">
 <label>Age</label>
-<input type="number" id="regAge" placeholder="Age" required min="13" max="100">
+<input type="number" name="age" placeholder="Age" required min="13" max="100">
 </div>
 </div>
-<button type="submit" class="btn btn-primary" id="registerBtn">Create Account</button>
+<button type="submit" class="btn btn-primary">Create Account</button>
 </form>
 <div class="form-footer">
-Already have an account? <a id="showLoginLink">Login</a>
+Already have an account? <a data-switch="login">Login</a>
 </div>
 </div>
 
@@ -122,199 +123,141 @@ Already have an account? <a id="showLoginLink">Login</a>
 </div>
 </div>
 
-<div class="guest-modal" id="guestModal">
-<div class="guest-modal-content">
+<div class="guest-modal" id="guest-modal">
+<div class="guest-modal-box">
 <h3>Choose Username</h3>
 <div class="form-group">
 <label>Guest Username</label>
-<input type="text" id="guestUsername" placeholder="Enter username" maxlength="15">
+<input type="text" id="guest-username" placeholder="Enter username" maxlength="15">
 </div>
-<button class="btn btn-primary" id="guestContinueBtn">Continue</button>
-<button class="btn btn-guest" id="guestCancelBtn" style="margin-top:.75rem">Cancel</button>
+<button class="btn btn-primary" id="guest-continue">Continue</button>
+<button class="btn btn-guest" id="guest-cancel" style="margin-top:.75rem">Cancel</button>
 </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="config.js"></script>
 <script>
-// Supabase Configuration
-const SUPABASE_URL='https://chcepamgczwfguzroddn.supabase.co';
-const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoY2VwYW1nY3p3Zmd1enJvZGRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1NTQxODgsImV4cCI6MjA1NDEzMDE4OH0.ojtRcp7dUNGMlon33jkKuw_gYzkSLPM';
+const sb=window.supabase.createClient(SUPABASE_CONFIG.url,SUPABASE_CONFIG.key);
 
-let supabase;
-try{
-  supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-  console.log('✅ Supabase initialized');
-}catch(e){
-  console.error('❌ Supabase init failed:',e);
-  alert('Failed to connect to database. Please refresh the page.');
-}
-
-// Tab Switching
-document.getElementById('loginTab').addEventListener('click',()=>{
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.form-content').forEach(f=>f.classList.remove('active'));
-  document.getElementById('loginTab').classList.add('active');
-  document.getElementById('loginForm').classList.add('active');
-  hideMessages();
+// Tab switching
+document.querySelectorAll('.tab').forEach(tab=>{
+  tab.addEventListener('click',function(){
+    const target=this.dataset.tab;
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.form-content').forEach(f=>f.classList.remove('active'));
+    this.classList.add('active');
+    document.getElementById(target+'-form').classList.add('active');
+    hideMessage();
+  });
 });
 
-document.getElementById('registerTab').addEventListener('click',()=>{
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  document.querySelectorAll('.form-content').forEach(f=>f.classList.remove('active'));
-  document.getElementById('registerTab').classList.add('active');
-  document.getElementById('registerForm').classList.add('active');
-  hideMessages();
+document.querySelectorAll('[data-switch]').forEach(link=>{
+  link.addEventListener('click',function(){
+    const tab=this.dataset.switch;
+    document.querySelector(`[data-tab="${tab}"]`).click();
+  });
 });
 
-document.getElementById('showRegisterLink').addEventListener('click',()=>{
-  document.getElementById('registerTab').click();
-});
-
-document.getElementById('showLoginLink').addEventListener('click',()=>{
-  document.getElementById('loginTab').click();
-});
-
-// Login Form
-document.getElementById('loginFormEl').addEventListener('submit',async(e)=>{
+// Login
+document.getElementById('login').addEventListener('submit',async(e)=>{
   e.preventDefault();
-  const btn=document.getElementById('loginBtn');
+  const btn=e.target.querySelector('button');
+  const orig=btn.textContent;
   btn.disabled=true;
   btn.textContent='Logging in...';
-  const username=document.getElementById('loginUsername').value.trim();
-  const password=document.getElementById('loginPassword').value;
+  const data=new FormData(e.target);
   try{
-    console.log('Login attempt:',username);
-    const{data,error}=await supabase.from('users').select('*').eq('username',username).eq('password',password).maybeSingle();
-    console.log('Login response:',{data,error});
-    if(error){
-      showError('Error: '+error.message);
-      btn.disabled=false;
-      btn.textContent='Login';
-      return;
-    }
-    if(!data){
-      showError('Invalid username or password');
-      btn.disabled=false;
-      btn.textContent='Login';
-      return;
-    }
-    if(data.is_banned){
-      showError('Account banned');
-      btn.disabled=false;
-      btn.textContent='Login';
-      return;
-    }
-    localStorage.setItem('userId',data.id);
-    localStorage.setItem('username',data.username);
-    localStorage.setItem('coins',data.coins);
+    const{data:user,error}=await sb.from('users').select('*').eq('username',data.get('username')).eq('password',data.get('password')).maybeSingle();
+    if(error)throw new Error(error.message);
+    if(!user)throw new Error('Invalid username or password');
+    if(user.is_banned)throw new Error('Account banned');
+    localStorage.setItem('userId',user.id);
+    localStorage.setItem('username',user.username);
+    localStorage.setItem('coins',user.coins);
     localStorage.setItem('isLoggedIn','true');
-    console.log('✅ Login successful');
-    window.location.href='lobby.html';
+    location.href='lobby.html';
   }catch(err){
-    console.error('Login error:',err);
-    showError('Login failed: '+err.message);
+    showError(err.message);
     btn.disabled=false;
-    btn.textContent='Login';
+    btn.textContent=orig;
   }
 });
 
-// Register Form
-document.getElementById('registerFormEl').addEventListener('submit',async(e)=>{
+// Register
+document.getElementById('register').addEventListener('submit',async(e)=>{
   e.preventDefault();
-  const btn=document.getElementById('registerBtn');
+  const btn=e.target.querySelector('button');
+  const orig=btn.textContent;
   btn.disabled=true;
   btn.textContent='Creating...';
-  const username=document.getElementById('regUsername').value.trim();
-  const email=document.getElementById('regEmail').value.trim();
-  const password=document.getElementById('regPassword').value;
-  const gender=document.getElementById('regGender').value;
-  const age=parseInt(document.getElementById('regAge').value);
+  const data=new FormData(e.target);
   try{
-    console.log('Registration attempt:',username);
-    const{data:existing}=await supabase.from('users').select('username').eq('username',username).maybeSingle();
-    if(existing){
-      showError('Username already taken');
-      btn.disabled=false;
-      btn.textContent='Create Account';
-      return;
-    }
-    const userData={
-      username,
-      password,
-      email:email||null,
-      gender,
-      age,
+    const{data:existing}=await sb.from('users').select('username').eq('username',data.get('username')).maybeSingle();
+    if(existing)throw new Error('Username already taken');
+    const{data:user,error}=await sb.from('users').insert({
+      username:data.get('username'),
+      password:data.get('password'),
+      email:data.get('email')||null,
+      gender:data.get('gender'),
+      age:parseInt(data.get('age')),
       coins:500,
       gems:0,
       referral_code:Math.random().toString(36).substr(2,8).toUpperCase()
-    };
-    console.log('Inserting user...');
-    const{data,error}=await supabase.from('users').insert(userData).select();
-    console.log('Registration response:',{data,error});
-    if(error){
-      console.error('Registration error:',error);
-      showError('Registration failed: '+error.message);
-      btn.disabled=false;
-      btn.textContent='Create Account';
-      return;
-    }
-    showSuccess('Account created! Logging in...');
+    }).select();
+    if(error)throw new Error(error.message);
+    showSuccess('Account created! Redirecting...');
     setTimeout(()=>{
-      localStorage.setItem('userId',data[0].id);
-      localStorage.setItem('username',username);
+      localStorage.setItem('userId',user[0].id);
+      localStorage.setItem('username',user[0].username);
       localStorage.setItem('coins','500');
       localStorage.setItem('isLoggedIn','true');
-      console.log('✅ Registration successful');
-      window.location.href='lobby.html';
+      location.href='lobby.html';
     },1500);
   }catch(err){
-    console.error('Registration exception:',err);
-    showError('Registration failed: '+err.message);
+    showError(err.message);
     btn.disabled=false;
-    btn.textContent='Create Account';
+    btn.textContent=orig;
   }
 });
 
-// Guest Login
-document.getElementById('guestBtn').addEventListener('click',()=>{
-  document.getElementById('guestModal').classList.add('active');
-  document.getElementById('guestUsername').value='Guest'+Math.floor(Math.random()*9999);
+// Guest
+document.getElementById('guest-btn').addEventListener('click',()=>{
+  document.getElementById('guest-modal').classList.add('active');
+  document.getElementById('guest-username').value='Guest'+Math.floor(Math.random()*9999);
 });
 
-document.getElementById('guestCancelBtn').addEventListener('click',()=>{
-  document.getElementById('guestModal').classList.remove('active');
+document.getElementById('guest-cancel').addEventListener('click',()=>{
+  document.getElementById('guest-modal').classList.remove('active');
 });
 
-document.getElementById('guestContinueBtn').addEventListener('click',()=>{
-  const username=document.getElementById('guestUsername').value.trim();
-  if(username.length<3){
-    alert('Username must be at least 3 characters');
-    return;
-  }
+document.getElementById('guest-continue').addEventListener('click',()=>{
+  const username=document.getElementById('guest-username').value.trim();
+  if(username.length<3)return alert('Username must be at least 3 characters');
   localStorage.setItem('username',username);
   localStorage.setItem('coins','100');
   localStorage.setItem('isGuest','true');
   localStorage.setItem('isLoggedIn','true');
-  console.log('✅ Guest login successful');
-  window.location.href='lobby.html';
+  location.href='lobby.html';
 });
 
 function showError(msg){
-  const el=document.getElementById('error');
+  const el=document.getElementById('message');
+  el.className='message error';
   el.textContent=msg;
   el.style.display='block';
-  setTimeout(()=>el.style.display='none',6000);
+  setTimeout(()=>el.style.display='none',5000);
 }
 
 function showSuccess(msg){
-  const el=document.getElementById('success');
+  const el=document.getElementById('message');
+  el.className='message success';
   el.textContent=msg;
   el.style.display='block';
 }
 
-function hideMessages(){
-  document.getElementById('error').style.display='none';
-  document.getElementById('success').style.display='none';
+function hideMessage(){
+  document.getElementById('message').style.display='none';
 }
 </script>
 </body>
