@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>Tic Tac Toe - PlayingHours</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+--bg:#f8fafc;
+--card:#fff;
+--border:#e2e8f0;
+--text:#1e293b;
+--text-dim:#64748b;
+--primary:#667eea;
+--secondary:#764ba2;
+--x-color:#3b82f6;
+--o-color:#f43f5e;
+}
+[data-theme="dark"]{--bg:#0f172a;--card:#1e293b;--border:rgba(255,255,255,.1);--text:#fff;--text-dim:rgba(255,255,255,.6)}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column;font-size:14px}
+
+/* HEADER */
+.header{background:var(--card);border-bottom:2px solid var(--border);padding:.875rem 1rem;box-shadow:0 2px 4px rgba(0,0,0,.05)}
+.header-content{max-width:800px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.back-btn{background:transparent;border:2px solid var(--border);color:var(--text);padding:.5rem 1rem;border-radius:8px;text-decoration:none;font-weight:700;font-size:.875rem;display:flex;align-items:center;gap:.5rem;transition:.3s}
+.back-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+.game-title{font-size:1.125rem;font-weight:900;color:var(--text)}
+.room-code{background:rgba(102,126,234,.15);color:var(--primary);padding:.5rem 1rem;border-radius:8px;font-weight:800;font-size:.875rem}
+
+/* GAME CONTAINER */
+.game-container{flex:1;display:flex;flex-direction:column;max-width:800px;width:100%;margin:0 auto;padding:1rem}
+
+/* STATUS BAR */
+.status-bar{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:1rem;margin-bottom:1rem;text-align:center}
+.turn-indicator{font-size:1.125rem;font-weight:800;margin-bottom:.5rem}
+.turn-indicator .symbol{font-size:1.5rem;display:inline-block;vertical-align:middle;margin:0 .5rem}
+.turn-indicator .symbol.x{color:var(--x-color)}
+.turn-indicator .symbol.o{color:var(--o-color)}
+.status-message{font-size:.875rem;color:var(--text-dim)}
+
+/* PLAYERS */
+.players{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.player{background:var(--card);border:2px solid var(--border);border-radius:12px;padding:1rem;text-align:center;transition:.3s}
+.player.active{border-color:var(--primary);box-shadow:0 0 0 3px rgba(102,126,234,.2)}
+.player-symbol{width:48px;height:48px;margin:0 auto .5rem;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.75rem;font-weight:900}
+.player-symbol.x{background:rgba(59,130,246,.15);color:var(--x-color)}
+.player-symbol.o{background:rgba(244,63,94,.15);color:var(--o-color)}
+.player-name{font-weight:700;font-size:.9375rem;margin-bottom:.25rem}
+.player-status{font-size:.75rem;color:var(--text-dim)}
+
+/* BOARD */
+.board-container{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:1rem;margin-bottom:1rem}
+.board{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:400px;margin:0 auto;aspect-ratio:1}
+.cell{background:var(--bg);border:3px solid var(--border);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:clamp(2rem,8vw,3.5rem);font-weight:900;cursor:pointer;transition:.3s;position:relative}
+.cell:hover:not(.filled){background:rgba(102,126,234,.08);border-color:var(--primary)}
+.cell.filled{cursor:not-allowed}
+.cell.x{color:var(--x-color);background:rgba(59,130,246,.08)}
+.cell.o{color:var(--o-color);background:rgba(244,63,94,.08)}
+.cell.winner{animation:winPulse .6s ease-in-out}
+@keyframes winPulse{0%,100%{transform:scale(1)}50%{transform:scale(1.15)}}
+
+/* CONTROLS */
+.controls{display:flex;gap:.75rem;margin-bottom:1rem}
+.btn{flex:1;padding:.875rem;border:none;border-radius:10px;font-weight:800;font-size:.9375rem;cursor:pointer;transition:.3s;display:flex;align-items:center;justify-content:center;gap:.5rem}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,126,234,.4)}
+.btn-secondary{background:var(--card);color:var(--text);border:2px solid var(--border)}
+.btn-secondary:hover{background:var(--bg)}
+
+/* WINNER MODAL */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.85);display:none;align-items:center;justify-content:center;z-index:1000;padding:1rem}
+.modal.show{display:flex;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal-box{background:var(--card);border:2px solid var(--border);border-radius:20px;padding:2rem;max-width:400px;width:100%;text-align:center;animation:slideUp .3s}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0}to{transform:translateY(0);opacity:1}}
+.modal-icon{width:80px;height:80px;margin:0 auto 1rem;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2.5rem}
+.modal-icon.win{background:linear-gradient(135deg,#10b981,#34d399);color:#fff}
+.modal-icon.draw{background:linear-gradient(135deg,#f59e0b,#fbbf24);color:#fff}
+.modal-title{font-size:1.75rem;font-weight:900;margin-bottom:.5rem}
+.modal-subtitle{font-size:1rem;color:var(--text-dim);margin-bottom:1.5rem}
+.modal-stats{background:var(--bg);border-radius:10px;padding:1rem;margin-bottom:1.5rem}
+.stat-row{display:flex;justify-content:space-between;padding:.5rem 0;border-bottom:1px solid var(--border)}
+.stat-row:last-child{border:none}
+.stat-label{color:var(--text-dim);font-size:.875rem}
+.stat-value{font-weight:800}
+
+/* TOAST */
+.toast{position:fixed;top:5rem;right:1rem;background:var(--card);border:2px solid var(--border);border-radius:10px;padding:.875rem 1rem;display:none;align-items:center;gap:.75rem;box-shadow:0 10px 30px rgba(0,0,0,.15);z-index:1001;max-width:calc(100vw - 2rem);animation:slideIn .3s}
+.toast.show{display:flex}
+@keyframes slideIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
+.toast-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.toast.success .toast-icon{background:#d1fae5;color:#10b981}
+.toast.error .toast-icon{background:#fee2e2;color:#ef4444}
+.toast.info .toast-icon{background:#dbeafe;color:#3b82f6}
+.toast-content{flex:1}
+.toast-title{font-weight:700;font-size:.875rem;margin-bottom:.125rem}
+.toast-message{font-size:.75rem;color:var(--text-dim)}
+.toast-close{background:transparent;border:none;color:var(--text-dim);font-size:1.125rem;cursor:pointer;padding:0;width:20px;height:20px}
+
+@media(max-width:600px){
+.board{gap:6px}
+.cell{font-size:2.5rem}
+.controls{flex-direction:column}
+}
+</style>
+</head>
+<body data-theme="light">
+
+<header class="header">
+<div class="header-content">
+<a href="../../lobby.html" class="back-btn">
+← Back
+</a>
+<div class="game-title">❌ Tic Tac Toe</div>
+<div class="room-code" id="roomCode">—</div>
+</div>
+</header>
+
+<div class="game-container">
+
+<div class="status-bar">
+<div class="turn-indicator" id="turnIndicator">
+<span class="symbol x">✕</span> Player 1's Turn
+</div>
+<div class="status-message" id="statusMessage">Waiting for opponent...</div>
+</div>
+
+<div class="players">
+<div class="player active" id="player1">
+<div class="player-symbol x">✕</div>
+<div class="player-name" id="player1Name">Player 1</div>
+<div class="player-status">You</div>
+</div>
+<div class="player" id="player2">
+<div class="player-symbol o">○</div>
+<div class="player-name" id="player2Name">Waiting...</div>
+<div class="player-status">Opponent</div>
+</div>
+</div>
+
+<div class="board-container">
+<div class="board" id="board">
+<div class="cell" data-index="0"></div>
+<div class="cell" data-index="1"></div>
+<div class="cell" data-index="2"></div>
+<div class="cell" data-index="3"></div>
+<div class="cell" data-index="4"></div>
+<div class="cell" data-index="5"></div>
+<div class="cell" data-index="6"></div>
+<div class="cell" data-index="7"></div>
+<div class="cell" data-index="8"></div>
+</div>
+</div>
+
+<div class="controls">
+<button class="btn btn-primary" onclick="resetGame()">🔄 New Game</button>
+<button class="btn btn-secondary" onclick="leaveGame()">🚪 Leave</button>
+</div>
+
+</div>
+
+<div class="toast" id="toast">
+<div class="toast-icon">✓</div>
+<div class="toast-content">
+<div class="toast-title" id="toastTitle">Success</div>
+<div class="toast-message" id="toastMessage">Action completed</div>
+</div>
+<button class="toast-close" onclick="hideToast()">×</button>
+</div>
+
+<div class="modal" id="winnerModal">
+<div class="modal-box">
+<div class="modal-icon win" id="modalIcon">🏆</div>
+<div class="modal-title" id="modalTitle">Player 1 Wins!</div>
+<div class="modal-subtitle" id="modalSubtitle">Congratulations!</div>
+<div class="modal-stats">
+<div class="stat-row">
+<span class="stat-label">Winner</span>
+<span class="stat-value" id="winnerName">Player 1</span>
+</div>
+<div class="stat-row">
+<span class="stat-label">Total Moves</span>
+<span class="stat-value" id="totalMoves">5</span>
+</div>
+<div class="stat-row">
+<span class="stat-label">Duration</span>
+<span class="stat-value" id="gameDuration">1:23</span>
+</div>
+</div>
+<div class="controls">
+<button class="btn btn-primary" onclick="playAgain()">▶ Play Again</button>
+<button class="btn btn-secondary" onclick="backToLobby()">🏠 Lobby</button>
+</div>
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="tictactoe-logic.js"></script>
+</body>
+</html>
