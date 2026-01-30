@@ -22,7 +22,6 @@
 [data-theme="forest"]{--bg:#0a1f0a;--card:#1a3a1a;--border:rgba(34,197,94,.2);--text:#dcfce7;--text-dim:#86efac;--primary:#10b981;--secondary:#34d399}
 body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);transition:all .3s;font-size:14px}
 
-/* HEADER */
 .header{background:var(--card);border-bottom:2px solid var(--border);padding:.75rem 1rem;position:sticky;top:0;z-index:100;box-shadow:0 2px 4px rgba(0,0,0,.05)}
 .header-content{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:.75rem}
 .header-left{display:flex;align-items:center;gap:.75rem}
@@ -46,7 +45,11 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 .dropdown-item{padding:.625rem .875rem;border-radius:6px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:.625rem;font-size:.875rem;color:var(--text)}
 .dropdown-item:hover{background:var(--bg)}
 
-/* SIDEBAR */
+.mobile-search{display:none;padding:.75rem 1rem;background:var(--card);border-bottom:2px solid var(--border)}
+.mobile-search .search-input{width:100%;padding:.625rem .875rem .625rem 2.5rem}
+.mobile-search .search-icon{position:absolute;left:1.75rem;top:50%}
+.mobile-search-wrapper{position:relative}
+
 .sidebar{position:fixed;left:0;top:0;bottom:0;width:240px;background:var(--card);border-right:2px solid var(--border);padding:.875rem;transform:translateX(-100%);transition:.3s;z-index:200;box-shadow:4px 0 8px rgba(0,0,0,.1)}
 .sidebar.show{transform:translateX(0)}
 .sidebar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;padding:.375rem}
@@ -69,10 +72,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 .theme-sunset{background:linear-gradient(135deg,#f43f5e,#fb923c)}
 .theme-forest{background:linear-gradient(135deg,#10b981,#34d399)}
 
-/* MAIN */
 .main{max-width:1200px;margin:0 auto;padding:1rem .875rem 2.5rem}
-
-/* GAMES */
 .section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:.75rem}
 .section-title{font-size:1.25rem;font-weight:800}
 .filter-chips{display:flex;gap:.375rem;flex-wrap:wrap}
@@ -93,7 +93,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 .play-btn{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;padding:.625rem;border-radius:8px;font-weight:700;cursor:pointer;width:100%;font-size:.8125rem;transition:.3s}
 .play-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(102,126,234,.4)}
 
-/* TOAST */
 .toast{position:fixed;top:4.5rem;right:.875rem;background:var(--card);border:2px solid var(--border);border-radius:10px;padding:.875rem 1rem;display:none;align-items:center;gap:.75rem;box-shadow:0 8px 20px rgba(0,0,0,.12);z-index:1000;max-width:calc(100vw - 1.75rem);animation:slideIn .3s}
 .toast.show{display:flex}
 @keyframes slideIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
@@ -106,7 +105,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 .toast-message{font-size:.75rem;color:var(--text-dim)}
 .toast-close{background:transparent;border:none;color:var(--text-dim);font-size:1.125rem;cursor:pointer;padding:0;width:20px;height:20px;flex-shrink:0}
 
-/* MODAL */
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:300;padding:.875rem}
 .modal.show{display:flex}
 .modal-box{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:1.5rem;max-width:450px;width:100%;position:relative;animation:modalIn .3s;max-height:90vh;overflow-y:auto}
@@ -131,20 +129,19 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 .btn-primary:hover{transform:translateY(-2px)}
 .btn-secondary{background:var(--bg);color:var(--text);border:2px solid var(--border)}
 
-/* FOOTER */
 .footer{background:var(--card);border-top:2px solid var(--border);padding:1rem;text-align:center;margin-top:2rem}
 .footer-content{display:flex;justify-content:center;align-items:center;gap:1.5rem;flex-wrap:wrap;font-size:.8125rem}
 .footer-link{color:var(--text-dim);text-decoration:none;font-weight:600;transition:.3s}
 .footer-link:hover{color:var(--primary)}
 .footer-text{color:var(--text-dim)}
 
-/* RESPONSIVE */
 @media(max-width:768px){
 .header-center{display:none}
+.mobile-search{display:block}
 .games-grid{grid-template-columns:1fr}
 .logo-text{display:none}
 .modal-box{padding:1.25rem}
-.toast{right:.5rem;left:.5rem}
+.toast{right:.5rem;left:.5rem;top:7.5rem}
 }
 @media(min-width:769px) and (max-width:1024px){
 .games-grid{grid-template-columns:repeat(2,1fr)}
@@ -164,7 +161,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 </div>
 <div class="header-center">
 <span class="search-icon">🔍</span>
-<input type="text" class="search-input" placeholder="Search games..." id="searchInput" oninput="searchGames()">
+<input type="text" class="search-input" placeholder="Search games..." oninput="searchGames(this.value)">
 <div class="online-badge">
 <span class="online-dot"></span>
 <span id="onlineCount">—</span>
@@ -174,7 +171,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 <div class="profile-btn" onclick="toggleDropdown()">
 👤
 <div class="dropdown" id="dropdown">
-<div class="dropdown-item" onclick="showToast('info','Coming Soon','Profile page in development')">👤 Profile</div>
+<div class="dropdown-item" onclick="showToast('info','Coming Soon','Profile in development')">👤 Profile</div>
 <div class="dropdown-item" onclick="showToast('info','Coming Soon','Settings in development')">⚙️ Settings</div>
 <div class="dropdown-item" onclick="confirmLogout()">🚪 Logout</div>
 </div>
@@ -182,6 +179,13 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 </div>
 </div>
 </header>
+
+<div class="mobile-search">
+<div class="mobile-search-wrapper">
+<span class="search-icon">🔍</span>
+<input type="text" class="search-input" placeholder="Search games..." oninput="searchGames(this.value)">
+</div>
+</div>
 
 <aside class="sidebar" id="sidebar">
 <div class="sidebar-header">
@@ -220,7 +224,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 </div>
 
 <main class="main">
-
 <div class="section-header">
 <h2 class="section-title">🎮 All Games</h2>
 <div class="filter-chips">
@@ -230,9 +233,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 <div class="chip" data-filter="trivia">Trivia</div>
 </div>
 </div>
-
 <div class="games-grid" id="gamesGrid"></div>
-
 </main>
 
 <footer class="footer">
@@ -252,7 +253,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 <div class="modal-options">
 <div class="option" onclick="quickPlayMatch()">
 <h3>⚡ Quick Match</h3>
-<p>Auto-match with players waiting</p>
+<p>Auto-match with waiting players</p>
 </div>
 <div class="option" onclick="createPrivateRoom()">
 <h3>➕ Create Room</h3>
@@ -289,10 +290,11 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 const user={username:localStorage.getItem('username')||'Player',coins:parseInt(localStorage.getItem('coins'))||0,isLoggedIn:localStorage.getItem('isLoggedIn')==='true'};
 if(!user.isLoggedIn)location.href='auth.html';
 
-const YOUR_KEY='PASTE_YOUR_FULL_KEY_HERE';
+const YOUR_KEY='PASTE_YOUR_FULL_SUPABASE_KEY_HERE';
 const db=window.supabase.createClient('https://chcepamgczwfguzroddn.supabase.co',YOUR_KEY);
 
 let currentGame='';
+let allGames=[];
 const games=[
 {id:'ludo',name:'Ludo King',icon:'🎲',players:'2-4',time:'15-30m',category:'board'},
 {id:'scribble',name:'Scribble.io',icon:'🎨',players:'4-12',time:'10-20m',category:'puzzle'},
@@ -309,8 +311,23 @@ const games=[
 {id:'puzzle',name:'Puzzle Slider',icon:'🧩',players:'1-4',time:'5-15m',category:'puzzle'}
 ];
 
-function loadGames(filter='all'){
-const filtered=filter==='all'?games:games.filter(g=>g.category===filter);
+async function loadGames(filter='all'){
+try{
+const{data:rooms}=await db.from('rooms').select('game_type,status').eq('status','waiting');
+const{count:totalUsers}=await db.from('users').select('*',{count:'exact',head:true});
+const roomCounts={};
+rooms?.forEach(r=>roomCounts[r.game_type]=(roomCounts[r.game_type]||0)+1);
+allGames=games.map(g=>({...g,rooms:roomCounts[g.id]||0}));
+document.getElementById('onlineCount').textContent=(totalUsers||0)+' online';
+}catch(e){
+allGames=games.map(g=>({...g,rooms:0}));
+document.getElementById('onlineCount').textContent='Offline';
+}
+renderGames(filter);
+}
+
+function renderGames(filter='all'){
+const filtered=filter==='all'?allGames:allGames.filter(g=>g.category===filter);
 document.getElementById('gamesGrid').innerHTML=filtered.map(g=>`
 <div class="game-card" onclick="openGameModal('${g.id}','${g.name}')">
 <div class="game-top">
@@ -321,7 +338,7 @@ document.getElementById('gamesGrid').innerHTML=filtered.map(g=>`
 </div>
 </div>
 <div class="game-badges">
-<div class="badge online">🔥 ${Math.floor(Math.random()*200)+50}</div>
+<div class="badge online">🚪 ${g.rooms} rooms</div>
 <div class="badge">⏱️ ${g.time}</div>
 </div>
 <button class="play-btn">▶ Play Now</button>
@@ -340,13 +357,12 @@ document.querySelectorAll('.chip').forEach(chip=>{
 chip.addEventListener('click',function(){
 document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
 this.classList.add('active');
-loadGames(this.dataset.filter);
+renderGames(this.dataset.filter);
 });
 });
 
-function searchGames(){
-const query=document.getElementById('searchInput').value.toLowerCase();
-const filtered=games.filter(g=>g.name.toLowerCase().includes(query));
+function searchGames(query){
+const filtered=allGames.filter(g=>g.name.toLowerCase().includes(query.toLowerCase()));
 document.getElementById('gamesGrid').innerHTML=filtered.map(g=>`
 <div class="game-card" onclick="openGameModal('${g.id}','${g.name}')">
 <div class="game-top">
@@ -357,7 +373,7 @@ document.getElementById('gamesGrid').innerHTML=filtered.map(g=>`
 </div>
 </div>
 <div class="game-badges">
-<div class="badge online">🔥 ${Math.floor(Math.random()*200)+50}</div>
+<div class="badge online">🚪 ${g.rooms} rooms</div>
 <div class="badge">⏱️ ${g.time}</div>
 </div>
 <button class="play-btn">▶ Play Now</button>
@@ -372,21 +388,46 @@ function closeModal(){document.querySelectorAll('.modal').forEach(m=>m.classList
 function showJoinModal(){closeModal();document.getElementById('joinModal').classList.add('show')}
 
 async function quickPlayMatch(){
-showToast('info','Searching','Finding players...');
+try{
+const{data:room}=await db.from('rooms').select('*').eq('game_type',currentGame).eq('status','waiting').lt('player_count',4).maybeSingle();
+if(room){
+showToast('success','Match Found',`Joining room ${room.code}`);
+}else{
+const code=Math.random().toString(36).substr(2,6).toUpperCase();
+await db.from('rooms').insert({code,game_type:currentGame,host_id:user.id||'guest',players:[],player_count:1,status:'waiting'});
+showToast('info','Searching','Waiting for players...');
+}
+}catch(e){
+showToast('error','Error','Failed to find match');
+}
 closeModal();
-setTimeout(()=>showToast('success','Match Found','Joining game...'),2000);
 }
 
 async function createPrivateRoom(){
+try{
+const code=Math.random().toString(36).substr(2,6).toUpperCase();
+await db.from('rooms').insert({code,game_type:currentGame,host_id:user.id||'guest',players:[],player_count:1,is_private:true,status:'waiting'});
+showToast('success','Room Created',`Code: ${code}`);
+}catch(e){
 const code=Math.random().toString(36).substr(2,6).toUpperCase();
 showToast('success','Room Created',`Code: ${code}`);
+}
 closeModal();
 }
 
-function joinRoomByCode(){
+async function joinRoomByCode(){
 const code=document.getElementById('roomCode').value.toUpperCase().trim();
 if(code.length!==6)return showToast('error','Invalid','6 characters required');
+try{
+const{data:room}=await db.from('rooms').select('*').eq('code',code).single();
+if(room){
 showToast('success','Joining',`Room: ${code}`);
+}else{
+showToast('error','Not Found','Invalid room code');
+}
+}catch(e){
+showToast('error','Not Found','Invalid room code');
+}
 closeModal();
 }
 
@@ -410,9 +451,9 @@ if(!e.target.closest('.sidebar')&&!e.target.closest('.menu-btn'))document.getEle
 });
 
 loadGames();
-document.getElementById('onlineCount').textContent=Math.floor(Math.random()*500)+300;
 const savedTheme=localStorage.getItem('theme')||'light';
 setTheme(savedTheme);
+setInterval(loadGames,30000);
 </script>
 </body>
 </html>
