@@ -13,37 +13,34 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#667eea,
 .logo-icon{width:70px;height:70px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;margin:0 auto .75rem;color:#fff}
 .logo-text{font-size:2rem;font-weight:900;color:#1e293b}
 .tabs{display:flex;gap:.5rem;margin-bottom:2rem;background:#f1f5f9;padding:.25rem;border-radius:12px}
-.tab{flex:1;padding:.875rem;background:transparent;border:none;color:#64748b;font-weight:700;border-radius:10px;cursor:pointer;transition:.3s;font-size:1rem}
+.tab{flex:1;padding:.875rem;background:transparent;border:none;color:#64748b;font-weight:700;border-radius:10px;cursor:pointer;transition:.3s}
 .tab.active{background:#fff;color:#1e293b;box-shadow:0 2px 8px rgba(0,0,0,.1)}
 .form-content{display:none}
 .form-content.active{display:block}
 .form-group{margin-bottom:1.25rem}
-.form-group label{display:block;color:#1e293b;font-weight:700;margin-bottom:.5rem;font-size:.9375rem}
+.form-group label{display:block;color:#1e293b;font-weight:700;margin-bottom:.5rem}
 .form-group input,.form-group select{width:100%;padding:1rem;background:#f8fafc;border:2px solid #e2e8f0;border-radius:12px;color:#1e293b;font-size:1rem;font-weight:600;transition:.3s}
 .form-group input::placeholder{color:#94a3b8}
 .form-group input:focus,.form-group select:focus{outline:none;border-color:#667eea;background:#fff}
 .form-group select option{background:#fff;color:#1e293b}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
 .btn{width:100%;padding:1rem;border:none;border-radius:12px;font-weight:800;font-size:1rem;cursor:pointer;transition:.3s}
-.btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;box-shadow:0 4px 12px rgba(102,126,234,.4)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(102,126,234,.6)}
-.btn-primary:disabled{opacity:.6;cursor:not-allowed;transform:none}
-.divider{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;color:#64748b;font-size:.9375rem;font-weight:600}
+.btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.btn-primary:hover{transform:translateY(-2px)}
+.btn-primary:disabled{opacity:.6;cursor:not-allowed}
+.divider{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;color:#64748b;font-size:.9375rem}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:#e2e8f0}
 .btn-guest{background:#f1f5f9;color:#1e293b;border:2px solid #e2e8f0}
-.btn-guest:hover{background:#e2e8f0}
-.form-footer{text-align:center;margin-top:1.5rem;color:#64748b;font-size:.9375rem}
+.form-footer{text-align:center;margin-top:1.5rem;color:#64748b}
 .form-footer a{color:#667eea;font-weight:800;cursor:pointer;text-decoration:none}
-.form-footer a:hover{text-decoration:underline}
 .back-link{text-align:center;margin-top:1.5rem}
-.back-link a{color:#64748b;font-weight:700;text-decoration:none;font-size:.9375rem}
-.back-link a:hover{color:#1e293b}
-.message{padding:.875rem;border-radius:10px;margin-bottom:1.25rem;display:none;font-weight:600;font-size:.9375rem}
+.back-link a{color:#64748b;font-weight:700;text-decoration:none}
+.message{padding:.875rem;border-radius:10px;margin-bottom:1.25rem;display:none;font-weight:600}
 .error{background:#fee2e2;color:#dc2626;border:1px solid #fca5a5}
 .success{background:#d1fae5;color:#059669;border:1px solid #6ee7b7}
 .guest-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.95);align-items:center;justify-content:center;z-index:1000}
 .guest-modal.active{display:flex}
-.guest-modal-box{background:#fff;padding:2.5rem;border-radius:24px;max-width:420px;width:90%;box-shadow:0 25px 70px rgba(0,0,0,.5)}
+.guest-modal-box{background:#fff;padding:2.5rem;border-radius:24px;max-width:420px;width:90%}
 .guest-modal h3{font-size:1.75rem;margin-bottom:1.25rem;text-align:center;font-weight:900;color:#1e293b}
 @media(max-width:640px){.form-row{grid-template-columns:1fr}}
 </style>
@@ -67,11 +64,11 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#667eea,
 <form id="login">
 <div class="form-group">
 <label>Username</label>
-<input type="text" name="username" placeholder="Enter username" required minlength="3">
+<input type="text" name="username" placeholder="Enter username" required>
 </div>
 <div class="form-group">
 <label>Password</label>
-<input type="password" name="password" placeholder="Enter password" required minlength="6">
+<input type="password" name="password" placeholder="Enter password" required>
 </div>
 <button type="submit" class="btn btn-primary">Login</button>
 </form>
@@ -137,21 +134,19 @@ Already have an account? <a data-switch="login">Login</a>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// Supabase init directly
-const dbClient=window.supabase.createClient(
-  'https://chcepamgczwfguzroddn.supabase.co',
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoY2VwYW1nY3p3Zmd1enJvZGRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1NTQxODgsImV4cCI6MjA1NDEzMDE4OH0.ojtRcp7dUNGMlon33jkKuw_gYzkSLPM'
-);
+// ⚠️ REPLACE WITH YOUR FULL SUPABASE KEY
+const YOUR_SUPABASE_URL = 'https://chcepamgczwfguzroddn.supabase.co';
+const YOUR_SUPABASE_KEY = 'PASTE_YOUR_FULL_ANON_KEY_HERE';
 
-// Tab switching
+const db = window.supabase.createClient(YOUR_SUPABASE_URL, YOUR_SUPABASE_KEY);
+
 document.querySelectorAll('.tab').forEach(tab=>{
   tab.addEventListener('click',function(){
-    const target=this.dataset.tab;
     document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
     document.querySelectorAll('.form-content').forEach(f=>f.classList.remove('active'));
     this.classList.add('active');
-    document.getElementById(target+'-form').classList.add('active');
-    hideMessage();
+    document.getElementById(this.dataset.tab+'-form').classList.add('active');
+    document.getElementById('message').style.display='none';
   });
 });
 
@@ -161,19 +156,16 @@ document.querySelectorAll('[data-switch]').forEach(link=>{
   });
 });
 
-// Login
 document.getElementById('login').addEventListener('submit',async(e)=>{
   e.preventDefault();
   const btn=e.target.querySelector('button');
-  const orig=btn.textContent;
   btn.disabled=true;
   btn.textContent='Logging in...';
   const data=new FormData(e.target);
   try{
-    const{data:user,error}=await dbClient.from('users').select('*').eq('username',data.get('username')).eq('password',data.get('password')).maybeSingle();
+    const{data:user,error}=await db.from('users').select('*').eq('username',data.get('username')).eq('password',data.get('password')).maybeSingle();
     if(error)throw new Error(error.message);
-    if(!user)throw new Error('Invalid username or password');
-    if(user.is_banned)throw new Error('Account banned');
+    if(!user)throw new Error('Invalid credentials');
     localStorage.setItem('userId',user.id);
     localStorage.setItem('username',user.username);
     localStorage.setItem('coins',user.coins);
@@ -182,33 +174,29 @@ document.getElementById('login').addEventListener('submit',async(e)=>{
   }catch(err){
     showError(err.message);
     btn.disabled=false;
-    btn.textContent=orig;
+    btn.textContent='Login';
   }
 });
 
-// Register
 document.getElementById('register').addEventListener('submit',async(e)=>{
   e.preventDefault();
   const btn=e.target.querySelector('button');
-  const orig=btn.textContent;
   btn.disabled=true;
   btn.textContent='Creating...';
   const data=new FormData(e.target);
   try{
-    const{data:existing}=await dbClient.from('users').select('username').eq('username',data.get('username')).maybeSingle();
-    if(existing)throw new Error('Username already taken');
-    const{data:user,error}=await dbClient.from('users').insert({
+    const{data:existing}=await db.from('users').select('username').eq('username',data.get('username')).maybeSingle();
+    if(existing)throw new Error('Username taken');
+    const{data:user,error}=await db.from('users').insert({
       username:data.get('username'),
       password:data.get('password'),
       email:data.get('email')||null,
       gender:data.get('gender'),
       age:parseInt(data.get('age')),
-      coins:500,
-      gems:0,
-      referral_code:Math.random().toString(36).substr(2,8).toUpperCase()
+      coins:500
     }).select();
     if(error)throw new Error(error.message);
-    showSuccess('Account created! Redirecting...');
+    showSuccess('Success! Redirecting...');
     setTimeout(()=>{
       localStorage.setItem('userId',user[0].id);
       localStorage.setItem('username',user[0].username);
@@ -219,11 +207,10 @@ document.getElementById('register').addEventListener('submit',async(e)=>{
   }catch(err){
     showError(err.message);
     btn.disabled=false;
-    btn.textContent=orig;
+    btn.textContent='Create Account';
   }
 });
 
-// Guest
 document.getElementById('guest-btn').addEventListener('click',()=>{
   document.getElementById('guest-modal').classList.add('active');
   document.getElementById('guest-username').value='Guest'+Math.floor(Math.random()*9999);
@@ -235,10 +222,9 @@ document.getElementById('guest-cancel').addEventListener('click',()=>{
 
 document.getElementById('guest-continue').addEventListener('click',()=>{
   const username=document.getElementById('guest-username').value.trim();
-  if(username.length<3)return alert('Username must be at least 3 characters');
+  if(username.length<3)return alert('Username too short');
   localStorage.setItem('username',username);
   localStorage.setItem('coins','100');
-  localStorage.setItem('isGuest','true');
   localStorage.setItem('isLoggedIn','true');
   location.href='lobby.html';
 });
@@ -248,7 +234,6 @@ function showError(msg){
   el.className='message error';
   el.textContent=msg;
   el.style.display='block';
-  setTimeout(()=>el.style.display='none',5000);
 }
 
 function showSuccess(msg){
@@ -256,10 +241,6 @@ function showSuccess(msg){
   el.className='message success';
   el.textContent=msg;
   el.style.display='block';
-}
-
-function hideMessage(){
-  document.getElementById('message').style.display='none';
 }
 </script>
 </body>
