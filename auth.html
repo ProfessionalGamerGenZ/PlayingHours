@@ -134,10 +134,13 @@ Already have an account? <a onclick="switchTab('login')">Login</a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="config.js"></script>
 <script>
-// Test connection on load
-testConnection();
+// Supabase config
+const SUPABASE_URL='https://chcepamgczwfguzroddn.supabase.co';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoY2VwYW1nY3p3Zmd1enJvZGRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1NTQxODgsImV4cCI6MjA1NDEzMDE4OH0.ojtRcp7dUNGMlon33jkKuw_gYzkSLPM';
+const supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+console.log('Supabase initialized:',SUPABASE_URL);
 
 function switchTab(tab){
 document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
@@ -160,12 +163,11 @@ btn.textContent='Logging in...';
 const username=document.getElementById('loginUsername').value.trim();
 const password=document.getElementById('loginPassword').value;
 try{
-console.log('Attempting login for:', username);
+console.log('Login attempt:',username);
 const{data,error}=await supabase.from('users').select('*').eq('username',username).eq('password',password).maybeSingle();
-console.log('Login response:', {data, error});
+console.log('Login response:',{data,error});
 if(error){
-showError('Database error: '+error.message);
-console.error('Login error:', error);
+showError('Error: '+error.message);
 btn.disabled=false;
 btn.textContent='Login';
 return;
@@ -189,7 +191,7 @@ localStorage.setItem('isLoggedIn','true');
 console.log('Login successful!');
 window.location.href='lobby.html';
 }catch(err){
-console.error('Login exception:', err);
+console.error('Login error:',err);
 showError('Login failed: '+err.message);
 btn.disabled=false;
 btn.textContent='Login';
@@ -207,9 +209,8 @@ const password=document.getElementById('regPassword').value;
 const gender=document.getElementById('regGender').value;
 const age=parseInt(document.getElementById('regAge').value);
 try{
-console.log('Attempting registration for:', username);
+console.log('Registration attempt:',username);
 const{data:existing}=await supabase.from('users').select('username').eq('username',username).maybeSingle();
-console.log('Username check:', existing);
 if(existing){
 showError('Username already taken');
 btn.disabled=false;
@@ -226,11 +227,11 @@ coins:500,
 gems:0,
 referral_code:Math.random().toString(36).substr(2,8).toUpperCase()
 };
-console.log('Inserting user:', userData);
+console.log('Inserting user:',userData);
 const{data,error}=await supabase.from('users').insert(userData).select();
-console.log('Registration response:', {data, error});
+console.log('Registration response:',{data,error});
 if(error){
-console.error('Registration error:', error);
+console.error('Registration error:',error);
 showError('Registration failed: '+error.message);
 btn.disabled=false;
 btn.textContent='Create Account';
@@ -246,7 +247,7 @@ console.log('Registration successful!');
 window.location.href='lobby.html';
 },1500);
 }catch(err){
-console.error('Registration exception:', err);
+console.error('Registration exception:',err);
 showError('Registration failed: '+err.message);
 btn.disabled=false;
 btn.textContent='Create Account';
