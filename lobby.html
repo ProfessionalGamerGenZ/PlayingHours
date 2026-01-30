@@ -4,302 +4,272 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Game Lobby - PlayingHours</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;min-height:100vh}
+:root{
+--bg:#f8fafc;
+--card:#fff;
+--border:#e2e8f0;
+--text:#1e293b;
+--text-dim:#64748b;
+--primary:#667eea;
+--secondary:#764ba2;
+}
+[data-theme="dark"]{
+--bg:#0f172a;
+--card:#1e293b;
+--border:rgba(255,255,255,.1);
+--text:#fff;
+--text-dim:rgba(255,255,255,.6);
+}
+[data-theme="ocean"]{
+--bg:#0a1929;
+--card:#1e3a5f;
+--border:rgba(59,130,246,.2);
+--text:#e0f2fe;
+--text-dim:#7dd3fc;
+--primary:#3b82f6;
+--secondary:#0ea5e9;
+}
+[data-theme="sunset"]{
+--bg:#1a0b0e;
+--card:#3d1a1f;
+--border:rgba(251,113,133,.2);
+--text:#ffe4e6;
+--text-dim:#fda4af;
+--primary:#f43f5e;
+--secondary:#fb923c;
+}
+[data-theme="forest"]{
+--bg:#0a1f0a;
+--card:#1a3a1a;
+--border:rgba(34,197,94,.2);
+--text:#dcfce7;
+--text-dim:#86efac;
+--primary:#10b981;
+--secondary:#34d399;
+}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);transition:background .3s,color .3s;margin:0}
+
+/* HEADER */
+.header{background:var(--card);border-bottom:2px solid var(--border);padding:.875rem 1.5rem;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.05)}
+.header-content{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.header-left{display:flex;align-items:center;gap:1rem}
+.menu-btn{background:var(--card);border:2px solid var(--border);width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.3s;color:var(--text)}
+.menu-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+.logo{display:flex;align-items:center;gap:.625rem;text-decoration:none}
+.logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;color:#fff}
+.logo-text{font-size:1.125rem;font-weight:900;color:var(--text)}
+.header-center{flex:1;max-width:500px;position:relative}
+.search-input{width:100%;padding:.75rem 1rem .75rem 3rem;background:var(--bg);border:2px solid var(--border);border-radius:10px;color:var(--text);font-size:.9375rem;transition:.3s}
+.search-input:focus{outline:none;border-color:var(--primary)}
+.search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:var(--text-dim)}
+.online-badge{position:absolute;right:1rem;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:.5rem;font-size:.8125rem;color:var(--text-dim);font-weight:600}
+.online-dot{width:8px;height:8px;background:#10b981;border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.header-right{display:flex;align-items:center;gap:.75rem}
+.theme-btn{width:36px;height:36px;border-radius:8px;border:2px solid var(--border);cursor:pointer;transition:.3s}
+.theme-btn:hover{transform:scale(1.1)}
+.theme-btn.active{border-color:var(--primary);box-shadow:0 0 0 2px rgba(102,126,234,.2)}
+.theme-light{background:linear-gradient(135deg,#fff,#f1f5f9)}
+.theme-dark{background:linear-gradient(135deg,#0f172a,#1e293b)}
+.theme-ocean{background:linear-gradient(135deg,#0ea5e9,#3b82f6)}
+.theme-sunset{background:linear-gradient(135deg,#f43f5e,#fb923c)}
+.theme-forest{background:linear-gradient(135deg,#10b981,#34d399)}
+.coins-display{background:rgba(251,191,36,.15);border:2px solid rgba(251,191,36,.3);color:#f59e0b;padding:.5rem 1rem;border-radius:50px;font-weight:700;font-size:.875rem;display:flex;align-items:center;gap:.5rem}
+.profile-btn{width:40px;height:40px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:1.125rem;position:relative;transition:.3s}
+.profile-btn:hover{transform:scale(1.1)}
+.dropdown{position:absolute;top:calc(100% + .5rem);right:0;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:.5rem;min-width:200px;display:none;box-shadow:0 10px 30px rgba(0,0,0,.1)}
+.dropdown.show{display:block}
+.dropdown-item{padding:.75rem 1rem;border-radius:8px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:.75rem;font-size:.9375rem;color:var(--text)}
+.dropdown-item:hover{background:var(--bg)}
 
 /* SIDEBAR */
-.sidebar{position:fixed;left:0;top:0;bottom:0;width:260px;background:rgba(15,23,42,.98);border-right:1px solid rgba(255,255,255,.1);padding:1rem;display:flex;flex-direction:column;transition:.3s;z-index:100}
-.sidebar.hidden{transform:translateX(-100%)}
-.logo{display:flex;align-items:center;gap:.75rem;margin-bottom:2rem;padding:.5rem}
-.logo-icon{width:45px;height:45px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
-.logo-text{font-size:1.25rem;font-weight:900;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.user-card{background:rgba(255,255,255,.05);border-radius:12px;padding:1rem;margin-bottom:1.5rem;border:1px solid rgba(255,255,255,.1)}
-.user-info{display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem}
-.user-avatar{width:45px;height:45px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem}
-.user-details{flex:1;min-width:0}
-.user-name{font-weight:800;font-size:.9375rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.user-level{font-size:.75rem;color:rgba(255,255,255,.6)}
-.user-stats{display:flex;gap:.5rem}
-.stat-pill{background:rgba(251,191,36,.15);color:#fbbf24;padding:.375rem .75rem;border-radius:50px;font-size:.75rem;font-weight:700;display:flex;align-items:center;gap:.375rem;border:1px solid rgba(251,191,36,.2)}
-.nav-menu{flex:1;overflow-y:auto}
-.nav-item{padding:.875rem 1rem;border-radius:10px;cursor:pointer;transition:.2s;margin-bottom:.5rem;display:flex;align-items:center;gap:.75rem;font-weight:600;font-size:.9375rem;color:rgba(255,255,255,.8)}
-.nav-item:hover{background:rgba(255,255,255,.08);color:#fff}
-.nav-item.active{background:rgba(102,126,234,.2);color:#fff;border:1px solid rgba(102,126,234,.3)}
-.nav-icon{font-size:1.125rem;width:24px;text-align:center}
-.sidebar-footer{padding-top:1rem;border-top:1px solid rgba(255,255,255,.1)}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:260px;background:var(--card);border-right:2px solid var(--border);padding:1rem;transform:translateX(-100%);transition:.3s;z-index:200;box-shadow:4px 0 12px rgba(0,0,0,.1)}
+.sidebar.show{transform:translateX(0)}
+.sidebar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:2rem;padding:.5rem}
+.sidebar-title{font-size:1.125rem;font-weight:800;color:var(--text)}
+.close-sidebar{background:transparent;border:none;color:var(--text-dim);font-size:1.5rem;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;transition:.3s}
+.close-sidebar:hover{background:var(--bg);color:var(--text)}
+.sidebar-nav{display:flex;flex-direction:column;gap:.5rem}
+.nav-item{padding:.875rem 1rem;border-radius:10px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:.75rem;font-weight:600;color:var(--text);text-decoration:none}
+.nav-item:hover{background:var(--bg)}
+.nav-item.active{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff}
 
 /* MAIN */
-.main-content{margin-left:260px;padding:1rem;transition:.3s;min-height:100vh}
-.main-content.expanded{margin-left:0}
+.main{max-width:1400px;margin:0 auto;padding:1.5rem 1rem 3rem}
 
-/* TOP BAR */
-.top-bar{background:rgba(15,23,42,.9);border-radius:12px;padding:1rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;border:1px solid rgba(255,255,255,.1)}
-.menu-toggle{background:rgba(255,255,255,.08);border:none;color:#fff;width:40px;height:40px;border-radius:10px;cursor:pointer;font-size:1.25rem;display:none;border:1px solid rgba(255,255,255,.1)}
-.search-bar{flex:1;max-width:400px;position:relative}
-.search-input{width:100%;padding:.75rem 1rem .75rem 3rem;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-size:.9375rem}
-.search-input:focus{outline:none;border-color:#667eea;background:rgba(255,255,255,.08)}
-.search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);color:rgba(255,255,255,.5)}
-.top-actions{display:flex;gap:.75rem}
-.action-btn{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#fff;padding:.75rem 1rem;border-radius:10px;cursor:pointer;font-weight:600;font-size:.875rem;display:flex;align-items:center;gap:.5rem;transition:.2s}
-.action-btn:hover{background:rgba(255,255,255,.1);border-color:rgba(102,126,234,.5)}
-.action-btn.primary{background:linear-gradient(135deg,#667eea,#764ba2);border:none}
-
-/* STATS */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem}
-.stat-card{background:rgba(15,23,42,.9);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.25rem;transition:.2s}
-.stat-card:hover{transform:translateY(-4px);border-color:rgba(102,126,234,.5)}
-.stat-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.75rem}
-.stat-icon{width:45px;height:45px;background:rgba(102,126,234,.15);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
-.stat-value{font-size:1.75rem;font-weight:900;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.25rem}
-.stat-label{font-size:.875rem;color:rgba(255,255,255,.6)}
-
-/* GAMES */
-.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:1rem}
-.section-title{font-size:1.5rem;font-weight:800}
+/* GAMES GRID */
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap;gap:1rem}
+.section-title{font-size:1.5rem;font-weight:800;color:var(--text)}
 .filter-chips{display:flex;gap:.5rem;flex-wrap:wrap}
-.chip{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.7);padding:.5rem 1rem;border-radius:50px;cursor:pointer;font-weight:600;font-size:.8125rem;transition:.2s}
-.chip.active{background:rgba(102,126,234,.2);border-color:rgba(102,126,234,.5);color:#fff}
-.chip:hover{border-color:rgba(102,126,234,.3)}
-.games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
-.game-card{background:rgba(15,23,42,.9);border:1px solid rgba(255,255,255,.1);border-radius:12px;padding:1.25rem;cursor:pointer;transition:.2s;position:relative;overflow:hidden}
-.game-card:hover{transform:translateY(-6px);border-color:rgba(102,126,234,.5)}
-.game-top{display:flex;gap:1rem;margin-bottom:1rem;position:relative;z-index:1}
-.game-icon{width:55px;height:55px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.75rem;flex-shrink:0}
-.game-info{flex:1;min-width:0}
-.game-name{font-size:1.125rem;font-weight:800;margin-bottom:.25rem}
-.game-players{font-size:.8125rem;color:rgba(255,255,255,.6)}
+.chip{background:var(--card);border:2px solid var(--border);color:var(--text-dim);padding:.5rem 1rem;border-radius:50px;cursor:pointer;font-weight:600;font-size:.8125rem;transition:.3s}
+.chip.active{background:linear-gradient(135deg,var(--primary),var(--secondary));border-color:transparent;color:#fff}
+.chip:hover{border-color:var(--primary)}
+.games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;margin-bottom:2rem}
+.game-card{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:1.25rem;cursor:pointer;transition:.3s;position:relative}
+.game-card:hover{transform:translateY(-4px);border-color:var(--primary);box-shadow:0 12px 30px rgba(0,0,0,.1)}
+.game-top{display:flex;gap:1rem;margin-bottom:1rem}
+.game-icon{width:55px;height:55px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.75rem;flex-shrink:0}
+.game-info{flex:1}
+.game-name{font-size:1.125rem;font-weight:800;margin-bottom:.25rem;color:var(--text)}
+.game-players{font-size:.8125rem;color:var(--text-dim)}
 .game-badges{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem}
-.badge{background:rgba(255,255,255,.08);padding:.375rem .625rem;border-radius:6px;font-size:.75rem;font-weight:600;display:flex;align-items:center;gap:.375rem}
-.badge.online{background:rgba(16,185,129,.15);color:#6ee7b7}
-.game-footer{display:flex;gap:.5rem}
-.game-btn{flex:1;background:linear-gradient(135deg,#667eea,#764ba2);border:none;color:#fff;padding:.75rem;border-radius:8px;font-weight:700;cursor:pointer;font-size:.875rem;transition:.2s}
-.game-btn:hover{transform:translateY(-2px)}
+.badge{background:var(--bg);border:1px solid var(--border);padding:.375rem .625rem;border-radius:6px;font-size:.75rem;font-weight:600;color:var(--text-dim);display:flex;align-items:center;gap:.375rem}
+.badge.online{background:rgba(16,185,129,.15);border-color:rgba(16,185,129,.3);color:#10b981}
+.play-btn{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;padding:.75rem;border-radius:10px;font-weight:700;cursor:pointer;width:100%;font-size:.875rem;transition:.3s}
+.play-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,126,234,.4)}
+
+/* TOAST NOTIFICATIONS */
+.toast{position:fixed;top:5rem;right:1rem;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:1rem 1.25rem;display:none;align-items:center;gap:1rem;box-shadow:0 10px 30px rgba(0,0,0,.15);z-index:1000;animation:slideIn .3s}
+.toast.show{display:flex}
+@keyframes slideIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
+.toast-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0}
+.toast.success .toast-icon{background:#d1fae5;color:#10b981}
+.toast.error .toast-icon{background:#fee2e2;color:#ef4444}
+.toast.info .toast-icon{background:#dbeafe;color:#3b82f6}
+.toast-content{flex:1}
+.toast-title{font-weight:700;margin-bottom:.25rem;color:var(--text)}
+.toast-message{font-size:.875rem;color:var(--text-dim)}
+.toast-close{background:transparent;border:none;color:var(--text-dim);font-size:1.25rem;cursor:pointer;padding:0;width:24px;height:24px;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:.2s}
+.toast-close:hover{background:var(--bg);color:var(--text)}
 
 /* MODAL */
-.modal{position:fixed;inset:0;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;z-index:1000;padding:1rem}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:300;padding:1rem}
 .modal.show{display:flex}
-.modal-box{background:linear-gradient(135deg,#1e293b,#334155);border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:2rem;max-width:500px;width:100%;position:relative;max-height:90vh;overflow-y:auto}
+.modal-box{background:var(--card);border:2px solid var(--border);border-radius:20px;padding:2rem;max-width:500px;width:100%;position:relative;animation:modalIn .3s}
+@keyframes modalIn{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
 .modal-header{margin-bottom:1.5rem;text-align:center}
-.modal-header h2{font-size:1.75rem;font-weight:900;margin-bottom:.5rem}
-.modal-header p{color:rgba(255,255,255,.6)}
-.close-modal{position:absolute;top:1rem;right:1rem;background:rgba(255,255,255,.1);border:none;color:rgba(255,255,255,.6);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.25rem;transition:.2s}
-.close-modal:hover{background:rgba(255,255,255,.2);color:#fff}
-.modal-options{display:grid;gap:1rem}
-.option{background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);padding:1.25rem;border-radius:12px;cursor:pointer;transition:.2s}
-.option:hover{border-color:rgba(102,126,234,.5);background:rgba(102,126,234,.1);transform:translateX(4px)}
-.option h3{font-size:1.125rem;font-weight:800;margin-bottom:.5rem;display:flex;align-items:center;gap:.75rem}
-.option p{font-size:.875rem;color:rgba(255,255,255,.6)}
+.modal-header h2{font-size:1.75rem;font-weight:900;margin-bottom:.5rem;color:var(--text)}
+.modal-header p{color:var(--text-dim)}
+.close-modal{position:absolute;top:1rem;right:1rem;background:var(--bg);border:none;color:var(--text-dim);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.25rem;transition:.3s}
+.close-modal:hover{background:var(--border);color:var(--text);transform:rotate(90deg)}
+.modal-options{display:grid;gap:1rem;margin-bottom:1.5rem}
+.option{background:var(--bg);border:2px solid var(--border);padding:1.25rem;border-radius:12px;cursor:pointer;transition:.3s}
+.option:hover{border-color:var(--primary);transform:translateX(4px)}
+.option h3{font-size:1.125rem;font-weight:800;margin-bottom:.5rem;display:flex;align-items:center;gap:.75rem;color:var(--text)}
+.option p{font-size:.875rem;color:var(--text-dim)}
 .input-group{margin-bottom:1.5rem}
-.input-group label{display:block;margin-bottom:.5rem;font-weight:600}
-.input-group input{width:100%;padding:.875rem;background:rgba(255,255,255,.05);border:2px solid rgba(255,255,255,.1);border-radius:10px;color:#fff;font-size:1rem;font-weight:700;text-transform:uppercase;text-align:center;letter-spacing:3px}
-.input-group input:focus{outline:none;border-color:#667eea}
-.modal-actions{display:flex;gap:1rem}
-.btn{padding:.875rem 1.5rem;border-radius:10px;font-weight:700;cursor:pointer;border:none;font-size:.9375rem;flex:1;transition:.2s}
-.btn-primary{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff}
+.input-group label{display:block;margin-bottom:.5rem;font-weight:600;color:var(--text)}
+.input-group input{width:100%;padding:.875rem;background:var(--bg);border:2px solid var(--border);border-radius:10px;color:var(--text);font-size:1rem;font-weight:700;text-transform:uppercase;text-align:center;letter-spacing:3px;transition:.3s}
+.input-group input:focus{outline:none;border-color:var(--primary)}
+.modal-footer{display:flex;gap:1rem}
+.btn{padding:.875rem 1.5rem;border-radius:10px;font-weight:700;cursor:pointer;border:none;font-size:.9375rem;flex:1;transition:.3s}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff}
 .btn-primary:hover{transform:translateY(-2px)}
-.btn-secondary{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)}
-.btn-secondary:hover{background:rgba(255,255,255,.15)}
+.btn-secondary{background:var(--bg);color:var(--text);border:2px solid var(--border)}
 
 /* FOOTER */
-.footer{background:rgba(0,0,0,.3);padding:2rem 1rem;margin-top:3rem;border-top:1px solid rgba(255,255,255,.1)}
-.footer-content{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem}
-.footer-section h4{font-size:1rem;font-weight:800;margin-bottom:.75rem}
-.footer-links{list-style:none;display:flex;flex-direction:column;gap:.5rem}
-.footer-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:.875rem;transition:.2s}
-.footer-links a:hover{color:#fff}
-.footer-bottom{text-align:center;padding-top:1.5rem;margin-top:1.5rem;border-top:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:.875rem}
+.footer{background:var(--card);border-top:2px solid var(--border);padding:1.5rem 1rem;text-align:center;margin-top:3rem}
+.footer-content{max-width:1400px;margin:0 auto;display:flex;justify-content:center;align-items:center;gap:2rem;flex-wrap:wrap}
+.footer-link{color:var(--text-dim);text-decoration:none;font-size:.875rem;font-weight:600;transition:.3s}
+.footer-link:hover{color:var(--primary)}
+.footer-text{color:var(--text-dim);font-size:.875rem}
 
 /* RESPONSIVE */
-@media(max-width:1024px){
-.sidebar{transform:translateX(-100%)}
-.sidebar.show{transform:translateX(0)}
-.main-content{margin-left:0}
-.menu-toggle{display:flex;align-items:center;justify-content:center}
-}
 @media(max-width:768px){
-.stats-grid{grid-template-columns:repeat(2,1fr)}
+.header-center{display:none}
 .games-grid{grid-template-columns:1fr}
-.top-bar{flex-direction:column}
-.search-bar{max-width:100%}
-.footer-content{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:480px){
-.stats-grid{grid-template-columns:1fr}
-.modal-actions{flex-direction:column}
 }
 </style>
 </head>
-<body>
+<body data-theme="light">
+
+<!-- HEADER -->
+<header class="header">
+<div class="header-content">
+<div class="header-left">
+<button class="menu-btn" onclick="toggleSidebar()">☰</button>
+<a href="lobby.html" class="logo">
+<div class="logo-icon">🎮</div>
+<div class="logo-text">PlayingHours</div>
+</a>
+</div>
+<div class="header-center">
+<span class="search-icon">🔍</span>
+<input type="text" class="search-input" placeholder="Search games..." id="searchInput" oninput="searchGames()">
+<div class="online-badge">
+<span class="online-dot"></span>
+<span id="onlineCount">—</span> online
+</div>
+</div>
+<div class="header-right">
+<button class="theme-btn theme-light active" onclick="setTheme('light')" title="Light"></button>
+<button class="theme-btn theme-dark" onclick="setTheme('dark')" title="Dark"></button>
+<button class="theme-btn theme-ocean" onclick="setTheme('ocean')" title="Ocean"></button>
+<button class="theme-btn theme-sunset" onclick="setTheme('sunset')" title="Sunset"></button>
+<button class="theme-btn theme-forest" onclick="setTheme('forest')" title="Forest"></button>
+<div class="coins-display">💰 <span id="userCoins">500</span></div>
+<div class="profile-btn" onclick="toggleDropdown()">
+👤
+<div class="dropdown" id="profileDropdown">
+<div class="dropdown-item" onclick="showToast('info','Coming Soon','Profile page under development')">👤 My Profile</div>
+<div class="dropdown-item" onclick="showToast('info','Coming Soon','Settings page under development')">⚙️ Settings</div>
+<div class="dropdown-item" onclick="confirmLogout()">🚪 Logout</div>
+</div>
+</div>
+</div>
+</div>
+</header>
 
 <!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
-<div class="logo">
-<div class="logo-icon">🎮</div>
-<div class="logo-text">PlayingHours</div>
+<div class="sidebar-header">
+<div class="sidebar-title">Menu</div>
+<button class="close-sidebar" onclick="toggleSidebar()">×</button>
 </div>
-
-<div class="user-card">
-<div class="user-info">
-<div class="user-avatar">👤</div>
-<div class="user-details">
-<div class="user-name" id="sidebarUsername">Loading...</div>
-<div class="user-level">Level 1</div>
-</div>
-</div>
-<div class="user-stats">
-<div class="stat-pill">💰 <span id="sidebarCoins">0</span></div>
-<div class="stat-pill">💎 0</div>
-</div>
-</div>
-
-<nav class="nav-menu">
-<div class="nav-item active">
-<span class="nav-icon">🎮</span> Games
-</div>
-<div class="nav-item" onclick="alert('Profile page coming soon!')">
-<span class="nav-icon">👤</span> My Profile
-</div>
-<div class="nav-item" onclick="alert('Leaderboard coming soon!')">
-<span class="nav-icon">🏆</span> Leaderboard
-</div>
-<div class="nav-item" onclick="alert('Tournaments coming soon!')">
-<span class="nav-icon">🎯</span> Tournaments
-</div>
-<div class="nav-item" onclick="alert('Friends coming soon!')">
-<span class="nav-icon">👥</span> Friends
-</div>
-<div class="nav-item" onclick="alert('Shop coming soon!')">
-<span class="nav-icon">🛒</span> Shop
-</div>
-<div class="nav-item" onclick="alert('Settings coming soon!')">
-<span class="nav-icon">⚙️</span> Settings
-</div>
+<nav class="sidebar-nav">
+<a href="lobby.html" class="nav-item active">🎮 Games</a>
+<a href="#" class="nav-item" onclick="showToast('info','Coming Soon','Profile page under development')">👤 My Profile</a>
+<a href="#" class="nav-item" onclick="showToast('info','Coming Soon','Leaderboard coming soon')">🏆 Leaderboard</a>
+<a href="#" class="nav-item" onclick="showToast('info','Coming Soon','Tournaments coming soon')">🎯 Tournaments</a>
+<a href="#" class="nav-item" onclick="showToast('info','Coming Soon','Friends system coming soon')">👥 Friends</a>
+<a href="#" class="nav-item" onclick="showToast('info','Coming Soon','Shop coming soon')">🛒 Shop</a>
+<a href="#" class="nav-item" onclick="showToast('info','Coming Soon','Settings page under development')">⚙️ Settings</a>
+<a href="#" class="nav-item" onclick="confirmLogout()">🚪 Logout</a>
 </nav>
-
-<div class="sidebar-footer">
-<div class="nav-item" onclick="logout()">
-<span class="nav-icon">🚪</span> Logout
-</div>
-</div>
 </aside>
 
+<!-- TOAST -->
+<div class="toast" id="toast">
+<div class="toast-icon">✓</div>
+<div class="toast-content">
+<div class="toast-title" id="toastTitle">Success</div>
+<div class="toast-message" id="toastMessage">Action completed</div>
+</div>
+<button class="toast-close" onclick="hideToast()">×</button>
+</div>
+
 <!-- MAIN -->
-<main class="main-content" id="mainContent">
+<main class="main">
 
-<!-- TOP BAR -->
-<div class="top-bar">
-<button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-<div class="search-bar">
-<span class="search-icon">🔍</span>
-<input type="text" class="search-input" placeholder="Search games..." id="searchInput" oninput="searchGames()">
-</div>
-<div class="top-actions">
-<button class="action-btn primary" onclick="alert('Quick play feature coming soon!')">
-⚡ Quick Play
-</button>
-</div>
-</div>
-
-<!-- STATS -->
-<div class="stats-grid">
-<div class="stat-card">
-<div class="stat-header">
-<div>
-<div class="stat-value" id="onlinePlayers">—</div>
-<div class="stat-label">Players Online</div>
-</div>
-<div class="stat-icon">👥</div>
-</div>
-</div>
-<div class="stat-card">
-<div class="stat-header">
-<div>
-<div class="stat-value" id="activeRooms">—</div>
-<div class="stat-label">Active Rooms</div>
-</div>
-<div class="stat-icon">🚪</div>
-</div>
-</div>
-<div class="stat-card">
-<div class="stat-header">
-<div>
-<div class="stat-value" id="totalMatches">0</div>
-<div class="stat-label">Your Matches</div>
-</div>
-<div class="stat-icon">🎮</div>
-</div>
-</div>
-<div class="stat-card">
-<div class="stat-header">
-<div>
-<div class="stat-value" id="winRate">0%</div>
-<div class="stat-label">Win Rate</div>
-</div>
-<div class="stat-icon">🏆</div>
-</div>
-</div>
-</div>
-
-<!-- GAMES -->
 <div class="section-header">
 <h2 class="section-title">🎮 All Games</h2>
 <div class="filter-chips">
-<div class="chip active" onclick="filterGames('all')">All</div>
-<div class="chip" onclick="filterGames('board')">Board</div>
-<div class="chip" onclick="filterGames('puzzle')">Puzzle</div>
-<div class="chip" onclick="filterGames('trivia')">Trivia</div>
+<div class="chip active" data-filter="all">All</div>
+<div class="chip" data-filter="board">Board</div>
+<div class="chip" data-filter="puzzle">Puzzle</div>
+<div class="chip" data-filter="trivia">Trivia</div>
 </div>
 </div>
 
 <div class="games-grid" id="gamesGrid"></div>
 
-<!-- FOOTER -->
-<div class="footer">
-<div class="footer-content">
-<div class="footer-section">
-<h4>PlayingHours</h4>
-<ul class="footer-links">
-<li><a href="index.html">Home</a></li>
-<li><a href="#">About</a></li>
-<li><a href="#">Contact</a></li>
-</ul>
-</div>
-<div class="footer-section">
-<h4>Support</h4>
-<ul class="footer-links">
-<li><a href="#">Help Center</a></li>
-<li><a href="#">FAQ</a></li>
-<li><a href="#">Report Bug</a></li>
-</ul>
-</div>
-<div class="footer-section">
-<h4>Legal</h4>
-<ul class="footer-links">
-<li><a href="#">Privacy Policy</a></li>
-<li><a href="#">Terms</a></li>
-<li><a href="#">Disclaimer</a></li>
-</ul>
-</div>
-<div class="footer-section">
-<h4>Community</h4>
-<ul class="footer-links">
-<li><a href="#">Discord</a></li>
-<li><a href="#">Twitter</a></li>
-<li><a href="#">Instagram</a></li>
-</ul>
-</div>
-</div>
-<div class="footer-bottom">© 2025 PlayingHours. All rights reserved.</div>
-</div>
-
 </main>
 
-<!-- MODAL -->
-<div class="modal" id="modeModal">
+<!-- FOOTER -->
+<footer class="footer">
+<div class="footer-content">
+<a href="index.html" class="footer-link">🏠 Home</a>
+<span class="footer-text">© 2025 PlayingHours</span>
+</div>
+</footer>
+
+<!-- MODALS -->
+<div class="modal" id="gameModeModal">
 <div class="modal-box">
-<button class="close-modal" onclick="closeModals()">×</button>
+<button class="close-modal" onclick="closeModal()">×</button>
 <div class="modal-header">
 <h2 id="modalGameName">Select Mode</h2>
 <p>Choose how you want to play</p>
@@ -311,11 +281,11 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;min-height:1
 </div>
 <div class="option" onclick="createRoom()">
 <h3>➕ Create Room</h3>
-<p>Start private room with code</p>
+<p>Start private room</p>
 </div>
 <div class="option" onclick="showJoinModal()">
 <h3>🚪 Join Room</h3>
-<p>Enter room code to join</p>
+<p>Enter room code</p>
 </div>
 </div>
 </div>
@@ -323,31 +293,39 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;min-height:1
 
 <div class="modal" id="joinModal">
 <div class="modal-box">
-<button class="close-modal" onclick="closeModals()">×</button>
+<button class="close-modal" onclick="closeModal()">×</button>
 <div class="modal-header">
 <h2>Join Room</h2>
-<p>Enter 6-character room code</p>
+<p>Enter 6-character code</p>
 </div>
 <div class="input-group">
 <label>Room Code</label>
 <input type="text" id="roomCode" placeholder="ABC123" maxlength="6">
 </div>
-<div class="modal-actions">
-<button class="btn btn-secondary" onclick="closeModals()">Cancel</button>
+<div class="modal-footer">
+<button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
 <button class="btn btn-primary" onclick="joinRoom()">Join</button>
 </div>
 </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="config.js"></script>
 <script>
-if(!checkAuth())location.href='auth.html';
+// Check auth
+const user={
+username:localStorage.getItem('username')||'Player',
+coins:parseInt(localStorage.getItem('coins'))||0,
+isLoggedIn:localStorage.getItem('isLoggedIn')==='true'
+};
+if(!user.isLoggedIn)location.href='auth.html';
 
-const user=getCurrentUser();
+document.getElementById('userCoins').textContent=user.coins;
+
+// Supabase (paste your full key)
+const YOUR_KEY='PASTE_YOUR_FULL_SUPABASE_KEY_HERE';
+const db=window.supabase.createClient('https://chcepamgczwfguzroddn.supabase.co',YOUR_KEY);
+
 let currentGame='';
-let allGames=[];
-
 const games=[
 {id:'ludo',name:'Ludo King',icon:'🎲',players:'2-4',time:'15-30m',category:'board'},
 {id:'scribble',name:'Scribble.io',icon:'🎨',players:'4-12',time:'10-20m',category:'puzzle'},
@@ -364,27 +342,8 @@ const games=[
 {id:'puzzle',name:'Puzzle Slider',icon:'🧩',players:'1-4',time:'5-15m',category:'puzzle'}
 ];
 
-async function init(){
-document.getElementById('sidebarUsername').textContent=user.username;
-document.getElementById('sidebarCoins').textContent=user.coins||0;
-loadGames();
-loadStats();
-}
-
-async function loadGames(filter='all'){
-try{
-const{data:rooms}=await supabase.from('rooms').select('game_type').eq('status','waiting');
-const roomCounts={};
-rooms?.forEach(r=>roomCounts[r.game_type]=(roomCounts[r.game_type]||0)+1);
-allGames=games.map(g=>({...g,rooms:roomCounts[g.id]||0,online:Math.floor(Math.random()*200)+50}));
-}catch(e){
-allGames=games.map(g=>({...g,rooms:Math.floor(Math.random()*50),online:Math.floor(Math.random()*200)+50}));
-}
-renderGames(filter);
-}
-
-function renderGames(filter='all'){
-const filtered=filter==='all'?allGames:allGames.filter(g=>g.category===filter);
+function loadGames(filter='all'){
+const filtered=filter==='all'?games:games.filter(g=>g.category===filter);
 document.getElementById('gamesGrid').innerHTML=filtered.map(g=>`
 <div class="game-card" onclick="openGameModal('${g.id}','${g.name}')">
 <div class="game-top">
@@ -395,36 +354,32 @@ document.getElementById('gamesGrid').innerHTML=filtered.map(g=>`
 </div>
 </div>
 <div class="game-badges">
-<div class="badge online">🔥 ${g.online} online</div>
-<div class="badge">🚪 ${g.rooms} rooms</div>
+<div class="badge online">🔥 ${Math.floor(Math.random()*200)+50} online</div>
 <div class="badge">⏱️ ${g.time}</div>
 </div>
-<div class="game-footer">
-<button class="game-btn">Play Now</button>
-</div>
+<button class="play-btn">▶ Play Now</button>
 </div>
 `).join('');
 }
 
-async function loadStats(){
-try{
-const{count:rooms}=await supabase.from('rooms').select('*',{count:'exact',head:true}).eq('status','waiting');
-document.getElementById('activeRooms').textContent=rooms||0;
-}catch(e){
-document.getElementById('activeRooms').textContent='0';
-}
-document.getElementById('onlinePlayers').textContent=Math.floor(Math.random()*500)+300;
+function setTheme(theme){
+document.body.setAttribute('data-theme',theme);
+document.querySelectorAll('.theme-btn').forEach(b=>b.classList.remove('active'));
+document.querySelector('.theme-'+theme).classList.add('active');
+localStorage.setItem('theme',theme);
 }
 
-function filterGames(cat){
+document.querySelectorAll('.chip').forEach(chip=>{
+chip.addEventListener('click',function(){
 document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-event.target.classList.add('active');
-renderGames(cat);
-}
+this.classList.add('active');
+loadGames(this.dataset.filter);
+});
+});
 
 function searchGames(){
 const query=document.getElementById('searchInput').value.toLowerCase();
-const filtered=allGames.filter(g=>g.name.toLowerCase().includes(query));
+const filtered=games.filter(g=>g.name.toLowerCase().includes(query));
 document.getElementById('gamesGrid').innerHTML=filtered.map(g=>`
 <div class="game-card" onclick="openGameModal('${g.id}','${g.name}')">
 <div class="game-top">
@@ -435,95 +390,89 @@ document.getElementById('gamesGrid').innerHTML=filtered.map(g=>`
 </div>
 </div>
 <div class="game-badges">
-<div class="badge online">🔥 ${g.online} online</div>
-<div class="badge">🚪 ${g.rooms} rooms</div>
+<div class="badge online">🔥 ${Math.floor(Math.random()*200)+50} online</div>
 <div class="badge">⏱️ ${g.time}</div>
 </div>
-<div class="game-footer">
-<button class="game-btn">Play Now</button>
-</div>
+<button class="play-btn">▶ Play Now</button>
 </div>
 `).join('');
+}
+
+function toggleSidebar(){
+document.getElementById('sidebar').classList.toggle('show');
+}
+
+function toggleDropdown(){
+document.getElementById('profileDropdown').classList.toggle('show');
 }
 
 function openGameModal(id,name){
 currentGame=id;
 document.getElementById('modalGameName').textContent=name;
-document.getElementById('modeModal').classList.add('show');
+document.getElementById('gameModeModal').classList.add('show');
 }
 
-function closeModals(){
+function closeModal(){
 document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'));
 }
 
-async function quickPlay(){
-const code=generateCode();
-try{
-await supabase.from('rooms').insert({
-code,
-game_type:currentGame,
-host_id:user.id,
-players:[{id:user.id,username:user.username}],
-player_count:1,
-status:'waiting'
-});
-alert(`Room created: ${code}\n\n(Game pages coming soon)`);
-closeModals();
-loadStats();
-}catch(e){
-alert('Creating room...');
-closeModals();
-}
-}
-
-async function createRoom(){
-const code=generateCode();
-try{
-await supabase.from('rooms').insert({
-code,
-game_type:currentGame,
-host_id:user.id,
-players:[{id:user.id,username:user.username}],
-player_count:1,
-is_private:true,
-status:'waiting'
-});
-alert(`Room: ${code}\nShare with friends!`);
-closeModals();
-loadStats();
-}catch(e){
-alert(`Room: ${code}`);
-closeModals();
-}
-}
-
 function showJoinModal(){
-document.getElementById('modeModal').classList.remove('show');
+closeModal();
 document.getElementById('joinModal').classList.add('show');
 }
 
-async function joinRoom(){
+async function quickPlay(){
+const code=Math.random().toString(36).substr(2,6).toUpperCase();
+showToast('success','Room Created',`Room code: ${code}`);
+closeModal();
+}
+
+async function createRoom(){
+const code=Math.random().toString(36).substr(2,6).toUpperCase();
+showToast('success','Private Room',`Share code: ${code}`);
+closeModal();
+}
+
+function joinRoom(){
 const code=document.getElementById('roomCode').value.toUpperCase().trim();
-if(code.length!==6)return alert('Enter valid 6-char code');
-try{
-const{data}=await supabase.from('rooms').select('*').eq('code',code).single();
-if(data){
-alert(`Joining ${data.game_type}...\n\n(Game pages coming soon)`);
-closeModals();
-}else{
-alert('Room not found!');
+if(code.length!==6)return showToast('error','Invalid Code','Enter 6 characters');
+showToast('success','Joining','Connecting to room...');
+closeModal();
 }
-}catch(e){
-alert('Joining...');
-closeModals();
+
+function confirmLogout(){
+if(confirm('Logout?')){
+localStorage.clear();
+location.href='index.html';
 }
 }
 
-function generateCode(){return Math.random().toString(36).substr(2,6).toUpperCase();}
-function toggleSidebar(){document.getElementById('sidebar').classList.toggle('show');}
+function showToast(type,title,message){
+const toast=document.getElementById('toast');
+toast.className='toast '+type+' show';
+document.getElementById('toastTitle').textContent=title;
+document.getElementById('toastMessage').textContent=message;
+setTimeout(hideToast,4000);
+}
 
-init();
-setInterval(loadStats,30000);
+function hideToast(){
+document.getElementById('toast').classList.remove('show');
+}
+
+document.addEventListener('click',e=>{
+if(!e.target.closest('.profile-btn')){
+document.getElementById('profileDropdown').classList.remove('show');
+}
+if(!e.target.closest('.sidebar')&&!e.target.closest('.menu-btn')){
+document.getElementById('sidebar').classList.remove('show');
+}
+});
+
+// Init
+loadGames();
+document.getElementById('onlineCount').textContent=Math.floor(Math.random()*500)+300;
+const savedTheme=localStorage.getItem('theme')||'light';
+setTheme(savedTheme);
 </script>
 </body>
 </html>
