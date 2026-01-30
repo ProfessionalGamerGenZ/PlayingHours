@@ -27,10 +27,11 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#667eea,
 .btn{width:100%;padding:1rem;border:none;border-radius:12px;font-weight:800;font-size:1rem;cursor:pointer;transition:.3s}
 .btn-primary{background:#fff;color:#667eea}
 .btn-primary:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.4)}
-.btn-primary:disabled{opacity:.6;cursor:not-allowed}
+.btn-primary:disabled{opacity:.6;cursor:not-allowed;transform:none}
 .divider{display:flex;align-items:center;gap:1rem;margin:1.5rem 0;color:rgba(255,255,255,.7);font-size:.9375rem;font-weight:600}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.25)}
 .btn-guest{background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.3)}
+.btn-guest:hover{background:rgba(255,255,255,.2)}
 .form-footer{text-align:center;margin-top:1.5rem;color:rgba(255,255,255,.9)}
 .form-footer a{color:#fff;font-weight:800;cursor:pointer;text-decoration:none}
 .back-link{text-align:center;margin-top:1.5rem}
@@ -57,12 +58,12 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#667eea,
 <div id="success" class="success"></div>
 
 <div class="tabs">
-<button class="tab active" onclick="switchTab('login')">Login</button>
-<button class="tab" onclick="switchTab('register')">Register</button>
+<button class="tab active" id="loginTab">Login</button>
+<button class="tab" id="registerTab">Register</button>
 </div>
 
 <div class="form-content active" id="loginForm">
-<form onsubmit="handleLogin(event)">
+<form id="loginFormEl">
 <div class="form-group">
 <label>Username</label>
 <input type="text" id="loginUsername" placeholder="Enter username" required minlength="3">
@@ -74,14 +75,14 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#667eea,
 <button type="submit" class="btn btn-primary" id="loginBtn">Login</button>
 </form>
 <div class="divider">OR</div>
-<button class="btn btn-guest" onclick="showGuestModal()">Continue as Guest</button>
+<button class="btn btn-guest" id="guestBtn">Continue as Guest</button>
 <div class="form-footer">
-Don't have an account? <a onclick="switchTab('register')">Sign up</a>
+Don't have an account? <a id="showRegisterLink">Sign up</a>
 </div>
 </div>
 
 <div class="form-content" id="registerForm">
-<form onsubmit="handleRegister(event)">
+<form id="registerFormEl">
 <div class="form-group">
 <label>Username</label>
 <input type="text" id="regUsername" placeholder="Choose username" required minlength="3" maxlength="20">
@@ -112,7 +113,7 @@ Don't have an account? <a onclick="switchTab('register')">Sign up</a>
 <button type="submit" class="btn btn-primary" id="registerBtn">Create Account</button>
 </form>
 <div class="form-footer">
-Already have an account? <a onclick="switchTab('login')">Login</a>
+Already have an account? <a id="showLoginLink">Login</a>
 </div>
 </div>
 
@@ -128,171 +129,192 @@ Already have an account? <a onclick="switchTab('login')">Login</a>
 <label>Guest Username</label>
 <input type="text" id="guestUsername" placeholder="Enter username" maxlength="15">
 </div>
-<button class="btn btn-primary" onclick="continueAsGuest()">Continue</button>
-<button class="btn btn-guest" onclick="closeGuestModal()" style="margin-top:.75rem">Cancel</button>
+<button class="btn btn-primary" id="guestContinueBtn">Continue</button>
+<button class="btn btn-guest" id="guestCancelBtn" style="margin-top:.75rem">Cancel</button>
 </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// Supabase config
+// Supabase Configuration
 const SUPABASE_URL='https://chcepamgczwfguzroddn.supabase.co';
 const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoY2VwYW1nY3p3Zmd1enJvZGRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1NTQxODgsImV4cCI6MjA1NDEzMDE4OH0.ojtRcp7dUNGMlon33jkKuw_gYzkSLPM';
-const supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 
-console.log('Supabase initialized:',SUPABASE_URL);
-
-function switchTab(tab){
-document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-document.querySelectorAll('.form-content').forEach(f=>f.classList.remove('active'));
-hideMessages();
-if(tab==='login'){
-document.querySelectorAll('.tab')[0].classList.add('active');
-document.getElementById('loginForm').classList.add('active');
-}else{
-document.querySelectorAll('.tab')[1].classList.add('active');
-document.getElementById('registerForm').classList.add('active');
-}
-}
-
-async function handleLogin(e){
-e.preventDefault();
-const btn=document.getElementById('loginBtn');
-btn.disabled=true;
-btn.textContent='Logging in...';
-const username=document.getElementById('loginUsername').value.trim();
-const password=document.getElementById('loginPassword').value;
+let supabase;
 try{
-console.log('Login attempt:',username);
-const{data,error}=await supabase.from('users').select('*').eq('username',username).eq('password',password).maybeSingle();
-console.log('Login response:',{data,error});
-if(error){
-showError('Error: '+error.message);
-btn.disabled=false;
-btn.textContent='Login';
-return;
-}
-if(!data){
-showError('Invalid username or password');
-btn.disabled=false;
-btn.textContent='Login';
-return;
-}
-if(data.is_banned){
-showError('Account banned');
-btn.disabled=false;
-btn.textContent='Login';
-return;
-}
-localStorage.setItem('userId',data.id);
-localStorage.setItem('username',data.username);
-localStorage.setItem('coins',data.coins);
-localStorage.setItem('isLoggedIn','true');
-console.log('Login successful!');
-window.location.href='lobby.html';
-}catch(err){
-console.error('Login error:',err);
-showError('Login failed: '+err.message);
-btn.disabled=false;
-btn.textContent='Login';
-}
+  supabase=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+  console.log('✅ Supabase initialized');
+}catch(e){
+  console.error('❌ Supabase init failed:',e);
+  alert('Failed to connect to database. Please refresh the page.');
 }
 
-async function handleRegister(e){
-e.preventDefault();
-const btn=document.getElementById('registerBtn');
-btn.disabled=true;
-btn.textContent='Creating...';
-const username=document.getElementById('regUsername').value.trim();
-const email=document.getElementById('regEmail').value.trim();
-const password=document.getElementById('regPassword').value;
-const gender=document.getElementById('regGender').value;
-const age=parseInt(document.getElementById('regAge').value);
-try{
-console.log('Registration attempt:',username);
-const{data:existing}=await supabase.from('users').select('username').eq('username',username).maybeSingle();
-if(existing){
-showError('Username already taken');
-btn.disabled=false;
-btn.textContent='Create Account';
-return;
-}
-const userData={
-username,
-password,
-email:email||null,
-gender,
-age,
-coins:500,
-gems:0,
-referral_code:Math.random().toString(36).substr(2,8).toUpperCase()
-};
-console.log('Inserting user:',userData);
-const{data,error}=await supabase.from('users').insert(userData).select();
-console.log('Registration response:',{data,error});
-if(error){
-console.error('Registration error:',error);
-showError('Registration failed: '+error.message);
-btn.disabled=false;
-btn.textContent='Create Account';
-return;
-}
-showSuccess('Account created! Logging in...');
-setTimeout(()=>{
-localStorage.setItem('userId',data[0].id);
-localStorage.setItem('username',username);
-localStorage.setItem('coins','500');
-localStorage.setItem('isLoggedIn','true');
-console.log('Registration successful!');
-window.location.href='lobby.html';
-},1500);
-}catch(err){
-console.error('Registration exception:',err);
-showError('Registration failed: '+err.message);
-btn.disabled=false;
-btn.textContent='Create Account';
-}
-}
+// Tab Switching
+document.getElementById('loginTab').addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.form-content').forEach(f=>f.classList.remove('active'));
+  document.getElementById('loginTab').classList.add('active');
+  document.getElementById('loginForm').classList.add('active');
+  hideMessages();
+});
 
-function showGuestModal(){
-document.getElementById('guestModal').classList.add('active');
-document.getElementById('guestUsername').value='Guest'+Math.floor(Math.random()*9999);
-}
+document.getElementById('registerTab').addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.form-content').forEach(f=>f.classList.remove('active'));
+  document.getElementById('registerTab').classList.add('active');
+  document.getElementById('registerForm').classList.add('active');
+  hideMessages();
+});
 
-function closeGuestModal(){
-document.getElementById('guestModal').classList.remove('active');
-}
+document.getElementById('showRegisterLink').addEventListener('click',()=>{
+  document.getElementById('registerTab').click();
+});
 
-function continueAsGuest(){
-const username=document.getElementById('guestUsername').value.trim();
-if(username.length<3){
-alert('Username must be at least 3 characters');
-return;
-}
-localStorage.setItem('username',username);
-localStorage.setItem('coins','100');
-localStorage.setItem('isGuest','true');
-localStorage.setItem('isLoggedIn','true');
-console.log('Guest login successful!');
-window.location.href='lobby.html';
-}
+document.getElementById('showLoginLink').addEventListener('click',()=>{
+  document.getElementById('loginTab').click();
+});
+
+// Login Form
+document.getElementById('loginFormEl').addEventListener('submit',async(e)=>{
+  e.preventDefault();
+  const btn=document.getElementById('loginBtn');
+  btn.disabled=true;
+  btn.textContent='Logging in...';
+  const username=document.getElementById('loginUsername').value.trim();
+  const password=document.getElementById('loginPassword').value;
+  try{
+    console.log('Login attempt:',username);
+    const{data,error}=await supabase.from('users').select('*').eq('username',username).eq('password',password).maybeSingle();
+    console.log('Login response:',{data,error});
+    if(error){
+      showError('Error: '+error.message);
+      btn.disabled=false;
+      btn.textContent='Login';
+      return;
+    }
+    if(!data){
+      showError('Invalid username or password');
+      btn.disabled=false;
+      btn.textContent='Login';
+      return;
+    }
+    if(data.is_banned){
+      showError('Account banned');
+      btn.disabled=false;
+      btn.textContent='Login';
+      return;
+    }
+    localStorage.setItem('userId',data.id);
+    localStorage.setItem('username',data.username);
+    localStorage.setItem('coins',data.coins);
+    localStorage.setItem('isLoggedIn','true');
+    console.log('✅ Login successful');
+    window.location.href='lobby.html';
+  }catch(err){
+    console.error('Login error:',err);
+    showError('Login failed: '+err.message);
+    btn.disabled=false;
+    btn.textContent='Login';
+  }
+});
+
+// Register Form
+document.getElementById('registerFormEl').addEventListener('submit',async(e)=>{
+  e.preventDefault();
+  const btn=document.getElementById('registerBtn');
+  btn.disabled=true;
+  btn.textContent='Creating...';
+  const username=document.getElementById('regUsername').value.trim();
+  const email=document.getElementById('regEmail').value.trim();
+  const password=document.getElementById('regPassword').value;
+  const gender=document.getElementById('regGender').value;
+  const age=parseInt(document.getElementById('regAge').value);
+  try{
+    console.log('Registration attempt:',username);
+    const{data:existing}=await supabase.from('users').select('username').eq('username',username).maybeSingle();
+    if(existing){
+      showError('Username already taken');
+      btn.disabled=false;
+      btn.textContent='Create Account';
+      return;
+    }
+    const userData={
+      username,
+      password,
+      email:email||null,
+      gender,
+      age,
+      coins:500,
+      gems:0,
+      referral_code:Math.random().toString(36).substr(2,8).toUpperCase()
+    };
+    console.log('Inserting user...');
+    const{data,error}=await supabase.from('users').insert(userData).select();
+    console.log('Registration response:',{data,error});
+    if(error){
+      console.error('Registration error:',error);
+      showError('Registration failed: '+error.message);
+      btn.disabled=false;
+      btn.textContent='Create Account';
+      return;
+    }
+    showSuccess('Account created! Logging in...');
+    setTimeout(()=>{
+      localStorage.setItem('userId',data[0].id);
+      localStorage.setItem('username',username);
+      localStorage.setItem('coins','500');
+      localStorage.setItem('isLoggedIn','true');
+      console.log('✅ Registration successful');
+      window.location.href='lobby.html';
+    },1500);
+  }catch(err){
+    console.error('Registration exception:',err);
+    showError('Registration failed: '+err.message);
+    btn.disabled=false;
+    btn.textContent='Create Account';
+  }
+});
+
+// Guest Login
+document.getElementById('guestBtn').addEventListener('click',()=>{
+  document.getElementById('guestModal').classList.add('active');
+  document.getElementById('guestUsername').value='Guest'+Math.floor(Math.random()*9999);
+});
+
+document.getElementById('guestCancelBtn').addEventListener('click',()=>{
+  document.getElementById('guestModal').classList.remove('active');
+});
+
+document.getElementById('guestContinueBtn').addEventListener('click',()=>{
+  const username=document.getElementById('guestUsername').value.trim();
+  if(username.length<3){
+    alert('Username must be at least 3 characters');
+    return;
+  }
+  localStorage.setItem('username',username);
+  localStorage.setItem('coins','100');
+  localStorage.setItem('isGuest','true');
+  localStorage.setItem('isLoggedIn','true');
+  console.log('✅ Guest login successful');
+  window.location.href='lobby.html';
+});
 
 function showError(msg){
-const el=document.getElementById('error');
-el.textContent=msg;
-el.style.display='block';
-setTimeout(()=>el.style.display='none',6000);
+  const el=document.getElementById('error');
+  el.textContent=msg;
+  el.style.display='block';
+  setTimeout(()=>el.style.display='none',6000);
 }
 
 function showSuccess(msg){
-const el=document.getElementById('success');
-el.textContent=msg;
-el.style.display='block';
+  const el=document.getElementById('success');
+  el.textContent=msg;
+  el.style.display='block';
 }
 
 function hideMessages(){
-document.getElementById('error').style.display='none';
-document.getElementById('success').style.display='none';
+  document.getElementById('error').style.display='none';
+  document.getElementById('success').style.display='none';
 }
 </script>
 </body>
