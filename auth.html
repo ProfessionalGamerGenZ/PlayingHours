@@ -136,9 +136,12 @@ Already have an account? <a data-switch="login">Login</a>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="config.js"></script>
 <script>
-const sb=window.supabase.createClient(SUPABASE_CONFIG.url,SUPABASE_CONFIG.key);
+// Supabase init directly
+const dbClient=window.supabase.createClient(
+  'https://chcepamgczwfguzroddn.supabase.co',
+  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoY2VwYW1nY3p3Zmd1enJvZGRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1NTQxODgsImV4cCI6MjA1NDEzMDE4OH0.ojtRcp7dUNGMlon33jkKuw_gYzkSLPM'
+);
 
 // Tab switching
 document.querySelectorAll('.tab').forEach(tab=>{
@@ -154,8 +157,7 @@ document.querySelectorAll('.tab').forEach(tab=>{
 
 document.querySelectorAll('[data-switch]').forEach(link=>{
   link.addEventListener('click',function(){
-    const tab=this.dataset.switch;
-    document.querySelector(`[data-tab="${tab}"]`).click();
+    document.querySelector(`[data-tab="${this.dataset.switch}"]`).click();
   });
 });
 
@@ -168,7 +170,7 @@ document.getElementById('login').addEventListener('submit',async(e)=>{
   btn.textContent='Logging in...';
   const data=new FormData(e.target);
   try{
-    const{data:user,error}=await sb.from('users').select('*').eq('username',data.get('username')).eq('password',data.get('password')).maybeSingle();
+    const{data:user,error}=await dbClient.from('users').select('*').eq('username',data.get('username')).eq('password',data.get('password')).maybeSingle();
     if(error)throw new Error(error.message);
     if(!user)throw new Error('Invalid username or password');
     if(user.is_banned)throw new Error('Account banned');
@@ -193,9 +195,9 @@ document.getElementById('register').addEventListener('submit',async(e)=>{
   btn.textContent='Creating...';
   const data=new FormData(e.target);
   try{
-    const{data:existing}=await sb.from('users').select('username').eq('username',data.get('username')).maybeSingle();
+    const{data:existing}=await dbClient.from('users').select('username').eq('username',data.get('username')).maybeSingle();
     if(existing)throw new Error('Username already taken');
-    const{data:user,error}=await sb.from('users').insert({
+    const{data:user,error}=await dbClient.from('users').insert({
       username:data.get('username'),
       password:data.get('password'),
       email:data.get('email')||null,
