@@ -7,7 +7,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem}
+/* Added padding-bottom to body so ads don't cover the 'Back to Home' link */
+body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#667eea,#764ba2);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem 1rem 80px 1rem}
 .auth-box{background:rgba(255,255,255,.95);border-radius:24px;padding:2.5rem;width:100%;max-width:450px;box-shadow:0 25px 70px rgba(0,0,0,.4);position:relative;z-index:10}
 .logo{text-align:center;margin-bottom:2rem}
 .logo-icon{width:70px;height:70px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;margin:0 auto .75rem;color:#fff}
@@ -42,6 +43,10 @@ body{font-family:'Poppins',sans-serif;background:linear-gradient(135deg,#667eea,
 .guest-modal.active{display:flex}
 .guest-modal-box{background:#fff;padding:2.5rem;border-radius:24px;max-width:420px;width:90%}
 .guest-modal h3{font-size:1.75rem;margin-bottom:1.25rem;text-align:center;font-weight:900;color:#1e293b}
+
+/* STICKY AD FOOTER STYLE */
+.ad-fixed-footer {position:fixed; bottom:0; left:0; width:100%; z-index:9999; display:flex; justify-content:center; background:rgba(255,255,255,0.1); padding:5px 0; backdrop-filter:blur(5px);}
+
 @media(max-width:640px){.form-row{grid-template-columns:1fr}}
 </style>
 </head>
@@ -132,10 +137,25 @@ Already have an account? <a data-switch="login">Login</a>
 </div>
 </div>
 
+<div class="ad-fixed-footer">
+    <script>
+      atOptions = {
+        'key' : '710e2bfc383eb41d3de6488d4f111fd1',
+        'format' : 'iframe',
+        'height' : 50,
+        'width' : 320,
+        'params' : {}
+      };
+    </script>
+    <script src="https://www.highperformanceformat.com/710e2bfc383eb41d3de6488d4f111fd1/invoke.js"></script>
+</div>
+
+<script src="https://pl28615746.effectivegatecpm.com/d1/78/56/d178561dbfb5d8a2e4fd86218c5c946f.js"></script>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const YOUR_SUPABASE_URL = 'https://chcepamgczwfguzroddn.supabase.co';
-const YOUR_SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoY2VwYW1nY3p3Zmd1enJvZGRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2OTkxOTYsImV4cCI6MjA4NTI3NTE5Nn0.f5IefTnesklFtFvkjjgK11BBwEEpbvb1anBTEQbNJ18'
+const YOUR_SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoY2VwYW1nY3p3Zmd1enJvZGRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2OTkxOTYsImV4cCI6MjA4NTI3NTE5Nn0.f5IefTnesklFtFvkjjgK11BBwEEpbvb1anBTEQbNJ18';
 
 const db = window.supabase.createClient(YOUR_SUPABASE_URL, YOUR_SUPABASE_KEY);
 
