@@ -3,7 +3,18 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>PlayingHours - Multiplayer Gaming Platform</title>
+
+<title>PlayingHours | Play Free Online Multiplayer Games with Friends</title>
+<meta name="description" content="Play the best multiplayer games online at PlayingHours. No download required! Join Ludo King, Chess, Snake Battle, and more. Create private rooms and compete globally.">
+<meta name="keywords" content="multiplayer games, play ludo online, online chess, snake battle, free browser games, playinghours, play games with friends, no download games">
+<meta name="author" content="PlayingHours">
+<meta name="robots" content="index, follow">
+
+<meta property="og:title" content="PlayingHours - Ultimate Multiplayer Gaming Platform">
+<meta property="og:description" content="Challenge your friends in real-time multiplayer games. Instant play, no install!">
+<meta property="og:url" content="https://playinghours.vercel.app/">
+<meta property="og:type" content="website">
+
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -31,10 +42,8 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:h
 .hero-image{position:relative}
 .game-visual{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border-radius:24px;padding:3rem;border:1px solid rgba(255,255,255,.1);box-shadow:0 25px 70px rgba(0,0,0,.4)}
 
-/* --- ADSTERRA PLACEMENT STYLES --- */
 .ad-native-section {max-width:1200px; margin:2rem auto; text-align:center; padding:0 5%;}
 .ad-fixed-footer {position:fixed; bottom:0; left:0; width:100%; z-index:9999; display:flex; justify-content:center; background:rgba(15,23,42,0.9); padding:5px 0;}
-/* Extra padding for body to ensure footer doesn't hide content */
 body {padding-bottom: 70px;}
 
 .games-section{padding:100px 5%;background:rgba(255,255,255,.02)}
@@ -54,6 +63,13 @@ body {padding-bottom: 70px;}
 .feature-icon{width:80px;height:80px;background:linear-gradient(135deg,#10b981,#06d6a0);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2.5rem;margin:0 auto 1.5rem}
 .feature-card h3{font-size:1.5rem;font-weight:800;margin-bottom:1rem}
 .feature-card p{color:rgba(255,255,255,.6);line-height:1.7}
+
+/* NEW SEO ABOUT SECTION STYLE */
+.seo-about-section {padding:80px 5%; background:#0f172a; border-top:1px solid rgba(255,255,255,.05);}
+.seo-about-box {max-width:1100px; margin:0 auto; color:rgba(255,255,255,.7); line-height:1.8;}
+.seo-about-box h2 {color:#fff; margin-bottom:1.5rem; font-size:2rem; font-weight:800;}
+.seo-about-box p {margin-bottom:1.2rem;}
+
 .cta-section{padding:100px 5%;background:linear-gradient(135deg,#667eea,#764ba2);text-align:center}
 .cta-section h2{font-size:clamp(2.5rem,5vw,3.5rem);font-weight:900;margin-bottom:1.5rem}
 .cta-section p{font-size:1.375rem;margin-bottom:2.5rem;opacity:.95}
@@ -200,6 +216,15 @@ body {padding-bottom: 70px;}
 </div>
 </section>
 
+<section class="seo-about-section">
+    <div class="seo-about-box">
+        <h2>About PlayingHours - Your Premier Online Gaming Hub</h2>
+        <p>Welcome to <strong>PlayingHours</strong>, the fast-growing destination for multiplayer browser games. We specialize in providing a seamless, no-download gaming experience for players who love classic board games and competitive arcade challenges. From the strategic depths of <strong>Online Chess</strong> to the fast-paced action of <strong>Snake Battle</strong>, our platform is built for speed and community.</p>
+        <p>Our goal is to bring people together through the power of play. With our integrated <strong>real-time room system</strong>, you can invite your friends from across the globe or find new rivals in our matchmaking lobbies. We use state-of-the-art web technology to ensure that every move you make is synchronized instantly, providing a lag-free experience on both mobile and desktop.</p>
+        <p>Whether you're looking to kill time with a quick match of <strong>Ludo King</strong> or want to prove your intelligence in <strong>Quiz Master</strong>, PlayingHours offers a diverse library of 13+ games. Join our growing community today, climb the global leaderboards, and reclaim your "Playing Hours" with us!</p>
+    </div>
+</section>
+
 <section class="cta-section">
 <h2>Ready to Play?</h2>
 <p>Join thousands of players today - completely free!</p>
@@ -220,25 +245,25 @@ body {padding-bottom: 70px;}
 <div class="footer-section">
 <h4>Company</h4>
 <ul class="footer-links">
-<li><a href="#">About Us</a></li>
-<li><a href="#">Contact</a></li>
-<li><a href="#">Careers</a></li>
+<li><a href="about.html">About Us</a></li>
+<li><a href="contact.html">Contact Us</a></li>
+<li><a href="contact.html">Careers</a></li>
 </ul>
 </div>
 <div class="footer-section">
 <h4>Support</h4>
 <ul class="footer-links">
-<li><a href="#">Help Center</a></li>
-<li><a href="#">FAQ</a></li>
-<li><a href="#">Report Bug</a></li>
+<li><a href="contact.html">Help Center</a></li>
+<li><a href="contact.html">FAQ</a></li>
+<li><a href="contact.html">Report Bug</a></li>
 </ul>
 </div>
 <div class="footer-section">
 <h4>Legal</h4>
 <ul class="footer-links">
-<li><a href="#">Privacy Policy</a></li>
-<li><a href="#">Terms of Service</a></li>
-<li><a href="#">Disclaimer</a></li>
+<li><a href="privacy.html">Privacy Policy</a></li>
+<li><a href="terms.html">Terms of Service</a></li>
+<li><a href="terms.html">Disclaimer</a></li>
 </ul>
 </div>
 </div>
@@ -249,13 +274,7 @@ body {padding-bottom: 70px;}
 
 <div class="ad-fixed-footer">
     <script>
-      atOptions = {
-        'key' : '710e2bfc383eb41d3de6488d4f111fd1',
-        'format' : 'iframe',
-        'height' : 50,
-        'width' : 320,
-        'params' : {}
-      };
+      atOptions = {'key' : '710e2bfc383eb41d3de6488d4f111fd1','format' : 'iframe','height' : 50,'width' : 320,'params' : {}};
     </script>
     <script src="https://www.highperformanceformat.com/710e2bfc383eb41d3de6488d4f111fd1/invoke.js"></script>
 </div>
