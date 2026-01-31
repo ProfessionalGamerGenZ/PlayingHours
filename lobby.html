@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -7,15 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
---bg:#f8fafc;
---card:#fff;
---border:#e2e8f0;
---text:#1e293b;
---text-dim:#64748b;
---primary:#667eea;
---secondary:#764ba2;
-}
+:root{--bg:#f8fafc;--card:#fff;--border:#e2e8f0;--text:#1e293b;--text-dim:#64748b;--primary:#667eea;--secondary:#764ba2}
 [data-theme="dark"]{--bg:#0f172a;--card:#1e293b;--border:rgba(255,255,255,.1);--text:#fff;--text-dim:rgba(255,255,255,.6)}
 body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);transition:all .3s;font-size:14px}
 .header{background:var(--card);border-bottom:2px solid var(--border);padding:.75rem 1rem;position:sticky;top:0;z-index:100;box-shadow:0 2px 4px rgba(0,0,0,.05)}
@@ -36,13 +28,11 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 .header-right{display:flex;align-items:center;gap:.5rem}
 .profile-btn{width:36px;height:36px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:1rem;position:relative;transition:.3s}
 .profile-btn:hover{transform:scale(1.1)}
-.dropdown{position:absolute;top:calc(100% + .5rem);right:0;background:var(--card);border:2px solid var(--border);border-radius:10px;padding:.375rem;min-width:180px;display:none;box-shadow:0 8px 20px rgba(0,0,0,.1)}
+.dropdown{position:absolute;top:calc(100% + .5rem);right:0;background:var(--card);border:2px solid var(--border);border-radius:10px;padding:.375rem;min-width:180px;display:none;box-shadow:0 8px 20px rgba(0,0,0,.1);z-index:200}
 .dropdown.show{display:block}
 .dropdown-item{padding:.625rem .875rem;border-radius:6px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:.625rem;font-size:.875rem;color:var(--text)}
 .dropdown-item:hover{background:var(--bg)}
 .mobile-search{display:none;padding:.75rem 1rem;background:var(--card);border-bottom:2px solid var(--border)}
-.mobile-search .search-input{width:100%;padding:.625rem .875rem .625rem 2.5rem}
-.mobile-search .search-icon{position:absolute;left:1.75rem;top:50%}
 .mobile-search-wrapper{position:relative}
 .sidebar{position:fixed;left:0;top:0;bottom:0;width:240px;background:var(--card);border-right:2px solid var(--border);padding:.875rem;transform:translateX(-100%);transition:.3s;z-index:200;box-shadow:4px 0 8px rgba(0,0,0,.1)}
 .sidebar.show{transform:translateX(0)}
@@ -62,9 +52,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 .theme-option.active{border-color:var(--primary);box-shadow:0 0 0 2px rgba(102,126,234,.2)}
 .theme-light{background:linear-gradient(135deg,#fff,#f1f5f9)}
 .theme-dark{background:linear-gradient(135deg,#0f172a,#1e293b)}
-.theme-ocean{background:linear-gradient(135deg,#0ea5e9,#3b82f6)}
-.theme-sunset{background:linear-gradient(135deg,#f43f5e,#fb923c)}
-.theme-forest{background:linear-gradient(135deg,#10b981,#34d399)}
 .main{max-width:1200px;margin:0 auto;padding:1rem .875rem 2.5rem}
 .section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:.75rem}
 .section-title{font-size:1.25rem;font-weight:800}
@@ -98,7 +85,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 .toast-close{background:transparent;border:none;color:var(--text-dim);font-size:1.125rem;cursor:pointer;padding:0;width:20px;height:20px;flex-shrink:0}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:300;padding:.875rem}
 .modal.show{display:flex}
-.modal-box{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:1.5rem;max-width:450px;width:100%;position:relative;animation:modalIn .3s;max-height:90vh;overflow-y:auto}
+.modal-box{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:1.5rem;max-width:500px;width:100%;position:relative;animation:modalIn .3s;max-height:90vh;overflow-y:auto}
 @keyframes modalIn{from{transform:scale(.95);opacity:0}to{transform:scale(1);opacity:1}}
 .modal-header{margin-bottom:1.25rem;text-align:center}
 .modal-header h2{font-size:1.375rem;font-weight:900;margin-bottom:.375rem}
@@ -110,15 +97,25 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 .option:hover{border-color:var(--primary);transform:translateX(3px)}
 .option h3{font-size:1rem;font-weight:800;margin-bottom:.375rem;display:flex;align-items:center;gap:.625rem}
 .option p{font-size:.8125rem;color:var(--text-dim)}
-.input-group{margin-bottom:1.25rem}
+.input-group{margin-bottom:1rem}
 .input-group label{display:block;margin-bottom:.5rem;font-weight:600;font-size:.875rem}
-.input-group input{width:100%;padding:.75rem;background:var(--bg);border:2px solid var(--border);border-radius:8px;color:var(--text);font-size:.9375rem;font-weight:700;text-transform:uppercase;text-align:center;letter-spacing:2px;transition:.3s}
-.input-group input:focus{outline:none;border-color:var(--primary)}
+.input-group input,.input-group select{width:100%;padding:.75rem;background:var(--bg);border:2px solid var(--border);border-radius:8px;color:var(--text);font-size:.875rem;transition:.3s}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--primary)}
 .modal-footer{display:flex;gap:.75rem}
 .btn{padding:.75rem 1.25rem;border-radius:8px;font-weight:700;cursor:pointer;border:none;font-size:.875rem;flex:1;transition:.3s}
 .btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff}
 .btn-primary:hover{transform:translateY(-2px)}
 .btn-secondary{background:var(--bg);color:var(--text);border:2px solid var(--border)}
+.room-list{max-height:400px;overflow-y:auto}
+.room-item{background:var(--bg);border:2px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:.75rem;cursor:pointer;transition:.3s}
+.room-item:hover{border-color:var(--primary)}
+.room-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.5rem}
+.room-name{font-weight:800;font-size:.9375rem}
+.room-privacy{display:flex;align-items:center;gap:.375rem;font-size:.75rem;color:var(--text-dim)}
+.room-privacy.locked{color:#f59e0b}
+.room-meta{display:flex;gap:1rem;font-size:.75rem;color:var(--text-dim)}
+.loader{border:3px solid var(--border);border-top:3px solid var(--primary);border-radius:50%;width:30px;height:30px;animation:spin 1s linear infinite;margin:1rem auto}
+@keyframes spin{to{transform:rotate(360deg)}}
 .footer{background:var(--card);border-top:2px solid var(--border);padding:1rem;text-align:center;margin-top:2rem}
 .footer-content{display:flex;justify-content:center;align-items:center;gap:1.5rem;flex-wrap:wrap;font-size:.8125rem}
 .footer-link{color:var(--text-dim);text-decoration:none;font-weight:600;transition:.3s}
@@ -131,9 +128,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 .logo-text{display:none}
 .modal-box{padding:1.25rem}
 .toast{right:.5rem;left:.5rem;top:7.5rem}
-}
-@media(min-width:769px) and (max-width:1024px){
-.games-grid{grid-template-columns:repeat(2,1fr)}
 }
 </style>
 </head>
@@ -151,16 +145,13 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 <div class="header-center">
 <span class="search-icon">🔍</span>
 <input type="text" class="search-input" placeholder="Search games..." oninput="searchGames(this.value)">
-<div class="online-badge">
-<span class="online-dot"></span>
-<span id="onlineCount">—</span>
-</div>
+<div class="online-badge"><span class="online-dot"></span><span id="onlineCount">—</span></div>
 </div>
 <div class="header-right">
 <div class="profile-btn" onclick="toggleDropdown()">
 👤
 <div class="dropdown" id="dropdown">
-<div class="dropdown-item" onclick="showToast('info','Coming Soon','Profile in development')">👤 Profile</div>
+<div class="dropdown-item" onclick="location.href='components/profile.html'">👤 My Profile</div>
 <div class="dropdown-item" onclick="showToast('info','Coming Soon','Settings in development')">⚙️ Settings</div>
 <div class="dropdown-item" onclick="confirmLogout()">🚪 Logout</div>
 </div>
@@ -183,7 +174,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 </div>
 <nav class="sidebar-nav">
 <a href="lobby.html" class="nav-item active">🎮 Games</a>
-<a href="#" class="nav-item" onclick="showToast('info','Coming Soon','Profile in development')">👤 My Profile</a>
+<a href="components/profile.html" class="nav-item">👤 My Profile</a>
 <a href="#" class="nav-item" onclick="showToast('info','Coming Soon','Leaderboard coming soon')">🏆 Leaderboard</a>
 <a href="#" class="nav-item" onclick="showToast('info','Coming Soon','Tournaments coming soon')">🎯 Tournaments</a>
 <a href="#" class="nav-item" onclick="showToast('info','Coming Soon','Friends coming soon')">👥 Friends</a>
@@ -194,11 +185,8 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 <div class="theme-selector">
 <div class="theme-selector-title">🎨 Themes</div>
 <div class="theme-grid">
-<div class="theme-option theme-light active" onclick="setTheme('light')" title="Light"></div>
-<div class="theme-option theme-dark" onclick="setTheme('dark')" title="Dark"></div>
-<div class="theme-option theme-ocean" onclick="setTheme('ocean')" title="Ocean"></div>
-<div class="theme-option theme-sunset" onclick="setTheme('sunset')" title="Sunset"></div>
-<div class="theme-option theme-forest" onclick="setTheme('forest')" title="Forest"></div>
+<div class="theme-option theme-light active" onclick="setTheme('light')"></div>
+<div class="theme-option theme-dark" onclick="setTheme('dark')"></div>
 </div>
 </div>
 </aside>
@@ -232,6 +220,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 </div>
 </footer>
 
+<!-- Game Mode Modal -->
 <div class="modal" id="gameModeModal">
 <div class="modal-box">
 <button class="close-modal" onclick="closeModal()">×</button>
@@ -242,34 +231,80 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 <div class="modal-options">
 <div class="option" onclick="quickMatch()">
 <h3>⚡ Quick Match</h3>
-<p>Auto-join available room or create new</p>
+<p>Auto-join with waiting players</p>
 </div>
-<div class="option" onclick="createPrivateRoom()">
+<div class="option" onclick="showCreateModal()">
 <h3>➕ Create Room</h3>
-<p>Private room with shareable code</p>
+<p>Custom room with settings</p>
 </div>
 <div class="option" onclick="showJoinModal()">
 <h3>🚪 Join Room</h3>
-<p>Enter friend's room code</p>
+<p>Browse available rooms</p>
 </div>
 </div>
 </div>
 </div>
 
+<!-- Create Room Modal -->
+<div class="modal" id="createModal">
+<div class="modal-box">
+<button class="close-modal" onclick="closeModal()">×</button>
+<div class="modal-header">
+<h2>Create Room</h2>
+<p>Customize your game room</p>
+</div>
+<div class="input-group">
+<label>Room Name (Optional)</label>
+<input type="text" id="roomName" placeholder="My Awesome Room" maxlength="30">
+</div>
+<div class="input-group">
+<label>Password (Optional)</label>
+<input type="text" id="roomPassword" placeholder="Leave empty for public" maxlength="20">
+</div>
+<div class="input-group">
+<label>Max Players</label>
+<select id="maxPlayers">
+<option value="2">2 Players</option>
+<option value="4">4 Players</option>
+<option value="6">6 Players</option>
+</select>
+</div>
+<div class="modal-footer">
+<button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+<button class="btn btn-primary" onclick="createRoom()">Create Room</button>
+</div>
+</div>
+</div>
+
+<!-- Join Room Modal -->
 <div class="modal" id="joinModal">
 <div class="modal-box">
 <button class="close-modal" onclick="closeModal()">×</button>
 <div class="modal-header">
 <h2>Join Room</h2>
-<p>Enter 6-character code</p>
+<p>Select a room to join</p>
+</div>
+<div class="room-list" id="roomList">
+<div class="loader"></div>
+</div>
+</div>
+</div>
+
+<!-- Password Modal -->
+<div class="modal" id="passwordModal">
+<div class="modal-box">
+<button class="close-modal" onclick="closeModal()">×</button>
+<div class="modal-header">
+<h2>🔒 Enter Password</h2>
+<p id="passwordRoomName">Room Name</p>
 </div>
 <div class="input-group">
-<label>Room Code</label>
-<input type="text" id="roomCode" placeholder="ABC123" maxlength="6">
+<label>Password</label>
+<input type="password" id="joinPassword" placeholder="Enter room password">
 </div>
 <div class="modal-footer">
 <button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-<button class="btn btn-primary" onclick="joinRoomByCode()">Join</button>
+<button class="btn btn-primary" onclick="joinWithPassword()">Join</button>
 </div>
 </div>
 </div>
@@ -282,21 +317,12 @@ if(!user.isLoggedIn)location.href='auth.html';
 const db=window.supabase.createClient('https://chcepamgczwfguzroddn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoY2VwYW1nY3p3Zmd1enJvZGRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2OTkxOTYsImV4cCI6MjA4NTI3NTE5Nn0.f5IefTnesklFtFvkjjgK11BBwEEpbvb1anBTEQbNJ18');
 
 let currentGame='';
+let currentRoomCode='';
 let allGames=[];
 const games=[
 {id:'tictactoe',name:'Tic Tac Toe',icon:'❌',players:'2',time:'1-3m',category:'board',maxPlayers:2},
 {id:'ludo',name:'Ludo King',icon:'🎲',players:'2-4',time:'15-30m',category:'board',maxPlayers:4},
-{id:'scribble',name:'Scribble.io',icon:'🎨',players:'4-12',time:'10-20m',category:'puzzle',maxPlayers:12},
-{id:'chess',name:'Chess',icon:'♟️',players:'2',time:'5-60m',category:'board',maxPlayers:2},
-{id:'snake',name:'Snake Battle',icon:'🐍',players:'1-4',time:'5-10m',category:'puzzle',maxPlayers:4},
-{id:'quiz',name:'Quiz Master',icon:'🧠',players:'2-20',time:'10-15m',category:'trivia',maxPlayers:20},
-{id:'memory',name:'Memory Match',icon:'🃏',players:'2-6',time:'5-10m',category:'puzzle',maxPlayers:6},
-{id:'wordfight',name:'Word Fight',icon:'📝',players:'2-6',time:'5-10m',category:'puzzle',maxPlayers:6},
-{id:'trivia',name:'Trivia',icon:'❓',players:'2-16',time:'10-20m',category:'trivia',maxPlayers:16},
-{id:'riddles',name:'Riddles',icon:'💡',players:'1-8',time:'5-15m',category:'trivia',maxPlayers:8},
-{id:'wordsearch',name:'Word Search',icon:'🔍',players:'1-6',time:'5-10m',category:'puzzle',maxPlayers:6},
-{id:'checkers',name:'Checkers',icon:'🏁',players:'2',time:'10-20m',category:'board',maxPlayers:2},
-{id:'puzzle',name:'Puzzle Slider',icon:'🧩',players:'1-4',time:'5-15m',category:'puzzle',maxPlayers:4}
+{id:'chess',name:'Chess',icon:'♟️',players:'2',time:'5-60m',category:'board',maxPlayers:2}
 ];
 
 async function loadGames(filter='all'){
@@ -309,7 +335,6 @@ allGames=games.map(g=>({...g,rooms:roomCounts[g.id]||0}));
 document.getElementById('onlineCount').textContent=(totalUsers||0)+' online';
 }catch(e){
 allGames=games.map(g=>({...g,rooms:0}));
-document.getElementById('onlineCount').textContent='Offline';
 }
 renderGames(filter);
 }
@@ -373,13 +398,43 @@ function toggleSidebar(){document.getElementById('sidebar').classList.toggle('sh
 function toggleDropdown(){document.getElementById('dropdown').classList.toggle('show')}
 function openGameModal(id,name){currentGame=id;document.getElementById('modalGameName').textContent=name;document.getElementById('gameModeModal').classList.add('show')}
 function closeModal(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'))}
-function showJoinModal(){closeModal();document.getElementById('joinModal').classList.add('show')}
+function showCreateModal(){closeModal();document.getElementById('createModal').classList.add('show')}
+
+async function showJoinModal(){
+closeModal();
+document.getElementById('joinModal').classList.add('show');
+document.getElementById('roomList').innerHTML='<div class="loader"></div>';
+try{
+const{data:rooms}=await db.from('rooms').select('*').eq('game_type',currentGame).eq('status','waiting').order('created_at',{ascending:false});
+if(!rooms||rooms.length===0){
+document.getElementById('roomList').innerHTML='<p style="text-align:center;color:var(--text-dim);padding:2rem">No rooms available</p>';
+return;
+}
+document.getElementById('roomList').innerHTML=rooms.map(r=>`
+<div class="room-item" onclick="joinRoom('${r.code}',${r.password?`'${r.password}'`:null})">
+<div class="room-header">
+<div class="room-name">${r.room_name||'Room '+r.code}</div>
+<div class="room-privacy ${r.password?'locked':''}">
+${r.password?'🔒 Locked':'🌐 Public'}
+</div>
+</div>
+<div class="room-meta">
+<span>👥 ${r.player_count}/${r.max_players}</span>
+<span>🎮 ${r.code}</span>
+</div>
+</div>
+`).join('');
+}catch(e){
+document.getElementById('roomList').innerHTML='<p style="text-align:center;color:var(--text-dim)">Failed to load rooms</p>';
+}
+}
 
 async function quickMatch(){
+showToast('info','Searching','Finding available match...');
+closeModal();
 try{
-showToast('info','Searching','Finding available room...');
 const gameConfig=games.find(g=>g.id===currentGame);
-const{data:availableRoom}=await db.from('rooms').select('*').eq('game_type',currentGame).eq('status','waiting').eq('is_private',false).lt('player_count',gameConfig.maxPlayers).order('created_at',{ascending:true}).limit(1).maybeSingle();
+const{data:availableRoom}=await db.from('rooms').select('*').eq('game_type',currentGame).eq('status','waiting').eq('is_private',false).is('password',null).lt('player_count',gameConfig.maxPlayers).order('created_at',{ascending:true}).limit(1).maybeSingle();
 if(availableRoom){
 await joinExistingRoom(availableRoom.code);
 }else{
@@ -388,7 +443,6 @@ await createPublicRoom();
 }catch(e){
 showToast('error','Error','Failed to find match');
 }
-closeModal();
 }
 
 async function createPublicRoom(){
@@ -396,43 +450,33 @@ const code=generateCode();
 const gameConfig=games.find(g=>g.id===currentGame);
 try{
 await db.from('rooms').insert({
-code,
-game_type:currentGame,
-host_id:user.id,
+code,game_type:currentGame,host_id:user.id,
 players:[{id:user.id,username:user.username,joined_at:new Date().toISOString()}],
-player_count:1,
-max_players:gameConfig.maxPlayers,
-is_private:false,
-status:'waiting',
-game_state:{},
-created_at:new Date().toISOString(),
+player_count:1,max_players:gameConfig.maxPlayers,is_private:false,password:null,
+room_name:null,status:'waiting',game_state:{},created_at:new Date().toISOString(),
 last_activity:new Date().toISOString()
 });
-showToast('success','Room Created',`Code: ${code} - Waiting for players...`);
+showToast('success','Room Created','Waiting for players...');
 setTimeout(()=>location.href=`games/${currentGame}/${currentGame}.html?room=${code}`,1500);
 }catch(e){
 showToast('error','Error','Failed to create room');
 }
 }
 
-async function createPrivateRoom(){
+async function createRoom(){
 const code=generateCode();
-const gameConfig=games.find(g=>g.id===currentGame);
+const name=document.getElementById('roomName').value.trim();
+const pwd=document.getElementById('roomPassword').value.trim();
+const maxPlayers=parseInt(document.getElementById('maxPlayers').value);
 try{
 await db.from('rooms').insert({
-code,
-game_type:currentGame,
-host_id:user.id,
+code,game_type:currentGame,host_id:user.id,
 players:[{id:user.id,username:user.username,joined_at:new Date().toISOString()}],
-player_count:1,
-max_players:gameConfig.maxPlayers,
-is_private:true,
-status:'waiting',
-game_state:{},
-created_at:new Date().toISOString(),
+player_count:1,max_players:maxPlayers,is_private:true,password:pwd||null,
+room_name:name||null,status:'waiting',game_state:{},created_at:new Date().toISOString(),
 last_activity:new Date().toISOString()
 });
-showToast('success','Private Room',`Code: ${code} - Share with friends!`);
+showToast('success','Room Created',`Code: ${code}`);
 setTimeout(()=>location.href=`games/${currentGame}/${currentGame}.html?room=${code}`,1500);
 }catch(e){
 showToast('error','Error','Failed to create room');
@@ -440,48 +484,53 @@ showToast('error','Error','Failed to create room');
 closeModal();
 }
 
-async function joinRoomByCode(){
-const code=document.getElementById('roomCode').value.toUpperCase().trim();
-if(code.length!==6)return showToast('error','Invalid','6 characters required');
-try{
-const{data:room}=await db.from('rooms').select('*').eq('code',code).single();
-if(!room)return showToast('error','Not Found','Invalid room code');
-if(room.status!=='waiting')return showToast('error','Game Started','Room already playing');
-if(room.player_count>=room.max_players)return showToast('error','Room Full','Maximum players reached');
-await joinExistingRoom(code);
-}catch(e){
-showToast('error','Error','Failed to join room');
-}
+async function joinRoom(code,requiredPwd){
+if(requiredPwd){
+currentRoomCode=code;
+document.getElementById('passwordRoomName').textContent='Room '+code;
 closeModal();
+document.getElementById('passwordModal').classList.add('show');
+}else{
+await joinExistingRoom(code);
+}
+}
+
+async function joinWithPassword(){
+const pwd=document.getElementById('joinPassword').value.trim();
+const{data:room}=await db.from('rooms').select('*').eq('code',currentRoomCode).single();
+if(room&&room.password===pwd){
+await joinExistingRoom(currentRoomCode);
+}else{
+showToast('error','Wrong Password','Try again');
+}
 }
 
 async function joinExistingRoom(code){
 try{
 const{data:room}=await db.from('rooms').select('*').eq('code',code).single();
+if(!room)return showToast('error','Not Found','Invalid room code');
+if(room.status!=='waiting')return showToast('error','Game Started','Room already playing');
+if(room.player_count>=room.max_players)return showToast('error','Room Full','Maximum players reached');
 if(room.players.some(p=>p.id===user.id)){
 location.href=`games/${room.game_type}/${room.game_type}.html?room=${code}`;
 return;
 }
 const updatedPlayers=[...room.players,{id:user.id,username:user.username,joined_at:new Date().toISOString()}];
 await db.from('rooms').update({
-players:updatedPlayers,
-player_count:updatedPlayers.length,
+players:updatedPlayers,player_count:updatedPlayers.length,
 status:updatedPlayers.length===room.max_players?'playing':'waiting',
 last_activity:new Date().toISOString()
 }).eq('code',code);
-showToast('success','Joining',`Joining room ${code}...`);
+showToast('success','Joining',`Joining room...`);
 setTimeout(()=>location.href=`games/${room.game_type}/${room.game_type}.html?room=${code}`,1000);
 }catch(e){
 showToast('error','Error','Failed to join');
 }
+closeModal();
 }
 
 function generateCode(){return Math.random().toString(36).substr(2,6).toUpperCase()}
-
-function confirmLogout(){
-if(confirm('Logout?')){localStorage.clear();location.href='index.html'}
-}
-
+function confirmLogout(){if(confirm('Logout?')){localStorage.clear();location.href='index.html'}}
 function showToast(type,title,message){
 const toast=document.getElementById('toast');
 toast.className='toast '+type+' show';
@@ -489,7 +538,6 @@ document.getElementById('toastTitle').textContent=title;
 document.getElementById('toastMessage').textContent=message;
 setTimeout(hideToast,4000);
 }
-
 function hideToast(){document.getElementById('toast').classList.remove('show')}
 
 document.addEventListener('click',e=>{
