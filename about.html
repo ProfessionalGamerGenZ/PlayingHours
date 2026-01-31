@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>About Us - PlayingHours | Ultimate Online Multiplayer Hub</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* CSS copied from your Index for consistency */
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:hidden}
+
+.header{position:fixed;top:0;width:100%;background:rgba(15,23,42,.95);backdrop-filter:blur(20px);z-index:100;padding:1rem 5%;border-bottom:1px solid rgba(255,255,255,.1)}
+.nav{display:flex;justify-content:space-between;align-items:center;max-width:1400px;margin:0 auto}
+.logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.logo-icon{width:50px;height:50px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.75rem;box-shadow:0 4px 15px rgba(102,126,234,.4);color:#fff}
+.logo-text{font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:2rem;align-items:center}
+.nav-link{color:rgba(255,255,255,.8);text-decoration:none;font-weight:600;transition:.3s;font-size:.9375rem}
+.nav-btn{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:.75rem 2rem;border-radius:12px;font-weight:700;text-decoration:none}
+
+/* Content Styling */
+.about-container {padding:150px 5% 100px; max-width:1000px; margin:0 auto; line-height:1.8;}
+.about-container h1 {font-size:clamp(2.5rem, 5vw, 4rem); font-weight:900; margin-bottom:2rem; background:linear-gradient(135deg,#667eea,#764ba2); -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
+.about-container h2 {font-size:1.75rem; color:#667eea; margin:2.5rem 0 1rem; font-weight:800;}
+.about-container p {font-size:1.125rem; color:rgba(255,255,255,0.7); margin-bottom:1.5rem;}
+.highlight {color:#fff; font-weight:700;}
+
+.footer{background:rgba(0,0,0,.3);padding:2.5rem 5%;border-top:1px solid rgba(255,255,255,.1)}
+.footer-content{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem}
+.footer-section h4{font-size:1rem;font-weight:800;margin-bottom:.75rem;color:#fff}
+.footer-links{list-style:none;display:flex;flex-direction:column;gap:.5rem}
+.footer-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:.875rem;transition:.3s}
+.footer-links a:hover{color:#fff}
+.footer-bottom{text-align:center;padding-top:1.5rem;margin-top:1.5rem;border-top:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5)}
+
+.ad-fixed-footer {position:fixed; bottom:0; left:0; width:100%; z-index:9999; display:flex; justify-content:center; background:rgba(15,23,42,0.9); padding:5px 0;}
+body {padding-bottom: 80px;}
+
+@media(max-width:768px){ .footer-content{grid-template-columns:repeat(2,1fr)} }
+</style>
+</head>
+<body>
+
+<header class="header">
+    <nav class="nav">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">🎮</div>
+            <div class="logo-text">PlayingHours</div>
+        </a>
+        <div class="nav-links">
+            <a href="index.html#games" class="nav-link">Games</a>
+            <a href="index.html#features" class="nav-link">Features</a>
+            <a href="auth.html" class="nav-btn">Start Playing</a>
+        </div>
+    </nav>
+</header>
+
+<main class="about-container">
+    <h1>About PlayingHours</h1>
+    
+    <p>Welcome to <span class="highlight">PlayingHours</span>, your ultimate destination for high-quality, real-time multiplayer browser games. Established in 2026, our platform was born out of a simple idea: to make online gaming social, instant, and accessible to everyone, anywhere in the world.</p>
+
+    <h2>Our Mission</h2>
+    <p>We aim to bridge the gap between classic board games and modern web technology. At PlayingHours, we believe you shouldn't need a high-end PC or expensive consoles to enjoy gaming with friends. Our mission is to provide a <span class="highlight">no-download, lag-free experience</span> that works perfectly on any device—be it your smartphone, tablet, or desktop.</p>
+
+    <h2>Why Choose Us?</h2>
+    <p>What sets us apart is our focus on community. We have developed a robust <strong>Room System</strong> that allows you to create private lobbies and invite your friends with a simple link or code. No more complicated matchmaking or waiting in long queues. Whether it's a strategic match of <span class="highlight">Online Chess</span>, a fun session of <span class="highlight">Ludo King</span>, or a fast-paced <span class="highlight">Snake Battle</span>, we ensure every move is synced in real-time.</p>
+
+    <h2>A Diverse Gaming Library</h2>
+    <p>With over 13+ games and counting, we offer something for every type of gamer. Our platform features everything from brain-teasing quizzes and memory matches to competitive drawing games like Scribble.io. We are constantly updating our library based on user feedback to ensure the fun never stops.</p>
+
+    <h2>Commitment to Quality</h2>
+    <p>We are a team of dedicated developers committed to maintaining a clean, secure, and fair gaming environment. We use top-tier cloud synchronization and database management (powered by Supabase) to keep your progress and coins safe. At PlayingHours, every hour you spend with us is designed to be an hour of pure joy and competition.</p>
+
+    <p>Thank you for being a part of our journey. Let's play!</p>
+</main>
+
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-section">
+            <h4>PlayingHours</h4>
+            <ul class="footer-links">
+                <li><a href="index.html#games">Games</a></li>
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="auth.html">Play Now</a></li>
+                <li><a href="sitemap.html">Sitemap</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Company</h4>
+            <ul class="footer-links">
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h4>Legal</h4>
+            <ul class="footer-links">
+                <li><a href="privacy.html">Privacy Policy</a></li>
+                <li><a href="terms.html">Terms of Service</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>© 2026 PlayingHours. All rights reserved.</p>
+    </div>
+</footer>
+
+<div class="ad-fixed-footer">
+    <script>
+      atOptions = {
+        'key' : '710e2bfc383eb41d3de6488d4f111fd1',
+        'format' : 'iframe',
+        'height' : 50,
+        'width' : 320,
+        'params' : {}
+      };
+    </script>
+    <script src="https://www.highperformanceformat.com/710e2bfc383eb41d3de6488d4f111fd1/invoke.js"></script>
+</div>
+
+<script src="https://pl28615746.effectivegatecpm.com/d1/78/56/d178561dbfb5d8a2e4fd86218c5c946f.js"></script>
+
+</body>
+</html>
