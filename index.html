@@ -4,17 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>PlayingHours - Multiplayer Gaming Platform</title>
-
-<script>(function(s){s.dataset.zone='10546196',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
-
-<script>(function(s){s.dataset.zone='10542890',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:hidden}
 .header{position:fixed;top:0;width:100%;background:rgba(15,23,42,.95);backdrop-filter:blur(20px);z-index:100;padding:1rem 5%;border-bottom:1px solid rgba(255,255,255,.1)}
 .nav{display:flex;justify-content:space-between;align-items:center;max-width:1400px;margin:0 auto}
-.logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.logo{text-align:center;display:flex;align-items:center;gap:.75rem;text-decoration:none}
 .logo-icon{width:50px;height:50px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.75rem;box-shadow:0 4px 15px rgba(102,126,234,.4)}
 .logo-text{font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .nav-links{display:flex;gap:2rem;align-items:center}
@@ -24,8 +20,6 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:h
 .nav-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,126,234,.6)}
 .mobile-toggle{display:none;background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer}
 .hero{padding:150px 5% 100px;min-height:100vh;display:flex;align-items:center;background:linear-gradient(135deg,rgba(102,126,234,.1),rgba(118,75,162,.1));position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(102,126,234,.3),transparent);border-radius:50%;top:-300px;right:-300px;animation:float 20s infinite}
-@keyframes float{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(50px,50px) rotate(180deg)}}
 .hero-content{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
 .hero-text h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;line-height:1.1;margin-bottom:1.5rem}
 .gradient-text{background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
@@ -246,8 +240,11 @@ anchor.addEventListener('click',function(e){
 const href=this.getAttribute('href');
 if(href!=='#'){
 e.preventDefault();
-document.querySelector(href).scrollIntoView({behavior:'smooth'});
+const target = document.querySelector(href);
+if(target) {
+target.scrollIntoView({behavior:'smooth'});
 document.getElementById('navLinks').classList.remove('active');
+}
 }
 });
 });
