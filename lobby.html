@@ -220,7 +220,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 </div>
 </footer>
 
-<!-- Game Mode Modal -->
 <div class="modal" id="gameModeModal">
 <div class="modal-box">
 <button class="close-modal" onclick="closeModal()">×</button>
@@ -245,7 +244,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 </div>
 </div>
 
-<!-- Create Room Modal -->
 <div class="modal" id="createModal">
 <div class="modal-box">
 <button class="close-modal" onclick="closeModal()">×</button>
@@ -261,10 +259,11 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 <label>Password (Optional)</label>
 <input type="text" id="roomPassword" placeholder="Leave empty for public" maxlength="20">
 </div>
-<div class="input-group">
+<div class="input-group" id="maxPlayersGroup" style="display:none">
 <label>Max Players</label>
 <select id="maxPlayers">
 <option value="2">2 Players</option>
+<option value="3">3 Players</option>
 <option value="4">4 Players</option>
 <option value="6">6 Players</option>
 </select>
@@ -276,7 +275,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 </div>
 </div>
 
-<!-- Join Room Modal -->
 <div class="modal" id="joinModal">
 <div class="modal-box">
 <button class="close-modal" onclick="closeModal()">×</button>
@@ -290,7 +288,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 </div>
 </div>
 
-<!-- Password Modal -->
 <div class="modal" id="passwordModal">
 <div class="modal-box">
 <button class="close-modal" onclick="closeModal()">×</button>
@@ -311,7 +308,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const user={username:localStorage.getItem('username')||'Player',id:localStorage.getItem('userId')||'guest',coins:parseInt(localStorage.getItem('coins'))||0,isLoggedIn:localStorage.getItem('isLoggedIn')==='true'};
+const user={username:localStorage.getItem('username')||'Player',id:localStorage.getItem('userId')||'guest',isLoggedIn:localStorage.getItem('isLoggedIn')==='true'};
 if(!user.isLoggedIn)location.href='auth.html';
 
 const db=window.supabase.createClient('https://chcepamgczwfguzroddn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoY2VwYW1nY3p3Zmd1enJvZGRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2OTkxOTYsImV4cCI6MjA4NTI3NTE5Nn0.f5IefTnesklFtFvkjjgK11BBwEEpbvb1anBTEQbNJ18');
@@ -319,10 +316,21 @@ const db=window.supabase.createClient('https://chcepamgczwfguzroddn.supabase.co'
 let currentGame='';
 let currentRoomCode='';
 let allGames=[];
+
 const games=[
 {id:'tictactoe',name:'Tic Tac Toe',icon:'❌',players:'2',time:'1-3m',category:'board',maxPlayers:2},
 {id:'ludo',name:'Ludo King',icon:'🎲',players:'2-4',time:'15-30m',category:'board',maxPlayers:4},
-{id:'chess',name:'Chess',icon:'♟️',players:'2',time:'5-60m',category:'board',maxPlayers:2}
+{id:'scribble',name:'Scribble.io',icon:'🎨',players:'4-12',time:'10-20m',category:'puzzle',maxPlayers:12},
+{id:'chess',name:'Chess',icon:'♟️',players:'2',time:'5-60m',category:'board',maxPlayers:2},
+{id:'snake',name:'Snake Battle',icon:'🐍',players:'1-4',time:'5-10m',category:'puzzle',maxPlayers:4},
+{id:'quiz',name:'Quiz Master',icon:'🧠',players:'2-20',time:'10-15m',category:'trivia',maxPlayers:20},
+{id:'memory',name:'Memory Match',icon:'🃏',players:'2-6',time:'5-10m',category:'puzzle',maxPlayers:6},
+{id:'wordfight',name:'Word Fight',icon:'📝',players:'2-6',time:'5-10m',category:'puzzle',maxPlayers:6},
+{id:'trivia',name:'Trivia',icon:'❓',players:'2-16',time:'10-20m',category:'trivia',maxPlayers:16},
+{id:'riddles',name:'Riddles',icon:'💡',players:'1-8',time:'5-15m',category:'trivia',maxPlayers:8},
+{id:'wordsearch',name:'Word Search',icon:'🔍',players:'1-6',time:'5-10m',category:'puzzle',maxPlayers:6},
+{id:'checkers',name:'Checkers',icon:'🏁',players:'2',time:'10-20m',category:'board',maxPlayers:2},
+{id:'puzzle',name:'Puzzle Slider',icon:'🧩',players:'1-4',time:'5-15m',category:'puzzle',maxPlayers:4}
 ];
 
 async function loadGames(filter='all'){
@@ -335,6 +343,7 @@ allGames=games.map(g=>({...g,rooms:roomCounts[g.id]||0}));
 document.getElementById('onlineCount').textContent=(totalUsers||0)+' online';
 }catch(e){
 allGames=games.map(g=>({...g,rooms:0}));
+document.getElementById('onlineCount').textContent='Offline';
 }
 renderGames(filter);
 }
@@ -396,9 +405,31 @@ document.getElementById('gamesGrid').innerHTML=filtered.map(g=>`
 
 function toggleSidebar(){document.getElementById('sidebar').classList.toggle('show')}
 function toggleDropdown(){document.getElementById('dropdown').classList.toggle('show')}
-function openGameModal(id,name){currentGame=id;document.getElementById('modalGameName').textContent=name;document.getElementById('gameModeModal').classList.add('show')}
+
+function openGameModal(id,name){
+currentGame=id;
+document.getElementById('modalGameName').textContent=name;
+document.getElementById('gameModeModal').classList.add('show');
+}
+
 function closeModal(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'))}
-function showCreateModal(){closeModal();document.getElementById('createModal').classList.add('show')}
+
+function showCreateModal(){
+closeModal();
+const gameConfig=games.find(g=>g.id===currentGame);
+const maxPlayersGroup=document.getElementById('maxPlayersGroup');
+if(gameConfig.maxPlayers>2){
+maxPlayersGroup.style.display='block';
+const select=document.getElementById('maxPlayers');
+select.innerHTML='';
+for(let i=2;i<=gameConfig.maxPlayers;i++){
+select.innerHTML+=`<option value="${i}">${i} Players</option>`;
+}
+}else{
+maxPlayersGroup.style.display='none';
+}
+document.getElementById('createModal').classList.add('show');
+}
 
 async function showJoinModal(){
 closeModal();
@@ -407,7 +438,7 @@ document.getElementById('roomList').innerHTML='<div class="loader"></div>';
 try{
 const{data:rooms}=await db.from('rooms').select('*').eq('game_type',currentGame).eq('status','waiting').order('created_at',{ascending:false});
 if(!rooms||rooms.length===0){
-document.getElementById('roomList').innerHTML='<p style="text-align:center;color:var(--text-dim);padding:2rem">No rooms available</p>';
+document.getElementById('roomList').innerHTML='<p style="text-align:center;color:var(--text-dim);padding:2rem">No rooms available. Create one or try Quick Match!</p>';
 return;
 }
 document.getElementById('roomList').innerHTML=rooms.map(r=>`
@@ -430,15 +461,17 @@ document.getElementById('roomList').innerHTML='<p style="text-align:center;color
 }
 
 async function quickMatch(){
-showToast('info','Searching','Finding available match...');
+showToast('info','Searching','Finding available players...');
 closeModal();
 try{
 const gameConfig=games.find(g=>g.id===currentGame);
 const{data:availableRoom}=await db.from('rooms').select('*').eq('game_type',currentGame).eq('status','waiting').eq('is_private',false).is('password',null).lt('player_count',gameConfig.maxPlayers).order('created_at',{ascending:true}).limit(1).maybeSingle();
 if(availableRoom){
 await joinExistingRoom(availableRoom.code);
+showToast('success','Match Found','Joining player...');
 }else{
 await createPublicRoom();
+showToast('info','Waiting','Room created. Waiting for players...');
 }
 }catch(e){
 showToast('error','Error','Failed to find match');
@@ -456,7 +489,6 @@ player_count:1,max_players:gameConfig.maxPlayers,is_private:false,password:null,
 room_name:null,status:'waiting',game_state:{},created_at:new Date().toISOString(),
 last_activity:new Date().toISOString()
 });
-showToast('success','Room Created','Waiting for players...');
 setTimeout(()=>location.href=`games/${currentGame}/${currentGame}.html?room=${code}`,1500);
 }catch(e){
 showToast('error','Error','Failed to create room');
@@ -467,7 +499,8 @@ async function createRoom(){
 const code=generateCode();
 const name=document.getElementById('roomName').value.trim();
 const pwd=document.getElementById('roomPassword').value.trim();
-const maxPlayers=parseInt(document.getElementById('maxPlayers').value);
+const gameConfig=games.find(g=>g.id===currentGame);
+const maxPlayers=gameConfig.maxPlayers>2?parseInt(document.getElementById('maxPlayers').value):gameConfig.maxPlayers;
 try{
 await db.from('rooms').insert({
 code,game_type:currentGame,host_id:user.id,
@@ -500,6 +533,7 @@ const pwd=document.getElementById('joinPassword').value.trim();
 const{data:room}=await db.from('rooms').select('*').eq('code',currentRoomCode).single();
 if(room&&room.password===pwd){
 await joinExistingRoom(currentRoomCode);
+closeModal();
 }else{
 showToast('error','Wrong Password','Try again');
 }
@@ -521,7 +555,7 @@ players:updatedPlayers,player_count:updatedPlayers.length,
 status:updatedPlayers.length===room.max_players?'playing':'waiting',
 last_activity:new Date().toISOString()
 }).eq('code',code);
-showToast('success','Joining',`Joining room...`);
+showToast('success','Joining','Joining room...');
 setTimeout(()=>location.href=`games/${room.game_type}/${room.game_type}.html?room=${code}`,1000);
 }catch(e){
 showToast('error','Error','Failed to join');
@@ -531,6 +565,7 @@ closeModal();
 
 function generateCode(){return Math.random().toString(36).substr(2,6).toUpperCase()}
 function confirmLogout(){if(confirm('Logout?')){localStorage.clear();location.href='index.html'}}
+
 function showToast(type,title,message){
 const toast=document.getElementById('toast');
 toast.className='toast '+type+' show';
@@ -538,6 +573,7 @@ document.getElementById('toastTitle').textContent=title;
 document.getElementById('toastMessage').textContent=message;
 setTimeout(hideToast,4000);
 }
+
 function hideToast(){document.getElementById('toast').classList.remove('show')}
 
 document.addEventListener('click',e=>{
