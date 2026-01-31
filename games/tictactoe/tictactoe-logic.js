@@ -1,5 +1,5 @@
 // Tic Tac Toe - Game Logic
-const YOUR_KEY = 'PASTE_YOUR_FULL_SUPABASE_KEY_HERE';
+const YOUR_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoY2VwYW1nY3p3Zmd1enJvZGRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2OTkxOTYsImV4cCI6MjA4NTI3NTE5Nn0.f5IefTnesklFtFvkjjgK11BBwEEpbvb1anBTEQbNJ18';
 const db = window.supabase.createClient('https://chcepamgczwfguzroddn.supabase.co', YOUR_KEY);
 
 // Game State
