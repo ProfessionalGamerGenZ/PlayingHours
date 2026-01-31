@@ -8,8 +8,6 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:hidden}
-
-/* HEADER */
 .header{position:fixed;top:0;width:100%;background:rgba(15,23,42,.95);backdrop-filter:blur(20px);z-index:100;padding:1rem 5%;border-bottom:1px solid rgba(255,255,255,.1)}
 .nav{display:flex;justify-content:space-between;align-items:center;max-width:1400px;margin:0 auto}
 .logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
@@ -21,8 +19,6 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:h
 .nav-btn{background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;padding:.75rem 2rem;border-radius:12px;font-weight:700;text-decoration:none;box-shadow:0 4px 15px rgba(102,126,234,.4);transition:.3s}
 .nav-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,126,234,.6)}
 .mobile-toggle{display:none;background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer}
-
-/* HERO */
 .hero{padding:150px 5% 100px;min-height:100vh;display:flex;align-items:center;background:linear-gradient(135deg,rgba(102,126,234,.1),rgba(118,75,162,.1));position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(102,126,234,.3),transparent);border-radius:50%;top:-300px;right:-300px;animation:float 20s infinite}
 @keyframes float{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(50px,50px) rotate(180deg)}}
@@ -34,8 +30,7 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:h
 .cta-btn:hover{transform:translateY(-4px);box-shadow:0 12px 35px rgba(102,126,234,.7)}
 .hero-image{position:relative}
 .game-visual{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border-radius:24px;padding:3rem;border:1px solid rgba(255,255,255,.1);box-shadow:0 25px 70px rgba(0,0,0,.4)}
-
-/* GAMES */
+.ad-container{max-width:728px;margin:3rem auto;padding:1rem;text-align:center}
 .games-section{padding:100px 5%;background:rgba(255,255,255,.02)}
 .section-header{text-align:center;margin-bottom:4rem}
 .section-header h2{font-size:clamp(2.5rem,5vw,3.5rem);font-weight:900;margin-bottom:1rem}
@@ -47,23 +42,17 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:h
 .game-card h3{font-size:1.75rem;font-weight:800;margin-bottom:.75rem}
 .game-card p{color:rgba(255,255,255,.6);margin-bottom:1.25rem;line-height:1.6}
 .game-meta{display:flex;gap:1.5rem;justify-content:center;font-size:.9375rem;color:rgba(255,255,255,.5)}
-
-/* FEATURES */
 .features{padding:100px 5%;background:linear-gradient(135deg,rgba(16,185,129,.1),rgba(6,214,160,.1))}
 .features-grid{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:2.5rem}
 .feature-card{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border-radius:20px;padding:2.5rem;border:1px solid rgba(255,255,255,.1);text-align:center}
 .feature-icon{width:80px;height:80px;background:linear-gradient(135deg,#10b981,#06d6a0);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:2.5rem;margin:0 auto 1.5rem}
 .feature-card h3{font-size:1.5rem;font-weight:800;margin-bottom:1rem}
 .feature-card p{color:rgba(255,255,255,.6);line-height:1.7}
-
-/* CTA */
 .cta-section{padding:100px 5%;background:linear-gradient(135deg,#667eea,#764ba2);text-align:center}
 .cta-section h2{font-size:clamp(2.5rem,5vw,3.5rem);font-weight:900;margin-bottom:1.5rem}
 .cta-section p{font-size:1.375rem;margin-bottom:2.5rem;opacity:.95}
 .cta-white{background:#fff;color:#667eea;padding:1.125rem 3rem;border-radius:12px;font-weight:700;text-decoration:none;box-shadow:0 8px 25px rgba(0,0,0,.3);display:inline-block;transition:.3s;font-size:1.125rem}
 .cta-white:hover{transform:translateY(-4px);box-shadow:0 12px 35px rgba(0,0,0,.5)}
-
-/* FOOTER */
 .footer{background:rgba(0,0,0,.3);padding:2.5rem 5%;border-top:1px solid rgba(255,255,255,.1)}
 .footer-content{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem}
 .footer-section h4{font-size:1rem;font-weight:800;margin-bottom:.75rem;color:#fff}
@@ -71,8 +60,6 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:h
 .footer-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:.875rem;transition:.3s}
 .footer-links a:hover{color:#fff}
 .footer-bottom{text-align:center;padding-top:1.5rem;margin-top:1.5rem;border-top:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:.875rem}
-
-/* RESPONSIVE */
 @media(max-width:768px){
 .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(15,23,42,.98);flex-direction:column;padding:2rem;gap:1rem}
 .nav-links.active{display:flex}
@@ -86,7 +73,6 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:h
 </style>
 </head>
 <body>
-
 <header class="header">
 <nav class="nav">
 <a href="index.html" class="logo">
@@ -128,6 +114,10 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:h
 </div>
 </div>
 </section>
+
+<div class="ad-container">
+<script>(function(s){s.dataset.zone='10542888',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+</div>
 
 <section class="games-section" id="games">
 <div class="section-header">
@@ -203,6 +193,10 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:h
 </div>
 </section>
 
+<div class="ad-container">
+<script>(function(s){s.dataset.zone='10542890',s.src='https://al5sm.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+</div>
+
 <section class="cta-section">
 <h2>Ready to Play?</h2>
 <p>Join thousands of players today - completely free!</p>
@@ -217,6 +211,7 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:h
 <li><a href="#games">Games</a></li>
 <li><a href="#features">Features</a></li>
 <li><a href="auth.html">Play Now</a></li>
+<li><a href="sitemap.html">Sitemap</a></li>
 </ul>
 </div>
 <div class="footer-section">
@@ -250,9 +245,7 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:h
 </footer>
 
 <script>
-function toggleMenu(){
-document.getElementById('navLinks').classList.toggle('active');
-}
+function toggleMenu(){document.getElementById('navLinks').classList.toggle('active')}
 document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
 anchor.addEventListener('click',function(e){
 const href=this.getAttribute('href');
