@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>My Profile - PlayingHours</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f8fafc;--card:#fff;--border:#e2e8f0;--text:#1e293b;--text-dim:#64748b;--primary:#667eea;--secondary:#764ba2}
+[data-theme="dark"]{--bg:#0f172a;--card:#1e293b;--border:rgba(255,255,255,.1);--text:#fff;--text-dim:rgba(255,255,255,.6)}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
+.header{background:var(--card);border-bottom:2px solid var(--border);padding:.875rem 1rem;box-shadow:0 2px 4px rgba(0,0,0,.05)}
+.header-content{max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.back-btn{background:transparent;border:2px solid var(--border);color:var(--text);padding:.5rem 1rem;border-radius:8px;text-decoration:none;font-weight:700;font-size:.875rem;display:flex;align-items:center;gap:.5rem;transition:.3s}
+.back-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+.page-title{font-size:1.125rem;font-weight:900}
+.container{max-width:1000px;margin:0 auto;padding:1rem}
+
+.profile-card{background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:12px;padding:1.5rem;margin-bottom:1rem;text-align:center;color:#fff}
+.avatar{width:70px;height:70px;background:#fff;border-radius:50%;margin:0 auto .75rem;display:flex;align-items:center;justify-content:center;font-size:2rem;box-shadow:0 4px 15px rgba(0,0,0,.2)}
+.username{font-size:1.5rem;font-weight:900;margin-bottom:.25rem}
+.user-id{font-size:.75rem;opacity:.8;margin-bottom:.75rem}
+.level-badge{display:inline-block;background:rgba(255,255,255,.2);padding:.375rem .875rem;border-radius:50px;font-weight:700;font-size:.875rem;backdrop-filter:blur(10px)}
+
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1rem}
+.stat-card{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:.875rem;text-align:center;transition:.3s}
+.stat-card:hover{transform:translateY(-3px);border-color:var(--primary)}
+.stat-icon{font-size:1.5rem;margin-bottom:.375rem}
+.stat-value{font-size:1.375rem;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.125rem}
+.stat-label{font-size:.75rem;color:var(--text-dim)}
+
+.section{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:1rem}
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem}
+.section-title{font-size:1rem;font-weight:800;display:flex;align-items:center;gap:.5rem}
+.collapse-btn{background:transparent;border:none;color:var(--text-dim);cursor:pointer;font-size:1.125rem;transition:.3s}
+.collapse-btn:hover{color:var(--text)}
+.section-content{overflow:hidden;transition:.3s}
+.section-content.collapsed{max-height:0;opacity:0}
+.section-content.expanded{max-height:500px;opacity:1}
+
+.xp-bar{background:var(--bg);border-radius:50px;height:10px;overflow:hidden;margin-bottom:.5rem}
+.xp-fill{background:linear-gradient(90deg,var(--primary),var(--secondary));height:100%;border-radius:50px;transition:.3s}
+.xp-text{display:flex;justify-content:space-between;font-size:.75rem;color:var(--text-dim)}
+
+.wallet-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
+.wallet-item{background:var(--bg);border-radius:8px;padding:.875rem;display:flex;align-items:center;gap:.75rem}
+.wallet-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem;background:linear-gradient(135deg,var(--primary),var(--secondary))}
+.wallet-info{flex:1}
+.wallet-label{font-size:.75rem;color:var(--text-dim);margin-bottom:.125rem}
+.wallet-value{font-size:1.125rem;font-weight:900}
+
+.match-list{display:flex;flex-direction:column;gap:.625rem;max-height:300px;overflow-y:auto}
+.match-item{background:var(--bg);border-radius:8px;padding:.875rem;display:flex;justify-content:space-between;align-items:center;transition:.3s}
+.match-item:hover{background:var(--border)}
+.match-info{display:flex;align-items:center;gap:.75rem}
+.match-icon{width:35px;height:35px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.125rem}
+.match-details h4{font-size:.875rem;font-weight:700;margin-bottom:.125rem}
+.match-details p{font-size:.6875rem;color:var(--text-dim)}
+.match-result{text-align:right}
+.result-badge{display:inline-block;padding:.25rem .625rem;border-radius:5px;font-weight:700;font-size:.6875rem}
+.result-badge.win{background:rgba(16,185,129,.15);color:#10b981}
+.result-badge.loss{background:rgba(239,68,68,.15);color:#ef4444}
+.result-badge.draw{background:rgba(245,158,11,.15);color:#f59e0b}
+.match-time{font-size:.625rem;color:var(--text-dim);margin-top:.125rem}
+
+.empty-state{text-align:center;padding:2rem 1rem;color:var(--text-dim)}
+.empty-icon{font-size:3rem;margin-bottom:.75rem;opacity:.5}
+.empty-text{font-size:.875rem;font-weight:600}
+
+@media(max-width:768px){
+.stats-grid{grid-template-columns:repeat(2,1fr)}
+.wallet-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body data-theme="light">
+
+<header class="header">
+<div class="header-content">
+<a href="../lobby.html" class="back-btn">← Back</a>
+<div class="page-title">👤 My Profile</div>
+<div style="width:70px"></div>
+</div>
+</header>
+
+<div class="container">
+
+<div class="profile-card">
+<div class="avatar" id="userAvatar">👤</div>
+<h1 class="username" id="username">Loading...</h1>
+<p class="user-id">ID: <span id="userId">—</span></p>
+<div class="level-badge">⭐ Level <span id="userLevel">1</span></div>
+</div>
+
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-icon">🎮</div>
+<div class="stat-value" id="totalGames">0</div>
+<div class="stat-label">Games</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon">🏆</div>
+<div class="stat-value" id="totalWins">0</div>
+<div class="stat-label">Wins</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon">📊</div>
+<div class="stat-value" id="winRate">0%</div>
+<div class="stat-label">Win Rate</div>
+</div>
+<div class="stat-card">
+<div class="stat-icon">🔥</div>
+<div class="stat-value" id="winStreak">0</div>
+<div class="stat-label">Streak</div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-header">
+<div class="section-title">📈 Experience</div>
+<button class="collapse-btn" onclick="toggleSection('xp')">▼</button>
+</div>
+<div class="section-content expanded" id="xp-content">
+<div class="xp-bar">
+<div class="xp-fill" id="xpFill" style="width:0%"></div>
+</div>
+<div class="xp-text">
+<span>Level <span id="currentLevel">1</span></span>
+<span><span id="currentXP">0</span>/<span id="nextLevelXP">100</span> XP</span>
+</div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-header">
+<div class="section-title">💰 Wallet</div>
+<button class="collapse-btn" onclick="toggleSection('wallet')">▼</button>
+</div>
+<div class="section-content expanded" id="wallet-content">
+<div class="wallet-grid">
+<div class="wallet-item">
+<div class="wallet-icon">💰</div>
+<div class="wallet-info">
+<div class="wallet-label">Coins</div>
+<div class="wallet-value" id="userCoins">0</div>
+</div>
+</div>
+<div class="wallet-item">
+<div class="wallet-icon">💎</div>
+<div class="wallet-info">
+<div class="wallet-label">Gems</div>
+<div class="wallet-value" id="userGems">0</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class="section">
+<div class="section-header">
+<div class="section-title">📜 Match History</div>
+<button class="collapse-btn" onclick="toggleSection('history')">▼</button>
+</div>
+<div class="section-content expanded" id="history-content">
+<div class="match-list" id="matchList">
+<div class="empty-state">
+<div class="empty-icon">🎮</div>
+<div class="empty-text">No matches yet</div>
+</div>
+</div>
+</div>
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const db=window.supabase.createClient('https://chcepamgczwfguzroddn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoY2VwYW1nY3p3Zmd1enJvZGRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2OTkxOTYsImV4cCI6MjA4NTI3NTE5Nn0.f5IefTnesklFtFvkjjgK11BBwEEpbvb1anBTEQbNJ18');
+
+const user={
+id:localStorage.getItem('userId'),
+username:localStorage.getItem('username')||'Player',
+coins:parseInt(localStorage.getItem('coins'))||0
+};
+
+async function loadProfile(){
+document.getElementById('username').textContent=user.username;
+document.getElementById('userId').textContent=user.id?.substr(0,8)||'guest';
+document.getElementById('userCoins').textContent=user.coins;
+document.getElementById('userGems').textContent='0';
+
+try{
+const{data:matches}=await db.from('matches').select('*').or(`winner_id.eq.${user.id},players.cs.{${user.id}}`).order('created_at',{ascending:false}).limit(10);
+
+if(matches&&matches.length>0){
+const totalGames=matches.length;
+const wins=matches.filter(m=>m.winner_id===user.id).length;
+const winRate=Math.round((wins/totalGames)*100);
+
+document.getElementById('totalGames').textContent=totalGames;
+document.getElementById('totalWins').textContent=wins;
+document.getElementById('winRate').textContent=winRate+'%';
+
+let streak=0;
+for(let m of matches){
+if(m.winner_id===user.id)streak++;
+else break;
+}
+document.getElementById('winStreak').textContent=streak;
+
+const xp=totalGames*10+wins*25;
+const level=Math.floor(xp/100)+1;
+const currentXP=xp%100;
+document.getElementById('userLevel').textContent=level;
+document.getElementById('currentLevel').textContent=level;
+document.getElementById('currentXP').textContent=currentXP;
+document.getElementById('nextLevelXP').textContent='100';
+document.getElementById('xpFill').style.width=currentXP+'%';
+
+renderMatchHistory(matches);
+}
+}catch(e){
+console.error(e);
+}
+}
+
+function renderMatchHistory(matches){
+if(!matches||matches.length===0)return;
+
+const html=matches.map(m=>{
+const isWin=m.winner_id===user.id;
+const isDraw=!m.winner_id;
+const result=isDraw?'draw':isWin?'win':'loss';
+const timeAgo=getTimeAgo(m.created_at);
+
+return`
+<div class="match-item">
+<div class="match-info">
+<div class="match-icon">${getGameIcon(m.game_type)}</div>
+<div class="match-details">
+<h4>${getGameName(m.game_type)}</h4>
+<p>vs ${getOpponent(m)}</p>
+</div>
+</div>
+<div class="match-result">
+<div class="result-badge ${result}">${result.toUpperCase()}</div>
+<div class="match-time">${timeAgo}</div>
+</div>
+</div>
+`;
+}).join('');
+
+document.getElementById('matchList').innerHTML=html;
+}
+
+function toggleSection(id){
+const content=document.getElementById(id+'-content');
+const btn=event.target;
+content.classList.toggle('collapsed');
+content.classList.toggle('expanded');
+btn.textContent=content.classList.contains('expanded')?'▼':'▶';
+}
+
+function getGameIcon(type){
+const icons={tictactoe:'❌',ludo:'🎲',chess:'♟️',snake:'🐍'};
+return icons[type]||'🎮';
+}
+
+function getGameName(type){
+const names={tictactoe:'Tic Tac Toe',ludo:'Ludo King',chess:'Chess',snake:'Snake Battle'};
+return names[type]||type;
+}
+
+function getOpponent(match){
+try{
+const players=Array.isArray(match.players)?match.players:JSON.parse(match.players||'[]');
+return players.find(p=>p!==user.username)||'Opponent';
+}catch{
+return'Opponent';
+}
+}
+
+function getTimeAgo(date){
+const seconds=Math.floor((new Date()-new Date(date))/1000);
+if(seconds<60)return'Just now';
+if(seconds<3600)return Math.floor(seconds/60)+'m ago';
+if(seconds<86400)return Math.floor(seconds/3600)+'h ago';
+return Math.floor(seconds/86400)+'d ago';
+}
+
+const savedTheme=localStorage.getItem('theme')||'light';
+document.body.setAttribute('data-theme',savedTheme);
+loadProfile();
+</script>
+</body>
+</html>
