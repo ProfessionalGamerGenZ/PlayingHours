@@ -3,35 +3,31 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Sitemap - PlayingHours | Explore Our Multiplayer Games</title>
+<title>Sitemap - PlayingHours | All Games & Pages</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
-/* Index se exact CSS copy ki hai taaki design same rahe */
 *{margin:0;padding:0;box-sizing:border-box}
-body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:hidden;padding-top:100px;padding-bottom:80px;}
+body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:hidden;padding-top:120px;padding-bottom:100px;}
 
-.container {max-width:1100px; margin:0 auto; padding:2rem 5%;}
-h1 {font-size:3rem; font-weight:900; margin-bottom:1rem; background:linear-gradient(135deg,#667eea,#764ba2); -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
-p.intro {color:rgba(255,255,255,0.6); margin-bottom:3rem; font-size:1.1rem;}
-
-.sitemap-wrapper {display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:3rem; border-top:1px solid rgba(255,255,255,0.1); padding-top:2rem;}
-.sitemap-group h2 {font-size:1.4rem; color:#667eea; margin-bottom:1.5rem; display:flex; align-items:center; gap:10px;}
-.sitemap-list {list-style:none;}
-.sitemap-list li {margin-bottom:12px; position:relative; padding-left:20px;}
-.sitemap-list li::before {content:'→'; position:absolute; left:0; color:rgba(255,255,255,0.3);}
-.sitemap-list a {color:rgba(255,255,255,0.7); text-decoration:none; transition:0.3s; font-weight:500;}
-.sitemap-list a:hover {color:#fff; padding-left:5px;}
-
-/* Header/Footer Styles (From Index) */
 .header{position:fixed;top:0;width:100%;background:rgba(15,23,42,.95);backdrop-filter:blur(20px);z-index:100;padding:1rem 5%;border-bottom:1px solid rgba(255,255,255,.1)}
 .nav{display:flex;justify-content:space-between;align-items:center;max-width:1400px;margin:0 auto}
 .logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
 .logo-icon{width:50px;height:50px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.75rem;color:#fff}
 .logo-text{font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.footer{background:rgba(0,0,0,.3);padding:2.5rem 5%;border-top:1px solid rgba(255,255,255,.1)}
-.footer-content{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem}
-.footer-links{list-style:none;display:flex;flex-direction:column;gap:.5rem}
-.footer-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:.875rem}
+
+.container {max-width:1100px; margin:0 auto; padding:0 5%;}
+h1 {font-size:3rem; font-weight:900; margin-bottom:1rem; background:linear-gradient(135deg,#667eea,#764ba2); -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
+p.intro {color:rgba(255,255,255,0.6); margin-bottom:3rem; font-size:1.1rem;}
+
+.sitemap-wrapper {display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:3rem; border-top:1px solid rgba(255,255,255,0.1); padding-top:2rem;}
+.sitemap-group h2 {font-size:1.5rem; color:#667eea; margin-bottom:1.5rem; font-weight:800;}
+.sitemap-list {list-style:none;}
+.sitemap-list li {margin-bottom:12px; position:relative; padding-left:25px;}
+.sitemap-list li::before {content:'🎮'; position:absolute; left:0; font-size:0.9rem;}
+.sitemap-list a {color:rgba(255,255,255,0.7); text-decoration:none; transition:0.3s; font-weight:500; font-size:1.1rem;}
+.sitemap-list a:hover {color:#fff; padding-left:5px;}
+
+.footer{background:rgba(0,0,0,.3);padding:2.5rem 5%;border-top:1px solid rgba(255,255,255,.1);margin-top:100px;}
 .ad-fixed-footer {position:fixed; bottom:0; left:0; width:100%; z-index:9999; display:flex; justify-content:center; background:rgba(15,23,42,0.9); padding:5px 0;}
 </style>
 </head>
@@ -48,61 +44,53 @@ p.intro {color:rgba(255,255,255,0.6); margin-bottom:3rem; font-size:1.1rem;}
 
 <div class="container">
     <h1>📍 Site Map</h1>
-    <p class="intro">Quickly navigate through the world of PlayingHours. Explore games, user features, and legal information.</p>
+    <p class="intro">Explore all sections of PlayingHours and jump straight into the action.</p>
 
     <div class="sitemap-wrapper">
         <div class="sitemap-group">
-            <h2>Main Hub</h2>
+            <h2>Navigation</h2>
             <ul class="sitemap-list">
-                <li><a href="index.html">Homepage</a></li>
-                <li><a href="auth.html">Login / Sign Up</a></li>
-                <li><a href="lobby.html">Game Lobby</a></li>
-                <li><a href="about.html">About PlayingHours</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="auth.html">Login / Register</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
             </ul>
         </div>
 
         <div class="sitemap-group">
-            <h2>Our Games</h2>
+            <h2>Multiplayer Games</h2>
             <ul class="sitemap-list">
+                <li><a href="lobby.html">Ludo King</a></li>
+                <li><a href="lobby.html">Chess Master</a></li>
+                <li><a href="lobby.html">Scribble.io</a></li>
+                <li><a href="lobby.html">Snake Battle</a></li>
+                <li><a href="lobby.html">Quiz Master</a></li>
                 <li><a href="games/tictactoe/tictactoe.html">Tic Tac Toe</a></li>
-                <li><a href="#">Ludo King</a></li>
-                <li><a href="#">Chess Master</a></li>
-                <li><a href="#">Scribble.io</a></li>
-                <li><a href="#">Snake Battle</a></li>
-                <li><a href="#">Quiz Master</a></li>
             </ul>
         </div>
 
         <div class="sitemap-group">
-            <h2>User Profile</h2>
-            <ul class="sitemap-list">
-                <li><a href="#">My Profile</a></li>
-                <li><a href="#">Leaderboard</a></li>
-                <li><a href="#">Settings</a></li>
-                <li><a href="#">Friends List</a></li>
-            </ul>
-        </div>
-
-        <div class="sitemap-group">
-            <h2>Legal & Help</h2>
+            <h2>Legal Info</h2>
             <ul class="sitemap-list">
                 <li><a href="privacy.html">Privacy Policy</a></li>
                 <li><a href="terms.html">Terms of Service</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-                <li><a href="#">Disclaimer</a></li>
+                <li><a href="terms.html">Disclaimer</a></li>
             </ul>
         </div>
     </div>
 </div>
 
 <footer class="footer">
-    <div class="footer-content">
-        </div>
-    <div style="text-align:center; padding-top:20px; color:rgba(255,255,255,0.4)">© 2026 PlayingHours</div>
+    <div style="text-align:center; color:rgba(255,255,255,0.4)">© 2026 PlayingHours. All rights reserved.</div>
 </footer>
 
 <div class="ad-fixed-footer">
-    </div>
+    <script>
+      atOptions = {'key' : '710e2bfc383eb41d3de6488d4f111fd1','format' : 'iframe','height' : 50,'width' : 320,'params' : {}};
+    </script>
+    <script src="https://www.highperformanceformat.com/710e2bfc383eb41d3de6488d4f111fd1/invoke.js"></script>
+</div>
+<script src="https://pl28615746.effectivegatecpm.com/d1/78/56/d178561dbfb5d8a2e4fd86218c5c946f.js"></script>
 
 </body>
 </html>
