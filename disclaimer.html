@@ -1,39 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Legal Disclaimer - PlayingHours</title>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-<style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;padding-top:120px;line-height:1.8}
-    .header{position:fixed;top:0;width:100%;background:rgba(15,23,42,.95);z-index:100;padding:1rem 5%;border-bottom:1px solid rgba(255,255,255,.1)}
-    .nav{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between}
-    .logo{text-decoration:none;font-weight:900;font-size:1.5rem;color:#667eea}
-    .content-box{max-width:900px;margin:0 auto;background:rgba(255,255,255,0.03);padding:3rem;border-radius:24px;border:1px solid rgba(255,255,255,0.1)}
-    h1{font-size:2.5rem;margin-bottom:1.5rem;color:#667eea}
-    h2{color:#fff;margin:1.5rem 0 10px;font-size:1.4rem}
-    p{color:rgba(255,255,255,0.7);margin-bottom:1rem}
-    ul{margin-left:20px;color:rgba(255,255,255,0.7);margin-bottom:1.5rem}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Disclaimer | PlayingHours Official</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;line-height:1.8}
+        
+        /* Header Fix */
+        .header{position:fixed;top:0;width:100%;background:rgba(15,23,42,.95);backdrop-filter:blur(20px);z-index:100;padding:1rem 5%;border-bottom:1px solid rgba(255,255,255,.1)}
+        .nav{max-width:1400px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+        .logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+        .logo-icon{width:40px;height:40px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
+        .logo-text{font-size:1.3rem;font-weight:900;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+        .container{max-width:1000px;margin:150px auto 100px;padding:0 5%}
+        .content-card{background:rgba(255,255,255,0.03);padding:4rem;border-radius:30px;border:1px solid rgba(255,255,255,0.05);box-shadow:0 20px 50px rgba(0,0,0,0.3)}
+        
+        h1{font-size:2.5rem;margin-bottom:2rem;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:800}
+        h2{color:#667eea;margin-top:2.5rem;margin-bottom:1rem;font-size:1.5rem;font-weight:700;border-left:4px solid #667eea;padding-left:15px}
+        p{color:rgba(255,255,255,0.7);margin-bottom:1.2rem;font-size:1rem}
+        .last-update{font-style:italic;color:rgba(255,255,255,0.4);margin-bottom:2rem}
+        
+        .highlight-box{background:rgba(102,126,234,0.1);padding:1.5rem;border-radius:15px;border:1px solid rgba(102,126,234,0.2);margin:2rem 0}
+        
+        footer{text-align:center;padding:2rem;border-top:1px solid rgba(255,255,255,0.1);margin-top:4rem;color:rgba(255,255,255,0.5)}
+        
+        @media(max-width:768px){ .content-card{padding:2rem} h1{font-size:2rem} }
+    </style>
 </head>
 <body>
-    <header class="header"><nav class="nav"><a href="index.html" class="logo">PlayingHours</a></nav></header>
-    <div class="content-box">
+
+<header class="header">
+    <nav class="nav">
+        <a href="index.html" class="logo">
+            <div class="logo-icon">🎮</div>
+            <div class="logo-text">PlayingHours</div>
+        </a>
+    </nav>
+</header>
+
+<div class="container">
+    <div class="content-card">
         <h1>Disclaimer</h1>
-        <p>Welcome to PlayingHours. By using this website, you agree to the following terms:</p>
-        
-        <h2>1. Accuracy of Games</h2>
-        <p>All games provided on this platform are for entertainment purposes. We do not guarantee that every game will be available 24/7 or error-free.</p>
+        <p class="last-update">Last Updated: January 31, 2026</p>
 
-        <h2>2. Third-Party Content</h2>
-        <p>Our site contains links to third-party ads. We are not responsible for the content, privacy policies, or practices of any third-party sites or services.</p>
+        <p>Welcome to <strong>PlayingHours</strong> (https://playinghours.vercel.app/). The information and games provided on this website are for general entertainment and informational purposes only.</p>
 
-        <h2>3. No Liability</h2>
-        <p>PlayingHours shall not be held liable for any data loss, hardware damage, or psychological stress caused by playing games on this platform. Play at your own discretion.</p>
+        <div class="highlight-box">
+            <strong>Consent:</strong> By using our website, you hereby consent to our disclaimer and agree to its terms.
+        </div>
 
-        <h2>4. Copyright</h2>
-        <p>All trademarks and game assets belong to their respective owners. We respect intellectual property rights.</p>
+        <h2>1. External Links Disclaimer</h2>
+        <p>PlayingHours may contain links to external websites that are not provided or maintained by or in any way affiliated with us. Please note that we do not guarantee the accuracy, relevance, timeliness, or completeness of any information on these external websites. This includes third-party advertisements (like AdSense) that may lead you to other services.</p>
+
+        <h2>2. Errors and Omissions Disclaimer</h2>
+        <p>While we attempt to ensure that the information on this site is correct, we do not warrant its completeness or accuracy. The games are provided "as is" without warranty of any kind. We are not responsible for any technical glitches, lag, or game-save data loss that may occur during your session.</p>
+
+        <h2>3. Fair Use Disclaimer</h2>
+        <p>PlayingHours may use copyrighted material which has not always been specifically authorized by the copyright owner. We are making such material available for the purpose of criticism, comment, news reporting, teaching, scholarship, or research. We believe this constitutes a "fair use" of any such copyrighted material.</p>
+
+        <h2>4. No Responsibility Disclaimer</h2>
+        <p>The information on the Service is provided with the understanding that the Company is not herein engaged in rendering legal, accounting, tax, or other professional advice and services. In no event shall PlayingHours be liable for any special, direct, indirect, consequential, or incidental damages or any damages whatsoever, whether in an action of contract, negligence or other tort, arising out of or in connection with the use of the Service.</p>
+
+        <h2>5. Professional Logos & Trademarks</h2>
+        <p>All logos, trademarks, and game assets used on this site are the property of their respective owners. Their inclusion does not imply endorsement by PlayingHours, nor does it imply that PlayingHours is affiliated with these entities unless specifically stated.</p>
+
+        <h2>6. "Use at Your Own Risk" Disclaimer</h2>
+        <p>All games on this platform are played at the user's own risk. We are not responsible for any hardware damage (overheating) or psychological effects (gaming addiction) resulting from prolonged use of our platform. We encourage all users to take regular breaks and play responsibly.</p>
+
+        <p style="margin-top:3rem; border-top:1px solid rgba(255,255,255,0.1); padding-top:2rem;">
+            If you require any more information or have any questions about our site's disclaimer, please feel free to contact us by email at <strong>support@playinghours.com</strong> or via our <a href="contact.html" style="color:#667eea; text-decoration:none;">Contact Page</a>.
+        </p>
     </div>
+</div>
+
+<footer>
+    <p>© 2026 PlayingHours. All rights reserved.</p>
+</footer>
+
 </body>
 </html>
