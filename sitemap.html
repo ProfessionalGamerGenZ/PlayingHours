@@ -3,32 +3,38 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Sitemap - PlayingHours | All Games & Pages</title>
+<title>Sitemap - PlayingHours | Explore All Multiplayer Games</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:hidden;padding-top:120px;padding-bottom:100px;}
 
+/* HEADER STYLE */
 .header{position:fixed;top:0;width:100%;background:rgba(15,23,42,.95);backdrop-filter:blur(20px);z-index:100;padding:1rem 5%;border-bottom:1px solid rgba(255,255,255,.1)}
 .nav{display:flex;justify-content:space-between;align-items:center;max-width:1400px;margin:0 auto}
 .logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
 .logo-icon{width:50px;height:50px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.75rem;color:#fff}
 .logo-text{font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 
+/* CONTAINER */
 .container {max-width:1100px; margin:0 auto; padding:0 5%;}
 h1 {font-size:3rem; font-weight:900; margin-bottom:1rem; background:linear-gradient(135deg,#667eea,#764ba2); -webkit-background-clip:text; -webkit-text-fill-color:transparent;}
 p.intro {color:rgba(255,255,255,0.6); margin-bottom:3rem; font-size:1.1rem;}
 
-.sitemap-wrapper {display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:3rem; border-top:1px solid rgba(255,255,255,0.1); padding-top:2rem;}
-.sitemap-group h2 {font-size:1.5rem; color:#667eea; margin-bottom:1.5rem; font-weight:800;}
+.sitemap-wrapper {display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:3rem; border-top:1px solid rgba(255,255,255,0.1); padding-top:2rem;}
+.sitemap-group h2 {font-size:1.5rem; color:#667eea; margin-bottom:1.5rem; font-weight:800; border-bottom: 2px solid rgba(102,126,234,0.2); display:inline-block; padding-bottom:5px;}
 .sitemap-list {list-style:none;}
-.sitemap-list li {margin-bottom:12px; position:relative; padding-left:25px;}
-.sitemap-list li::before {content:'🎮'; position:absolute; left:0; font-size:0.9rem;}
-.sitemap-list a {color:rgba(255,255,255,0.7); text-decoration:none; transition:0.3s; font-weight:500; font-size:1.1rem;}
-.sitemap-list a:hover {color:#fff; padding-left:5px;}
+.sitemap-list li {margin-bottom:12px; position:relative; padding-left:30px;}
+.sitemap-list li::before {content:'🎮'; position:absolute; left:0; font-size:1rem; filter: grayscale(100%); transition: 0.3s;}
+.sitemap-list li:hover::before {filter: grayscale(0%); transform: scale(1.2);}
+.sitemap-list a {color:rgba(255,255,255,0.7); text-decoration:none; transition:0.3s; font-weight:500; font-size:1.05rem;}
+.sitemap-list a:hover {color:#fff; padding-left:8px;}
 
+/* FOOTER */
 .footer{background:rgba(0,0,0,.3);padding:2.5rem 5%;border-top:1px solid rgba(255,255,255,.1);margin-top:100px;}
 .ad-fixed-footer {position:fixed; bottom:0; left:0; width:100%; z-index:9999; display:flex; justify-content:center; background:rgba(15,23,42,0.9); padding:5px 0;}
+
+@media(max-width:768px){ h1{font-size: 2.2rem;} .sitemap-wrapper{gap: 2rem;} }
 </style>
 </head>
 <body>
@@ -44,37 +50,44 @@ p.intro {color:rgba(255,255,255,0.6); margin-bottom:3rem; font-size:1.1rem;}
 
 <div class="container">
     <h1>📍 Site Map</h1>
-    <p class="intro">Explore all sections of PlayingHours and jump straight into the action.</p>
+    <p class="intro">Find every game and official page on PlayingHours. Your multiplayer journey starts here.</p>
 
     <div class="sitemap-wrapper">
         <div class="sitemap-group">
-            <h2>Navigation</h2>
+            <h2>Main Navigation</h2>
             <ul class="sitemap-list">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="auth.html">Login / Register</a></li>
-                <li><a href="about.html">About Us</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="index.html">Home / Discover</a></li>
+                <li><a href="auth.html">Login & Register</a></li>
+                <li><a href="about.html">About PlayingHours</a></li>
+                <li><a href="contact.html">Support & Contact</a></li>
             </ul>
         </div>
 
         <div class="sitemap-group">
-            <h2>Multiplayer Games</h2>
+            <h2>All Multiplayer Games</h2>
             <ul class="sitemap-list">
-                <li><a href="lobby.html">Ludo King</a></li>
-                <li><a href="lobby.html">Chess Master</a></li>
-                <li><a href="lobby.html">Scribble.io</a></li>
-                <li><a href="lobby.html">Snake Battle</a></li>
-                <li><a href="lobby.html">Quiz Master</a></li>
-                <li><a href="games/tictactoe/tictactoe.html">Tic Tac Toe</a></li>
+                <li><a href="tictactoe.html">Tic-Tac-Toe</a></li>
+                <li><a href="ludo.html">Ludo King</a></li>
+                <li><a href="scribble.html">Scribble.io</a></li>
+                <li><a href="chess.html">Chess Master</a></li>
+                <li><a href="snake.html">Snake Battle</a></li>
+                <li><a href="quiz.html">Quiz Master</a></li>
+                <li><a href="memory.html">Memory Match</a></li>
+                <li><a href="wordfight.html">Word Fight</a></li>
+                <li><a href="trivia.html">Trivia Quiz</a></li>
+                <li><a href="riddles.html">Brain Riddles</a></li>
+                <li><a href="wordsearch.html">Word Search</a></li>
+                <li><a href="checkers.html">Checkers Online</a></li>
+                <li><a href="puzzleslider.html">Puzzle Slider</a></li>
             </ul>
         </div>
 
         <div class="sitemap-group">
-            <h2>Legal Info</h2>
+            <h2>Legal & Privacy</h2>
             <ul class="sitemap-list">
                 <li><a href="privacy.html">Privacy Policy</a></li>
                 <li><a href="terms.html">Terms of Service</a></li>
-                <li><a href="terms.html">Disclaimer</a></li>
+                <li><a href="terms.html#disclaimer">Disclaimer</a></li>
             </ul>
         </div>
     </div>
@@ -90,6 +103,7 @@ p.intro {color:rgba(255,255,255,0.6); margin-bottom:3rem; font-size:1.1rem;}
     </script>
     <script src="https://www.highperformanceformat.com/710e2bfc383eb41d3de6488d4f111fd1/invoke.js"></script>
 </div>
+
 <script src="https://pl28615746.effectivegatecpm.com/d1/78/56/d178561dbfb5d8a2e4fd86218c5c946f.js"></script>
 
 </body>
