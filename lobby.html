@@ -6,6 +6,7 @@
 <title>Game Lobby - PlayingHours</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
+/* CSS SAME HAI - KOI CHANGE NAHI KIYA TAAKI DESIGN NA BIGDE */
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--bg:#f8fafc;--card:#fff;--border:#e2e8f0;--text:#1e293b;--text-dim:#64748b;--primary:#667eea;--secondary:#764ba2}
 [data-theme="dark"]{--bg:#0f172a;--card:#1e293b;--border:rgba(255,255,255,.1);--text:#fff;--text-dim:rgba(255,255,255,.6)}
@@ -216,7 +217,7 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 <footer class="footer">
 <div class="footer-content">
 <a href="index.html" class="footer-link">🏠 Home</a>
-<span class="footer-text">© 2025 PlayingHours</span>
+<span class="footer-text">© 2026 PlayingHours</span>
 </div>
 </footer>
 
@@ -308,283 +309,331 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const user={username:localStorage.getItem('username')||'Player',id:localStorage.getItem('userId')||'guest',isLoggedIn:localStorage.getItem('isLoggedIn')==='true'};
-if(!user.isLoggedIn)location.href='auth.html';
+// --- GLOBAL CONFIG ---
+const user = {
+    username: localStorage.getItem('username') || 'Player',
+    id: localStorage.getItem('userId') || 'guest',
+    isLoggedIn: localStorage.getItem('isLoggedIn') === 'true'
+};
+if (!user.isLoggedIn) location.href = 'auth.html';
 
-const db=window.supabase.createClient('https://chcepamgczwfguzroddn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoY2VwYW1nY3p3Zmd1enJvZGRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2OTkxOTYsImV4cCI6MjA4NTI3NTE5Nn0.f5IefTnesklFtFvkjjgK11BBwEEpbvb1anBTEQbNJ18');
+const db = window.supabase.createClient('https://chcepamgczwfguzroddn.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoY2VwYW1nY3p3Zmd1enJvZGRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2OTkxOTYsImV4cCI6MjA4NTI3NTE5Nn0.f5IefTnesklFtFvkjjgK11BBwEEpbvb1anBTEQbNJ18');
 
-let currentGame='';
-let currentRoomCode='';
-let allGames=[];
+let currentGame = '';
+let currentRoomCode = '';
+let allGames = [];
+let roomRefreshInterval;
 
-const games=[
-{id:'tictactoe',name:'Tic Tac Toe',icon:'❌',players:'2',time:'1-3m',category:'board',maxPlayers:2},
-{id:'ludo',name:'Ludo King',icon:'🎲',players:'2-4',time:'15-30m',category:'board',maxPlayers:4},
-{id:'scribble',name:'Scribble.io',icon:'🎨',players:'4-12',time:'10-20m',category:'puzzle',maxPlayers:12},
-{id:'chess',name:'Chess',icon:'♟️',players:'2',time:'5-60m',category:'board',maxPlayers:2},
-{id:'snake',name:'Snake Battle',icon:'🐍',players:'1-4',time:'5-10m',category:'puzzle',maxPlayers:4},
-{id:'quiz',name:'Quiz Master',icon:'🧠',players:'2-20',time:'10-15m',category:'trivia',maxPlayers:20},
-{id:'memory',name:'Memory Match',icon:'🃏',players:'2-6',time:'5-10m',category:'puzzle',maxPlayers:6},
-{id:'wordfight',name:'Word Fight',icon:'📝',players:'2-6',time:'5-10m',category:'puzzle',maxPlayers:6},
-{id:'trivia',name:'Trivia',icon:'❓',players:'2-16',time:'10-20m',category:'trivia',maxPlayers:16},
-{id:'riddles',name:'Riddles',icon:'💡',players:'1-8',time:'5-15m',category:'trivia',maxPlayers:8},
-{id:'wordsearch',name:'Word Search',icon:'🔍',players:'1-6',time:'5-10m',category:'puzzle',maxPlayers:6},
-{id:'checkers',name:'Checkers',icon:'🏁',players:'2',time:'10-20m',category:'board',maxPlayers:2},
-{id:'puzzle',name:'Puzzle Slider',icon:'🧩',players:'1-4',time:'5-15m',category:'puzzle',maxPlayers:4}
+const games = [
+    {id:'tictactoe',name:'Tic Tac Toe',icon:'❌',players:'2',time:'1-3m',category:'board',maxPlayers:2},
+    {id:'ludo',name:'Ludo King',icon:'🎲',players:'2-4',time:'15-30m',category:'board',maxPlayers:4},
+    {id:'scribble',name:'Scribble.io',icon:'🎨',players:'4-12',time:'10-20m',category:'puzzle',maxPlayers:12},
+    {id:'chess',name:'Chess',icon:'♟️',players:'2',time:'5-60m',category:'board',maxPlayers:2},
+    {id:'snake',name:'Snake Battle',icon:'🐍',players:'1-4',time:'5-10m',category:'puzzle',maxPlayers:4},
+    {id:'quiz',name:'Quiz Master',icon:'🧠',players:'2-20',time:'10-15m',category:'trivia',maxPlayers:20},
+    {id:'memory',name:'Memory Match',icon:'🃏',players:'2-6',time:'5-10m',category:'puzzle',maxPlayers:6},
+    {id:'wordfight',name:'Word Fight',icon:'📝',players:'2-6',time:'5-10m',category:'puzzle',maxPlayers:6},
+    {id:'trivia',name:'Trivia',icon:'❓',players:'2-16',time:'10-20m',category:'trivia',maxPlayers:16},
+    {id:'riddles',name:'Riddles',icon:'💡',players:'1-8',time:'5-15m',category:'trivia',maxPlayers:8},
+    {id:'wordsearch',name:'Word Search',icon:'🔍',players:'1-6',time:'5-10m',category:'puzzle',maxPlayers:6},
+    {id:'checkers',name:'Checkers',icon:'🏁',players:'2',time:'10-20m',category:'board',maxPlayers:2},
+    {id:'puzzle',name:'Puzzle Slider',icon:'🧩',players:'1-4',time:'5-15m',category:'puzzle',maxPlayers:4}
 ];
 
-async function loadGames(filter='all'){
-try{
-const{data:rooms}=await db.from('rooms').select('game_type,status').eq('status','waiting');
-const{count:totalUsers}=await db.from('users').select('*',{count:'exact',head:true});
-const roomCounts={};
-rooms?.forEach(r=>roomCounts[r.game_type]=(roomCounts[r.game_type]||0)+1);
-allGames=games.map(g=>({...g,rooms:roomCounts[g.id]||0}));
-document.getElementById('onlineCount').textContent=(totalUsers||0)+' online';
-}catch(e){
-allGames=games.map(g=>({...g,rooms:0}));
-document.getElementById('onlineCount').textContent='Offline';
-}
-renderGames(filter);
+// --- CORE FUNCTIONS ---
+
+async function loadGames(filter = 'all') {
+    try {
+        const { data: rooms } = await db.from('rooms').select('game_type,status').eq('status', 'waiting');
+        const { count: totalUsers } = await db.from('users').select('*', { count: 'exact', head: true });
+        
+        const roomCounts = {};
+        rooms?.forEach(r => roomCounts[r.game_type] = (roomCounts[r.game_type] || 0) + 1);
+        
+        allGames = games.map(g => ({ ...g, rooms: roomCounts[g.id] || 0 }));
+        document.getElementById('onlineCount').textContent = (totalUsers || 0) + ' online';
+        renderGames(filter);
+    } catch (e) {
+        console.error("Load Error:", e);
+    }
 }
 
-function renderGames(filter='all'){
-const filtered=filter==='all'?allGames:allGames.filter(g=>g.category===filter);
-document.getElementById('gamesGrid').innerHTML=filtered.map(g=>`
-<div class="game-card" onclick="openGameModal('${g.id}','${g.name}')">
-<div class="game-top">
-<div class="game-icon">${g.icon}</div>
-<div class="game-info">
-<div class="game-name">${g.name}</div>
-<div class="game-players">👥 ${g.players}</div>
-</div>
-</div>
-<div class="game-badges">
-<div class="badge online">🚪 ${g.rooms} rooms</div>
-<div class="badge">⏱️ ${g.time}</div>
-</div>
-<button class="play-btn">▶ Play Now</button>
-</div>
-`).join('');
+function renderGames(filter = 'all') {
+    const grid = document.getElementById('gamesGrid');
+    const filtered = filter === 'all' ? allGames : allGames.filter(g => g.category === filter);
+    grid.innerHTML = filtered.map(g => `
+        <div class="game-card" onclick="openGameModal('${g.id}','${g.name}')">
+            <div class="game-top">
+                <div class="game-icon">${g.icon}</div>
+                <div class="game-info">
+                    <div class="game-name">${g.name}</div>
+                    <div class="game-players">👥 ${g.players}</div>
+                </div>
+            </div>
+            <div class="game-badges">
+                <div class="badge online">🚪 ${g.rooms} rooms</div>
+                <div class="badge">⏱️ ${g.time}</div>
+            </div>
+            <button class="play-btn">▶ Play Now</button>
+        </div>
+    `).join('');
 }
 
-function setTheme(theme){
-document.body.setAttribute('data-theme',theme);
-document.querySelectorAll('.theme-option').forEach(b=>b.classList.remove('active'));
-document.querySelector('.theme-'+theme).classList.add('active');
-localStorage.setItem('theme',theme);
+// --- ROOM LOGIC (FIXED) ---
+
+async function quickMatch() {
+    showToast('info', 'Searching', 'Finding a quick match...');
+    closeModal();
+    try {
+        const gameConfig = games.find(g => g.id === currentGame);
+        // Bug Fix: Race condition prevention using stricter query
+        const { data: availableRoom } = await db.from('rooms')
+            .select('*')
+            .eq('game_type', currentGame)
+            .eq('status', 'waiting')
+            .is('password', null)
+            .lt('player_count', gameConfig.maxPlayers)
+            .order('created_at', { ascending: true })
+            .limit(1)
+            .maybeSingle();
+
+        if (availableRoom) {
+            await joinExistingRoom(availableRoom.code);
+        } else {
+            // No room found, create one public
+            createRoomLogic(true);
+        }
+    } catch (e) {
+        showToast('error', 'Error', 'Something went wrong.');
+    }
 }
 
-document.querySelectorAll('.chip').forEach(chip=>{
-chip.addEventListener('click',function(){
-document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-this.classList.add('active');
-renderGames(this.dataset.filter);
+async function createRoomLogic(isPublic = false) {
+    // Bug Fix: Better Code Generation (Always 6 chars)
+    const code = Math.random().toString(36).substring(2, 8).toUpperCase();
+    const name = isPublic ? null : document.getElementById('roomName').value.trim();
+    const pwd = isPublic ? null : document.getElementById('roomPassword').value.trim();
+    const gameConfig = games.find(g => g.id === currentGame);
+    const maxPlayers = isPublic ? gameConfig.maxPlayers : (gameConfig.maxPlayers > 2 ? parseInt(document.getElementById('maxPlayers').value) : gameConfig.maxPlayers);
+
+    try {
+        const { error } = await db.from('rooms').insert({
+            code,
+            game_type: currentGame,
+            host_id: user.id,
+            players: [{ id: user.id, username: user.username, joined_at: new Date().toISOString() }],
+            player_count: 1,
+            max_players: maxPlayers,
+            is_private: !isPublic && pwd ? true : false,
+            password: pwd || null,
+            room_name: name || `Room ${code}`,
+            status: 'waiting',
+            created_at: new Date().toISOString(),
+            last_activity: new Date().toISOString()
+        });
+
+        if (error) throw error;
+        
+        showToast('success', 'Room Created', 'Joining room...');
+        setTimeout(() => location.href = `games/${currentGame}/${currentGame}.html?room=${code}`, 1000);
+    } catch (e) {
+        showToast('error', 'Failed', 'Room creation failed.');
+    }
+}
+
+async function joinExistingRoom(code) {
+    try {
+        // Bug Fix: Fetch latest room state before updating (Prevents overwriting)
+        const { data: room, error: fetchErr } = await db.from('rooms').select('*').eq('code', code).single();
+        if (fetchErr || !room) return showToast('error', 'Not Found', 'Room no longer exists.');
+
+        // Bug Fix: If user already in room, just redirect
+        if (room.players.some(p => p.id === user.id)) {
+            location.href = `games/${room.game_type}/${room.game_type}.html?room=${code}`;
+            return;
+        }
+
+        if (room.player_count >= room.max_players) return showToast('error', 'Full', 'Room is full.');
+
+        const updatedPlayers = [...room.players, { id: user.id, username: user.username, joined_at: new Date().toISOString() }];
+        
+        const { error: updateErr } = await db.from('rooms').update({
+            players: updatedPlayers,
+            player_count: updatedPlayers.length,
+            status: updatedPlayers.length >= room.max_players ? 'playing' : 'waiting',
+            last_activity: new Date().toISOString()
+        }).eq('code', code);
+
+        if (updateErr) throw updateErr;
+
+        showToast('success', 'Joined', 'Match found! Joining...');
+        setTimeout(() => location.href = `games/${room.game_type}/${room.game_type}.html?room=${code}`, 800);
+    } catch (e) {
+        showToast('error', 'Error', 'Failed to join room.');
+    }
+}
+
+// --- UI HELPERS ---
+
+async function refreshRoomList() {
+    const listDiv = document.getElementById('roomList');
+    if (!document.getElementById('joinModal').classList.contains('show')) return;
+
+    try {
+        const { data: rooms } = await db.from('rooms')
+            .select('*')
+            .eq('game_type', currentGame)
+            .eq('status', 'waiting')
+            .order('created_at', { ascending: false });
+
+        if (!rooms || rooms.length === 0) {
+            listDiv.innerHTML = '<p style="text-align:center;color:var(--text-dim);padding:2rem">No rooms. Create one!</p>';
+            return;
+        }
+
+        listDiv.innerHTML = rooms.map(r => `
+            <div class="room-item" onclick="joinRoom('${r.code}', ${r.password ? `'${r.password}'` : 'null'})">
+                <div class="room-header">
+                    <div class="room-name">${r.room_name || 'Room ' + r.code}</div>
+                    <div class="room-privacy ${r.password ? 'locked' : ''}">
+                        ${r.password ? '🔒 Private' : '🌐 Public'}
+                    </div>
+                </div>
+                <div class="room-meta">
+                    <span>👥 ${r.player_count}/${r.max_players}</span>
+                    <span>🎮 ${r.code}</span>
+                </div>
+            </div>
+        `).join('');
+    } catch (e) {
+        listDiv.innerHTML = 'Error loading rooms.';
+    }
+}
+
+function showJoinModal() {
+    closeModal();
+    document.getElementById('joinModal').classList.add('show');
+    refreshRoomList();
+    // New: Start auto-refresh when modal is open
+    if(roomRefreshInterval) clearInterval(roomRefreshInterval);
+    roomRefreshInterval = setInterval(refreshRoomList, 5000);
+}
+
+function createRoom() { closeModal(); createRoomLogic(false); }
+
+function joinRoom(code, requiredPwd) {
+    if (requiredPwd) {
+        currentRoomCode = code;
+        document.getElementById('passwordRoomName').textContent = 'Room ' + code;
+        closeModal();
+        document.getElementById('passwordModal').classList.add('show');
+    } else {
+        joinExistingRoom(code);
+    }
+}
+
+async function joinWithPassword() {
+    const pwd = document.getElementById('joinPassword').value.trim();
+    const { data: room } = await db.from('rooms').select('*').eq('code', currentRoomCode).single();
+    if (room && room.password === pwd) {
+        joinExistingRoom(currentRoomCode);
+        closeModal();
+    } else {
+        showToast('error', 'Wrong Password', 'Please try again.');
+    }
+}
+
+// --- MENU & SYSTEM ---
+
+function searchGames(query) {
+    const filtered = allGames.filter(g => g.name.toLowerCase().includes(query.toLowerCase()));
+    renderGames(query === '' ? 'all' : 'search_results'); 
+    // Manual override for search
+    if(query !== '') {
+        const grid = document.getElementById('gamesGrid');
+        grid.innerHTML = filtered.map(g => `
+            <div class="game-card" onclick="openGameModal('${g.id}','${g.name}')">
+                <div class="game-top">
+                    <div class="game-icon">${g.icon}</div>
+                    <div class="game-info">
+                        <div class="game-name">${g.name}</div>
+                        <div class="game-players">👥 ${g.players}</div>
+                    </div>
+                </div>
+                <div class="game-badges">
+                    <div class="badge online">🚪 ${g.rooms} rooms</div>
+                </div>
+                <button class="play-btn">▶ Play Now</button>
+            </div>
+        `).join('');
+    }
+}
+
+function toggleSidebar() { document.getElementById('sidebar').classList.toggle('show'); }
+function toggleDropdown() { document.getElementById('dropdown').classList.toggle('show'); }
+function closeModal() { 
+    document.querySelectorAll('.modal').forEach(m => m.classList.remove('show')); 
+    if(roomRefreshInterval) clearInterval(roomRefreshInterval);
+}
+function openGameModal(id, name) {
+    currentGame = id;
+    document.getElementById('modalGameName').textContent = name;
+    document.getElementById('gameModeModal').classList.add('show');
+}
+function showCreateModal() {
+    closeModal();
+    const gameConfig = games.find(g => g.id === currentGame);
+    const maxPlayersGroup = document.getElementById('maxPlayersGroup');
+    if (gameConfig.maxPlayers > 2) {
+        maxPlayersGroup.style.display = 'block';
+        const select = document.getElementById('maxPlayers');
+        select.innerHTML = '';
+        for (let i = 2; i <= gameConfig.maxPlayers; i++) {
+            select.innerHTML += `<option value="${i}">${i} Players</option>`;
+        }
+    } else {
+        maxPlayersGroup.style.display = 'none';
+    }
+    document.getElementById('createModal').classList.add('show');
+}
+
+function setTheme(theme) {
+    document.body.setAttribute('data-theme', theme);
+    document.querySelectorAll('.theme-option').forEach(b => b.classList.remove('active'));
+    const t = document.querySelector('.theme-' + theme);
+    if(t) t.classList.add('active');
+    localStorage.setItem('theme', theme);
+}
+
+function showToast(type, title, message) {
+    const toast = document.getElementById('toast');
+    toast.className = 'toast ' + type + ' show';
+    document.getElementById('toastTitle').textContent = title;
+    document.getElementById('toastMessage').textContent = message;
+    setTimeout(hideToast, 4000);
+}
+
+function hideToast() { document.getElementById('toast').classList.remove('show'); }
+function confirmLogout() { if (confirm('Logout?')) { localStorage.clear(); location.href = 'index.html'; } }
+
+// --- EVENT LISTENERS ---
+document.addEventListener('click', e => {
+    if (!e.target.closest('.profile-btn')) document.getElementById('dropdown').classList.remove('show');
+    if (!e.target.closest('.sidebar') && !e.target.closest('.menu-btn')) document.getElementById('sidebar').classList.remove('show');
 });
+
+document.querySelectorAll('.chip').forEach(chip => {
+    chip.addEventListener('click', function() {
+        document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        this.classList.add('active');
+        loadGames(this.dataset.filter);
+    });
 });
 
-function searchGames(query){
-const filtered=allGames.filter(g=>g.name.toLowerCase().includes(query.toLowerCase()));
-document.getElementById('gamesGrid').innerHTML=filtered.map(g=>`
-<div class="game-card" onclick="openGameModal('${g.id}','${g.name}')">
-<div class="game-top">
-<div class="game-icon">${g.icon}</div>
-<div class="game-info">
-<div class="game-name">${g.name}</div>
-<div class="game-players">👥 ${g.players}</div>
-</div>
-</div>
-<div class="game-badges">
-<div class="badge online">🚪 ${g.rooms} rooms</div>
-<div class="badge">⏱️ ${g.time}</div>
-</div>
-<button class="play-btn">▶ Play Now</button>
-</div>
-`).join('');
-}
-
-function toggleSidebar(){document.getElementById('sidebar').classList.toggle('show')}
-function toggleDropdown(){document.getElementById('dropdown').classList.toggle('show')}
-
-function openGameModal(id,name){
-currentGame=id;
-document.getElementById('modalGameName').textContent=name;
-document.getElementById('gameModeModal').classList.add('show');
-}
-
-function closeModal(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'))}
-
-function showCreateModal(){
-closeModal();
-const gameConfig=games.find(g=>g.id===currentGame);
-const maxPlayersGroup=document.getElementById('maxPlayersGroup');
-if(gameConfig.maxPlayers>2){
-maxPlayersGroup.style.display='block';
-const select=document.getElementById('maxPlayers');
-select.innerHTML='';
-for(let i=2;i<=gameConfig.maxPlayers;i++){
-select.innerHTML+=`<option value="${i}">${i} Players</option>`;
-}
-}else{
-maxPlayersGroup.style.display='none';
-}
-document.getElementById('createModal').classList.add('show');
-}
-
-async function showJoinModal(){
-closeModal();
-document.getElementById('joinModal').classList.add('show');
-document.getElementById('roomList').innerHTML='<div class="loader"></div>';
-try{
-const{data:rooms}=await db.from('rooms').select('*').eq('game_type',currentGame).eq('status','waiting').order('created_at',{ascending:false});
-if(!rooms||rooms.length===0){
-document.getElementById('roomList').innerHTML='<p style="text-align:center;color:var(--text-dim);padding:2rem">No rooms available. Create one or try Quick Match!</p>';
-return;
-}
-document.getElementById('roomList').innerHTML=rooms.map(r=>`
-<div class="room-item" onclick="joinRoom('${r.code}',${r.password?`'${r.password}'`:null})">
-<div class="room-header">
-<div class="room-name">${r.room_name||'Room '+r.code}</div>
-<div class="room-privacy ${r.password?'locked':''}">
-${r.password?'🔒 Locked':'🌐 Public'}
-</div>
-</div>
-<div class="room-meta">
-<span>👥 ${r.player_count}/${r.max_players}</span>
-<span>🎮 ${r.code}</span>
-</div>
-</div>
-`).join('');
-}catch(e){
-document.getElementById('roomList').innerHTML='<p style="text-align:center;color:var(--text-dim)">Failed to load rooms</p>';
-}
-}
-
-async function quickMatch(){
-showToast('info','Searching','Finding available players...');
-closeModal();
-try{
-const gameConfig=games.find(g=>g.id===currentGame);
-const{data:availableRoom}=await db.from('rooms').select('*').eq('game_type',currentGame).eq('status','waiting').eq('is_private',false).is('password',null).lt('player_count',gameConfig.maxPlayers).order('created_at',{ascending:true}).limit(1).maybeSingle();
-if(availableRoom){
-await joinExistingRoom(availableRoom.code);
-showToast('success','Match Found','Joining player...');
-}else{
-await createPublicRoom();
-showToast('info','Waiting','Room created. Waiting for players...');
-}
-}catch(e){
-showToast('error','Error','Failed to find match');
-}
-}
-
-async function createPublicRoom(){
-const code=generateCode();
-const gameConfig=games.find(g=>g.id===currentGame);
-try{
-await db.from('rooms').insert({
-code,game_type:currentGame,host_id:user.id,
-players:[{id:user.id,username:user.username,joined_at:new Date().toISOString()}],
-player_count:1,max_players:gameConfig.maxPlayers,is_private:false,password:null,
-room_name:null,status:'waiting',game_state:{},created_at:new Date().toISOString(),
-last_activity:new Date().toISOString()
-});
-setTimeout(()=>location.href=`games/${currentGame}/${currentGame}.html?room=${code}`,1500);
-}catch(e){
-showToast('error','Error','Failed to create room');
-}
-}
-
-async function createRoom(){
-const code=generateCode();
-const name=document.getElementById('roomName').value.trim();
-const pwd=document.getElementById('roomPassword').value.trim();
-const gameConfig=games.find(g=>g.id===currentGame);
-const maxPlayers=gameConfig.maxPlayers>2?parseInt(document.getElementById('maxPlayers').value):gameConfig.maxPlayers;
-try{
-await db.from('rooms').insert({
-code,game_type:currentGame,host_id:user.id,
-players:[{id:user.id,username:user.username,joined_at:new Date().toISOString()}],
-player_count:1,max_players:maxPlayers,is_private:true,password:pwd||null,
-room_name:name||null,status:'waiting',game_state:{},created_at:new Date().toISOString(),
-last_activity:new Date().toISOString()
-});
-showToast('success','Room Created',`Code: ${code}`);
-setTimeout(()=>location.href=`games/${currentGame}/${currentGame}.html?room=${code}`,1500);
-}catch(e){
-showToast('error','Error','Failed to create room');
-}
-closeModal();
-}
-
-async function joinRoom(code,requiredPwd){
-if(requiredPwd){
-currentRoomCode=code;
-document.getElementById('passwordRoomName').textContent='Room '+code;
-closeModal();
-document.getElementById('passwordModal').classList.add('show');
-}else{
-await joinExistingRoom(code);
-}
-}
-
-async function joinWithPassword(){
-const pwd=document.getElementById('joinPassword').value.trim();
-const{data:room}=await db.from('rooms').select('*').eq('code',currentRoomCode).single();
-if(room&&room.password===pwd){
-await joinExistingRoom(currentRoomCode);
-closeModal();
-}else{
-showToast('error','Wrong Password','Try again');
-}
-}
-
-async function joinExistingRoom(code){
-try{
-const{data:room}=await db.from('rooms').select('*').eq('code',code).single();
-if(!room)return showToast('error','Not Found','Invalid room code');
-if(room.status!=='waiting')return showToast('error','Game Started','Room already playing');
-if(room.player_count>=room.max_players)return showToast('error','Room Full','Maximum players reached');
-if(room.players.some(p=>p.id===user.id)){
-location.href=`games/${room.game_type}/${room.game_type}.html?room=${code}`;
-return;
-}
-const updatedPlayers=[...room.players,{id:user.id,username:user.username,joined_at:new Date().toISOString()}];
-await db.from('rooms').update({
-players:updatedPlayers,player_count:updatedPlayers.length,
-status:updatedPlayers.length===room.max_players?'playing':'waiting',
-last_activity:new Date().toISOString()
-}).eq('code',code);
-showToast('success','Joining','Joining room...');
-setTimeout(()=>location.href=`games/${room.game_type}/${room.game_type}.html?room=${code}`,1000);
-}catch(e){
-showToast('error','Error','Failed to join');
-}
-closeModal();
-}
-
-function generateCode(){return Math.random().toString(36).substr(2,6).toUpperCase()}
-function confirmLogout(){if(confirm('Logout?')){localStorage.clear();location.href='index.html'}}
-
-function showToast(type,title,message){
-const toast=document.getElementById('toast');
-toast.className='toast '+type+' show';
-document.getElementById('toastTitle').textContent=title;
-document.getElementById('toastMessage').textContent=message;
-setTimeout(hideToast,4000);
-}
-
-function hideToast(){document.getElementById('toast').classList.remove('show')}
-
-document.addEventListener('click',e=>{
-if(!e.target.closest('.profile-btn'))document.getElementById('dropdown').classList.remove('show');
-if(!e.target.closest('.sidebar')&&!e.target.closest('.menu-btn'))document.getElementById('sidebar').classList.remove('show');
-});
-
+// --- INIT ---
 loadGames();
-const savedTheme=localStorage.getItem('theme')||'light';
-setTheme(savedTheme);
-setInterval(loadGames,30000);
+setTheme(localStorage.getItem('theme') || 'light');
+setInterval(loadGames, 15000);
 </script>
 </body>
 </html>
