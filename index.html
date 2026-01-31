@@ -6,12 +6,11 @@
 <title>PlayingHours - Multiplayer Gaming Platform</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet">
 <style>
-/* CSS Reset and Body - Same as your code */
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:hidden}
 .header{position:fixed;top:0;width:100%;background:rgba(15,23,42,.95);backdrop-filter:blur(20px);z-index:100;padding:1rem 5%;border-bottom:1px solid rgba(255,255,255,.1)}
 .nav{display:flex;justify-content:space-between;align-items:center;max-width:1400px;margin:0 auto}
-.logo{text-align:center;display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
 .logo-icon{width:50px;height:50px;background:linear-gradient(135deg,#667eea,#764ba2);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.75rem;box-shadow:0 4px 15px rgba(102,126,234,.4)}
 .logo-text{font-size:1.5rem;font-weight:900;background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .nav-links{display:flex;gap:2rem;align-items:center}
@@ -21,6 +20,8 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:h
 .nav-btn:hover{transform:translateY(-2px);box-shadow:0 6px 20px rgba(102,126,234,.6)}
 .mobile-toggle{display:none;background:none;border:none;color:#fff;font-size:1.5rem;cursor:pointer}
 .hero{padding:150px 5% 100px;min-height:100vh;display:flex;align-items:center;background:linear-gradient(135deg,rgba(102,126,234,.1),rgba(118,75,162,.1));position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;width:600px;height:600px;background:radial-gradient(circle,rgba(102,126,234,.3),transparent);border-radius:50%;top:-300px;right:-300px;animation:float 20s infinite}
+@keyframes float{0%,100%{transform:translate(0,0) rotate(0deg)}50%{transform:translate(50px,50px) rotate(180deg)}}
 .hero-content{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
 .hero-text h1{font-size:clamp(2.5rem,6vw,4.5rem);font-weight:900;line-height:1.1;margin-bottom:1.5rem}
 .gradient-text{background:linear-gradient(135deg,#667eea,#764ba2);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
@@ -29,6 +30,13 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:h
 .cta-btn:hover{transform:translateY(-4px);box-shadow:0 12px 35px rgba(102,126,234,.7)}
 .hero-image{position:relative}
 .game-visual{background:rgba(255,255,255,.05);backdrop-filter:blur(20px);border-radius:24px;padding:3rem;border:1px solid rgba(255,255,255,.1);box-shadow:0 25px 70px rgba(0,0,0,.4)}
+
+/* --- ADSTERRA PLACEMENT STYLES --- */
+.ad-native-section {max-width:1200px; margin:2rem auto; text-align:center; padding:0 5%;}
+.ad-fixed-footer {position:fixed; bottom:0; left:0; width:100%; z-index:9999; display:flex; justify-content:center; background:rgba(15,23,42,0.9); padding:5px 0;}
+/* Extra padding for body to ensure footer doesn't hide content */
+body {padding-bottom: 70px;}
+
 .games-section{padding:100px 5%;background:rgba(255,255,255,.02)}
 .section-header{text-align:center;margin-bottom:4rem}
 .section-header h2{font-size:clamp(2.5rem,5vw,3.5rem);font-weight:900;margin-bottom:1rem}
@@ -51,18 +59,13 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:h
 .cta-section p{font-size:1.375rem;margin-bottom:2.5rem;opacity:.95}
 .cta-white{background:#fff;color:#667eea;padding:1.125rem 3rem;border-radius:12px;font-weight:700;text-decoration:none;box-shadow:0 8px 25px rgba(0,0,0,.3);display:inline-block;transition:.3s;font-size:1.125rem}
 .cta-white:hover{transform:translateY(-4px);box-shadow:0 12px 35px rgba(0,0,0,.5)}
-.footer{background:rgba(0,0,0,.3);padding:2.5rem 5% 80px;border-top:1px solid rgba(255,255,255,.1)}
+.footer{background:rgba(0,0,0,.3);padding:2.5rem 5%;border-top:1px solid rgba(255,255,255,.1)}
 .footer-content{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2rem}
 .footer-section h4{font-size:1rem;font-weight:800;margin-bottom:.75rem;color:#fff}
 .footer-links{list-style:none;display:flex;flex-direction:column;gap:.5rem}
 .footer-links a{color:rgba(255,255,255,.6);text-decoration:none;font-size:.875rem;transition:.3s}
 .footer-links a:hover{color:#fff}
 .footer-bottom{text-align:center;padding-top:1.5rem;margin-top:1.5rem;border-top:1px solid rgba(255,255,255,.1);color:rgba(255,255,255,.5);font-size:.875rem}
-
-/* AD CONTAINER STYLING */
-.ad-fixed-footer {position:fixed;bottom:0;left:0;width:100%;z-index:999;display:flex;justify-content:center;background:rgba(15,23,42,0.9);padding:5px 0;}
-.native-ad-box {max-width:1200px;margin:40px auto;padding:0 5%;}
-
 @media(max-width:768px){
 .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:rgba(15,23,42,.98);flex-direction:column;padding:2rem;gap:1rem}
 .nav-links.active{display:flex}
@@ -118,7 +121,7 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:h
 </div>
 </section>
 
-<div class="native-ad-box">
+<div class="ad-native-section">
     <script async="async" data-cfasync="false" src="https://pl28615788.effectivegatecpm.com/429866047d6f4cfa7e3c244e0f27b442/invoke.js"></script>
     <div id="container-429866047d6f4cfa7e3c244e0f27b442"></div>
 </div>
@@ -129,9 +132,42 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:h
 <p>Choose from 13 exciting multiplayer games</p>
 </div>
 <div class="games-grid">
-<div class="game-card"><div class="game-icon">🎲</div><h3>Ludo King</h3><p>Classic board game with friends.</p><div class="game-meta"><span>👥 2-4 Players</span></div></div>
-<div class="game-card"><div class="game-icon">🎨</div><h3>Scribble.io</h3><p>Draw and guess with friends!</p><div class="game-meta"><span>👥 4-12 Players</span></div></div>
-<div class="game-card"><div class="game-icon">♟️</div><h3>Chess</h3><p>Strategic board game.</p><div class="game-meta"><span>👥 2 Players</span></div></div>
+<div class="game-card">
+<div class="game-icon">🎲</div>
+<h3>Ludo King</h3>
+<p>Classic board game with friends. Roll dice and race to victory!</p>
+<div class="game-meta"><span>👥 2-4 Players</span><span>⏱️ 15-30 min</span></div>
+</div>
+<div class="game-card">
+<div class="game-icon">🎨</div>
+<h3>Scribble.io</h3>
+<p>Draw and guess with friends in this creative game!</p>
+<div class="game-meta"><span>👥 4-12 Players</span><span>⏱️ 10-20 min</span></div>
+</div>
+<div class="game-card">
+<div class="game-icon">♟️</div>
+<h3>Chess</h3>
+<p>Strategic board game. Plan your moves and checkmate!</p>
+<div class="game-meta"><span>👥 2 Players</span><span>⏱️ 5-60 min</span></div>
+</div>
+<div class="game-card">
+<div class="game-icon">🐍</div>
+<h3>Snake Battle</h3>
+<p>Classic snake game with multiplayer twist!</p>
+<div class="game-meta"><span>👥 1-4 Players</span><span>⏱️ 5-10 min</span></div>
+</div>
+<div class="game-card">
+<div class="game-icon">🧠</div>
+<h3>Quiz Master</h3>
+<p>Test your knowledge in various categories!</p>
+<div class="game-meta"><span>👥 2-20 Players</span><span>⏱️ 10-15 min</span></div>
+</div>
+<div class="game-card">
+<div class="game-icon">🃏</div>
+<h3>Memory Match</h3>
+<p>Find matching pairs and challenge your memory!</p>
+<div class="game-meta"><span>👥 2-6 Players</span><span>⏱️ 5-10 min</span></div>
+</div>
 </div>
 </section>
 
@@ -141,22 +177,85 @@ body{font-family:'Poppins',sans-serif;background:#0f172a;color:#fff;overflow-x:h
 <p>The ultimate platform for online gaming</p>
 </div>
 <div class="features-grid">
-<div class="feature-card"><div class="feature-icon">⚡</div><h3>Real-Time Multiplayer</h3><p>Play with friends anywhere.</p></div>
-<div class="feature-card"><div class="feature-icon">🎯</div><h3>Easy Room System</h3><p>Join rooms in seconds.</p></div>
+<div class="feature-card">
+<div class="feature-icon">⚡</div>
+<h3>Real-Time Multiplayer</h3>
+<p>Play with friends anywhere in the world with instant matchmaking</p>
 </div>
+<div class="feature-card">
+<div class="feature-icon">🎯</div>
+<h3>Easy Room System</h3>
+<p>Create or join rooms with simple codes in seconds</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">🏆</div>
+<h3>Tournaments</h3>
+<p>Compete in tournaments and climb the leaderboards</p>
+</div>
+<div class="feature-card">
+<div class="feature-icon">📱</div>
+<h3>Cross-Platform</h3>
+<p>Play on any device - mobile, tablet, or desktop</p>
+</div>
+</div>
+</section>
+
+<section class="cta-section">
+<h2>Ready to Play?</h2>
+<p>Join thousands of players today - completely free!</p>
+<a href="auth.html" class="cta-white">Start Gaming Now</a>
 </section>
 
 <footer class="footer">
 <div class="footer-content">
-<div class="footer-section"><h4>PlayingHours</h4><ul class="footer-links"><li><a href="#games">Games</a></li><li><a href="sitemap.html">Sitemap</a></li></ul></div>
-<div class="footer-section"><h4>Legal</h4><ul class="footer-links"><li><a href="#">Privacy Policy</a></li><li><a href="#">Terms</a></li></ul></div>
+<div class="footer-section">
+<h4>PlayingHours</h4>
+<ul class="footer-links">
+<li><a href="#games">Games</a></li>
+<li><a href="#features">Features</a></li>
+<li><a href="auth.html">Play Now</a></li>
+<li><a href="sitemap.html">Sitemap</a></li>
+</ul>
 </div>
-<div class="footer-bottom"><p>© 2026 PlayingHours. All rights reserved.</p></div>
+<div class="footer-section">
+<h4>Company</h4>
+<ul class="footer-links">
+<li><a href="#">About Us</a></li>
+<li><a href="#">Contact</a></li>
+<li><a href="#">Careers</a></li>
+</ul>
+</div>
+<div class="footer-section">
+<h4>Support</h4>
+<ul class="footer-links">
+<li><a href="#">Help Center</a></li>
+<li><a href="#">FAQ</a></li>
+<li><a href="#">Report Bug</a></li>
+</ul>
+</div>
+<div class="footer-section">
+<h4>Legal</h4>
+<ul class="footer-links">
+<li><a href="#">Privacy Policy</a></li>
+<li><a href="#">Terms of Service</a></li>
+<li><a href="#">Disclaimer</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<p>© 2026 PlayingHours. All rights reserved.</p>
+</div>
 </footer>
 
 <div class="ad-fixed-footer">
     <script>
-      atOptions = { 'key' : '710e2bfc383eb41d3de6488d4f111fd1', 'format' : 'iframe', 'height' : 50, 'width' : 320, 'params' : {} };
+      atOptions = {
+        'key' : '710e2bfc383eb41d3de6488d4f111fd1',
+        'format' : 'iframe',
+        'height' : 50,
+        'width' : 320,
+        'params' : {}
+      };
     </script>
     <script src="https://www.highperformanceformat.com/710e2bfc383eb41d3de6488d4f111fd1/invoke.js"></script>
 </div>
