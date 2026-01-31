@@ -17,11 +17,7 @@
 --secondary:#764ba2;
 }
 [data-theme="dark"]{--bg:#0f172a;--card:#1e293b;--border:rgba(255,255,255,.1);--text:#fff;--text-dim:rgba(255,255,255,.6)}
-[data-theme="ocean"]{--bg:#0a1929;--card:#1e3a5f;--border:rgba(59,130,246,.2);--text:#e0f2fe;--text-dim:#7dd3fc;--primary:#3b82f6;--secondary:#0ea5e9}
-[data-theme="sunset"]{--bg:#1a0b0e;--card:#3d1a1f;--border:rgba(251,113,133,.2);--text:#ffe4e6;--text-dim:#fda4af;--primary:#f43f5e;--secondary:#fb923c}
-[data-theme="forest"]{--bg:#0a1f0a;--card:#1a3a1a;--border:rgba(34,197,94,.2);--text:#dcfce7;--text-dim:#86efac;--primary:#10b981;--secondary:#34d399}
 body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);transition:all .3s;font-size:14px}
-
 .header{background:var(--card);border-bottom:2px solid var(--border);padding:.75rem 1rem;position:sticky;top:0;z-index:100;box-shadow:0 2px 4px rgba(0,0,0,.05)}
 .header-content{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:.75rem}
 .header-left{display:flex;align-items:center;gap:.75rem}
@@ -44,12 +40,10 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 .dropdown.show{display:block}
 .dropdown-item{padding:.625rem .875rem;border-radius:6px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:.625rem;font-size:.875rem;color:var(--text)}
 .dropdown-item:hover{background:var(--bg)}
-
 .mobile-search{display:none;padding:.75rem 1rem;background:var(--card);border-bottom:2px solid var(--border)}
 .mobile-search .search-input{width:100%;padding:.625rem .875rem .625rem 2.5rem}
 .mobile-search .search-icon{position:absolute;left:1.75rem;top:50%}
 .mobile-search-wrapper{position:relative}
-
 .sidebar{position:fixed;left:0;top:0;bottom:0;width:240px;background:var(--card);border-right:2px solid var(--border);padding:.875rem;transform:translateX(-100%);transition:.3s;z-index:200;box-shadow:4px 0 8px rgba(0,0,0,.1)}
 .sidebar.show{transform:translateX(0)}
 .sidebar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;padding:.375rem}
@@ -71,7 +65,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 .theme-ocean{background:linear-gradient(135deg,#0ea5e9,#3b82f6)}
 .theme-sunset{background:linear-gradient(135deg,#f43f5e,#fb923c)}
 .theme-forest{background:linear-gradient(135deg,#10b981,#34d399)}
-
 .main{max-width:1200px;margin:0 auto;padding:1rem .875rem 2.5rem}
 .section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1rem;flex-wrap:wrap;gap:.75rem}
 .section-title{font-size:1.25rem;font-weight:800}
@@ -92,7 +85,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 .badge.online{background:rgba(16,185,129,.12);border-color:rgba(16,185,129,.25);color:#10b981}
 .play-btn{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;padding:.625rem;border-radius:8px;font-weight:700;cursor:pointer;width:100%;font-size:.8125rem;transition:.3s}
 .play-btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(102,126,234,.4)}
-
 .toast{position:fixed;top:4.5rem;right:.875rem;background:var(--card);border:2px solid var(--border);border-radius:10px;padding:.875rem 1rem;display:none;align-items:center;gap:.75rem;box-shadow:0 8px 20px rgba(0,0,0,.12);z-index:1000;max-width:calc(100vw - 1.75rem);animation:slideIn .3s}
 .toast.show{display:flex}
 @keyframes slideIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
@@ -104,7 +96,6 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 .toast-title{font-weight:700;font-size:.875rem;margin-bottom:.125rem}
 .toast-message{font-size:.75rem;color:var(--text-dim)}
 .toast-close{background:transparent;border:none;color:var(--text-dim);font-size:1.125rem;cursor:pointer;padding:0;width:20px;height:20px;flex-shrink:0}
-
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:none;align-items:center;justify-content:center;z-index:300;padding:.875rem}
 .modal.show{display:flex}
 .modal-box{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:1.5rem;max-width:450px;width:100%;position:relative;animation:modalIn .3s;max-height:90vh;overflow-y:auto}
@@ -128,13 +119,11 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 .btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff}
 .btn-primary:hover{transform:translateY(-2px)}
 .btn-secondary{background:var(--bg);color:var(--text);border:2px solid var(--border)}
-
 .footer{background:var(--card);border-top:2px solid var(--border);padding:1rem;text-align:center;margin-top:2rem}
 .footer-content{display:flex;justify-content:center;align-items:center;gap:1.5rem;flex-wrap:wrap;font-size:.8125rem}
 .footer-link{color:var(--text-dim);text-decoration:none;font-weight:600;transition:.3s}
 .footer-link:hover{color:var(--primary)}
 .footer-text{color:var(--text-dim)}
-
 @media(max-width:768px){
 .header-center{display:none}
 .mobile-search{display:block}
@@ -251,17 +240,17 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 <p>Choose how you want to play</p>
 </div>
 <div class="modal-options">
-<div class="option" onclick="quickPlayMatch()">
+<div class="option" onclick="quickMatch()">
 <h3>⚡ Quick Match</h3>
-<p>Auto-match with waiting players</p>
+<p>Auto-join available room or create new</p>
 </div>
 <div class="option" onclick="createPrivateRoom()">
 <h3>➕ Create Room</h3>
-<p>Private room with code</p>
+<p>Private room with shareable code</p>
 </div>
 <div class="option" onclick="showJoinModal()">
 <h3>🚪 Join Room</h3>
-<p>Enter room code</p>
+<p>Enter friend's room code</p>
 </div>
 </div>
 </div>
@@ -287,28 +276,27 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);tra
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const user={username:localStorage.getItem('username')||'Player',coins:parseInt(localStorage.getItem('coins'))||0,isLoggedIn:localStorage.getItem('isLoggedIn')==='true'};
+const user={username:localStorage.getItem('username')||'Player',id:localStorage.getItem('userId')||'guest',coins:parseInt(localStorage.getItem('coins'))||0,isLoggedIn:localStorage.getItem('isLoggedIn')==='true'};
 if(!user.isLoggedIn)location.href='auth.html';
 
-const YOUR_KEY='PASTE_YOUR_FULL_SUPABASE_KEY_HERE';
-const db=window.supabase.createClient('https://chcepamgczwfguzroddn.supabase.co',YOUR_KEY);
+const db=window.supabase.createClient('https://chcepamgczwfguzroddn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoY2VwYW1nY3p3Zmd1enJvZGRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2OTkxOTYsImV4cCI6MjA4NTI3NTE5Nn0.f5IefTnesklFtFvkjjgK11BBwEEpbvb1anBTEQbNJ18');
 
 let currentGame='';
 let allGames=[];
 const games=[
-{id:'ludo',name:'Ludo King',icon:'🎲',players:'2-4',time:'15-30m',category:'board'},
-{id:'scribble',name:'Scribble.io',icon:'🎨',players:'4-12',time:'10-20m',category:'puzzle'},
-{id:'chess',name:'Chess',icon:'♟️',players:'2',time:'5-60m',category:'board'},
-{id:'snake',name:'Snake Battle',icon:'🐍',players:'1-4',time:'5-10m',category:'puzzle'},
-{id:'quiz',name:'Quiz Master',icon:'🧠',players:'2-20',time:'10-15m',category:'trivia'},
-{id:'memory',name:'Memory Match',icon:'🃏',players:'2-6',time:'5-10m',category:'puzzle'},
-{id:'wordfight',name:'Word Fight',icon:'📝',players:'2-6',time:'5-10m',category:'puzzle'},
-{id:'tictactoe',name:'Tic Tac Toe',icon:'❌',players:'2',time:'1-3m',category:'board'},
-{id:'trivia',name:'Trivia',icon:'❓',players:'2-16',time:'10-20m',category:'trivia'},
-{id:'riddles',name:'Riddles',icon:'💡',players:'1-8',time:'5-15m',category:'trivia'},
-{id:'wordsearch',name:'Word Search',icon:'🔍',players:'1-6',time:'5-10m',category:'puzzle'},
-{id:'checkers',name:'Checkers',icon:'🏁',players:'2',time:'10-20m',category:'board'},
-{id:'puzzle',name:'Puzzle Slider',icon:'🧩',players:'1-4',time:'5-15m',category:'puzzle'}
+{id:'tictactoe',name:'Tic Tac Toe',icon:'❌',players:'2',time:'1-3m',category:'board',maxPlayers:2},
+{id:'ludo',name:'Ludo King',icon:'🎲',players:'2-4',time:'15-30m',category:'board',maxPlayers:4},
+{id:'scribble',name:'Scribble.io',icon:'🎨',players:'4-12',time:'10-20m',category:'puzzle',maxPlayers:12},
+{id:'chess',name:'Chess',icon:'♟️',players:'2',time:'5-60m',category:'board',maxPlayers:2},
+{id:'snake',name:'Snake Battle',icon:'🐍',players:'1-4',time:'5-10m',category:'puzzle',maxPlayers:4},
+{id:'quiz',name:'Quiz Master',icon:'🧠',players:'2-20',time:'10-15m',category:'trivia',maxPlayers:20},
+{id:'memory',name:'Memory Match',icon:'🃏',players:'2-6',time:'5-10m',category:'puzzle',maxPlayers:6},
+{id:'wordfight',name:'Word Fight',icon:'📝',players:'2-6',time:'5-10m',category:'puzzle',maxPlayers:6},
+{id:'trivia',name:'Trivia',icon:'❓',players:'2-16',time:'10-20m',category:'trivia',maxPlayers:16},
+{id:'riddles',name:'Riddles',icon:'💡',players:'1-8',time:'5-15m',category:'trivia',maxPlayers:8},
+{id:'wordsearch',name:'Word Search',icon:'🔍',players:'1-6',time:'5-10m',category:'puzzle',maxPlayers:6},
+{id:'checkers',name:'Checkers',icon:'🏁',players:'2',time:'10-20m',category:'board',maxPlayers:2},
+{id:'puzzle',name:'Puzzle Slider',icon:'🧩',players:'1-4',time:'5-15m',category:'puzzle',maxPlayers:4}
 ];
 
 async function loadGames(filter='all'){
@@ -387,15 +375,15 @@ function openGameModal(id,name){currentGame=id;document.getElementById('modalGam
 function closeModal(){document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'))}
 function showJoinModal(){closeModal();document.getElementById('joinModal').classList.add('show')}
 
-async function quickPlayMatch(){
+async function quickMatch(){
 try{
-const{data:room}=await db.from('rooms').select('*').eq('game_type',currentGame).eq('status','waiting').lt('player_count',4).maybeSingle();
-if(room){
-showToast('success','Match Found',`Joining room ${room.code}`);
+showToast('info','Searching','Finding available room...');
+const gameConfig=games.find(g=>g.id===currentGame);
+const{data:availableRoom}=await db.from('rooms').select('*').eq('game_type',currentGame).eq('status','waiting').eq('is_private',false).lt('player_count',gameConfig.maxPlayers).order('created_at',{ascending:true}).limit(1).maybeSingle();
+if(availableRoom){
+await joinExistingRoom(availableRoom.code);
 }else{
-const code=Math.random().toString(36).substr(2,6).toUpperCase();
-await db.from('rooms').insert({code,game_type:currentGame,host_id:user.id||'guest',players:[],player_count:1,status:'waiting'});
-showToast('info','Searching','Waiting for players...');
+await createPublicRoom();
 }
 }catch(e){
 showToast('error','Error','Failed to find match');
@@ -403,14 +391,51 @@ showToast('error','Error','Failed to find match');
 closeModal();
 }
 
-async function createPrivateRoom(){
+async function createPublicRoom(){
+const code=generateCode();
+const gameConfig=games.find(g=>g.id===currentGame);
 try{
-const code=Math.random().toString(36).substr(2,6).toUpperCase();
-await db.from('rooms').insert({code,game_type:currentGame,host_id:user.id||'guest',players:[],player_count:1,is_private:true,status:'waiting'});
-showToast('success','Room Created',`Code: ${code}`);
+await db.from('rooms').insert({
+code,
+game_type:currentGame,
+host_id:user.id,
+players:[{id:user.id,username:user.username,joined_at:new Date().toISOString()}],
+player_count:1,
+max_players:gameConfig.maxPlayers,
+is_private:false,
+status:'waiting',
+game_state:{},
+created_at:new Date().toISOString(),
+last_activity:new Date().toISOString()
+});
+showToast('success','Room Created',`Code: ${code} - Waiting for players...`);
+setTimeout(()=>location.href=`games/${currentGame}/${currentGame}.html?room=${code}`,1500);
 }catch(e){
-const code=Math.random().toString(36).substr(2,6).toUpperCase();
-showToast('success','Room Created',`Code: ${code}`);
+showToast('error','Error','Failed to create room');
+}
+}
+
+async function createPrivateRoom(){
+const code=generateCode();
+const gameConfig=games.find(g=>g.id===currentGame);
+try{
+await db.from('rooms').insert({
+code,
+game_type:currentGame,
+host_id:user.id,
+players:[{id:user.id,username:user.username,joined_at:new Date().toISOString()}],
+player_count:1,
+max_players:gameConfig.maxPlayers,
+is_private:true,
+status:'waiting',
+game_state:{},
+created_at:new Date().toISOString(),
+last_activity:new Date().toISOString()
+});
+showToast('success','Private Room',`Code: ${code} - Share with friends!`);
+setTimeout(()=>location.href=`games/${currentGame}/${currentGame}.html?room=${code}`,1500);
+}catch(e){
+showToast('error','Error','Failed to create room');
 }
 closeModal();
 }
@@ -420,16 +445,38 @@ const code=document.getElementById('roomCode').value.toUpperCase().trim();
 if(code.length!==6)return showToast('error','Invalid','6 characters required');
 try{
 const{data:room}=await db.from('rooms').select('*').eq('code',code).single();
-if(room){
-showToast('success','Joining',`Room: ${code}`);
-}else{
-showToast('error','Not Found','Invalid room code');
-}
+if(!room)return showToast('error','Not Found','Invalid room code');
+if(room.status!=='waiting')return showToast('error','Game Started','Room already playing');
+if(room.player_count>=room.max_players)return showToast('error','Room Full','Maximum players reached');
+await joinExistingRoom(code);
 }catch(e){
-showToast('error','Not Found','Invalid room code');
+showToast('error','Error','Failed to join room');
 }
 closeModal();
 }
+
+async function joinExistingRoom(code){
+try{
+const{data:room}=await db.from('rooms').select('*').eq('code',code).single();
+if(room.players.some(p=>p.id===user.id)){
+location.href=`games/${room.game_type}/${room.game_type}.html?room=${code}`;
+return;
+}
+const updatedPlayers=[...room.players,{id:user.id,username:user.username,joined_at:new Date().toISOString()}];
+await db.from('rooms').update({
+players:updatedPlayers,
+player_count:updatedPlayers.length,
+status:updatedPlayers.length===room.max_players?'playing':'waiting',
+last_activity:new Date().toISOString()
+}).eq('code',code);
+showToast('success','Joining',`Joining room ${code}...`);
+setTimeout(()=>location.href=`games/${room.game_type}/${room.game_type}.html?room=${code}`,1000);
+}catch(e){
+showToast('error','Error','Failed to join');
+}
+}
+
+function generateCode(){return Math.random().toString(36).substr(2,6).toUpperCase()}
 
 function confirmLogout(){
 if(confirm('Logout?')){localStorage.clear();location.href='index.html'}
