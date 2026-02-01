@@ -7,942 +7,132 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-
-/* THEME VARIABLES */
-:root{
---bg:#f8fafc;
---card:#fff;
---border:#e2e8f0;
---text:#1e293b;
---text-dim:#64748b;
---primary:#667eea;
---secondary:#764ba2;
---success:#10b981;
---error:#ef4444;
---warning:#f59e0b;
-}
-
-[data-theme="dark"]{
---bg:#0f172a;
---card:#1e293b;
---border:#334155;
---text:#f1f5f9;
---text-dim:#94a3b8;
-}
-
-[data-theme="ocean"]{
---bg:#0c4a6e;
---card:#075985;
---border:#0369a1;
---text:#e0f2fe;
---text-dim:#bae6fd;
---primary:#06b6d4;
---secondary:#0891b2;
-}
-
-[data-theme="sunset"]{
---bg:#7c2d12;
---card:#9a3412;
---border:#c2410c;
---text:#fed7aa;
---text-dim:#fdba74;
---primary:#fb923c;
---secondary:#f97316;
-}
-
-[data-theme="forest"]{
---bg:#14532d;
---card:#166534;
---border:#15803d;
---text:#d1fae5;
---text-dim:#86efac;
---primary:#22c55e;
---secondary:#16a34a;
-}
-
-body{
-font-family:'Poppins',sans-serif;
-background:var(--bg);
-color:var(--text);
-min-height:100vh;
-font-size:14px;
-transition:background .3s,color .3s;
-}
-
-/* HEADER */
-.header{
-background:var(--card);
-border-bottom:2px solid var(--border);
-padding:.875rem 1rem;
-position:sticky;
-top:0;
-z-index:100;
-box-shadow:0 2px 8px rgba(0,0,0,.1);
-}
-
-.header-content{
-max-width:1200px;
-margin:0 auto;
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:1rem;
-}
-
-.header-left{
-display:flex;
-align-items:center;
-gap:.75rem;
-}
-
-.menu-btn{
-background:transparent;
-border:2px solid var(--border);
-width:38px;
-height:38px;
-border-radius:10px;
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-color:var(--text);
-font-size:1.25rem;
-transition:.3s;
-}
-
-.menu-btn:hover{
-background:var(--primary);
-color:#fff;
-border-color:var(--primary);
-transform:scale(1.05);
-}
-
-.logo{
-display:flex;
-align-items:center;
-gap:.625rem;
-text-decoration:none;
-}
-
-.logo-icon{
-width:38px;
-height:38px;
-background:linear-gradient(135deg,var(--primary),var(--secondary));
-border-radius:10px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:1.25rem;
-color:#fff;
-box-shadow:0 4px 12px rgba(102,126,234,.3);
-}
-
-.logo-text{
-font-size:1.125rem;
-font-weight:800;
-color:var(--text);
-}
-
-.header-center{
-flex:1;
-max-width:400px;
-position:relative;
-}
-
-.search-wrapper{
-position:relative;
-}
-
-.search-input{
-width:100%;
-padding:.75rem 1rem .75rem 2.75rem;
-background:var(--bg);
-border:2px solid var(--border);
-border-radius:10px;
-color:var(--text);
-font-size:.875rem;
-transition:.3s;
-font-weight:500;
-}
-
-.search-input:focus{
-outline:none;
-border-color:var(--primary);
-box-shadow:0 0 0 3px rgba(102,126,234,.1);
-}
-
-.search-icon{
-position:absolute;
-left:1rem;
-top:50%;
-transform:translateY(-50%);
-font-size:1rem;
-color:var(--text-dim);
-}
-
-.online-badge{
-position:absolute;
-right:1rem;
-top:50%;
-transform:translateY(-50%);
-display:flex;
-align-items:center;
-gap:.375rem;
-font-size:.75rem;
-color:var(--text-dim);
-font-weight:600;
-background:var(--card);
-padding:.375rem .625rem;
-border-radius:50px;
-}
-
-.online-dot{
-width:8px;
-height:8px;
-background:var(--success);
-border-radius:50%;
-animation:pulse 2s infinite;
-}
-
-@keyframes pulse{
-0%,100%{opacity:1;transform:scale(1)}
-50%{opacity:.6;transform:scale(1.1)}
-}
-
-.header-right{
-display:flex;
-align-items:center;
-gap:.625rem;
-}
-
-.profile-btn{
-width:38px;
-height:38px;
-background:linear-gradient(135deg,var(--primary),var(--secondary));
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-cursor:pointer;
-color:#fff;
-font-size:1.125rem;
-position:relative;
-transition:.3s;
-box-shadow:0 4px 12px rgba(102,126,234,.3);
-}
-
-.profile-btn:hover{
-transform:scale(1.1);
-}
-
-.dropdown{
-position:absolute;
-top:calc(100% + .625rem);
-right:0;
-background:var(--card);
-border:2px solid var(--border);
-border-radius:12px;
-padding:.5rem;
-min-width:200px;
-display:none;
-box-shadow:0 8px 24px rgba(0,0,0,.15);
-z-index:200;
-}
-
-.dropdown.show{
-display:block;
-animation:slideDown .2s;
-}
-
-@keyframes slideDown{
-from{opacity:0;transform:translateY(-10px)}
-to{opacity:1;transform:translateY(0)}
-}
-
-.dropdown-item{
-padding:.75rem 1rem;
-border-radius:8px;
-cursor:pointer;
-transition:.2s;
-display:flex;
-align-items:center;
-gap:.75rem;
-font-size:.875rem;
-color:var(--text);
-font-weight:600;
-}
-
-.dropdown-item:hover{
-background:var(--bg);
-}
-
-/* MOBILE SEARCH */
-.mobile-search{
-display:none;
-padding:.875rem 1rem;
-background:var(--card);
-border-bottom:2px solid var(--border);
-}
-
-.mobile-search-wrapper{
-position:relative;
-}
-
-/* SIDEBAR */
-.sidebar{
-position:fixed;
-left:0;
-top:0;
-bottom:0;
-width:260px;
-background:var(--card);
-border-right:2px solid var(--border);
-padding:1rem;
-transform:translateX(-100%);
-transition:.3s;
-z-index:300;
-box-shadow:4px 0 12px rgba(0,0,0,.1);
-overflow-y:auto;
-}
-
-.sidebar.show{
-transform:translateX(0);
-}
-
-.sidebar-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:1.5rem;
-padding:.5rem;
-}
-
-.sidebar-title{
-font-size:1.125rem;
-font-weight:800;
-}
-
-.close-sidebar{
-background:transparent;
-border:none;
-color:var(--text-dim);
-font-size:1.5rem;
-cursor:pointer;
-width:32px;
-height:32px;
-display:flex;
-align-items:center;
-justify-content:center;
-border-radius:8px;
-transition:.3s;
-}
-
-.close-sidebar:hover{
-background:var(--bg);
-color:var(--text);
-}
-
-.sidebar-nav{
-display:flex;
-flex-direction:column;
-gap:.5rem;
-margin-bottom:1.5rem;
-}
-
-.nav-item{
-padding:.875rem 1rem;
-border-radius:10px;
-cursor:pointer;
-transition:.2s;
-display:flex;
-align-items:center;
-gap:.75rem;
-font-weight:600;
-color:var(--text);
-text-decoration:none;
-font-size:.9375rem;
-}
-
-.nav-item:hover{
-background:var(--bg);
-}
-
-.nav-item.active{
-background:linear-gradient(135deg,var(--primary),var(--secondary));
-color:#fff;
-box-shadow:0 4px 12px rgba(102,126,234,.3);
-}
-
-.theme-selector{
-margin-top:auto;
-padding:1rem;
-background:var(--bg);
-border-radius:12px;
-}
-
-.theme-selector-title{
-font-size:.8125rem;
-font-weight:700;
-margin-bottom:.875rem;
-color:var(--text-dim);
-text-transform:uppercase;
-letter-spacing:.5px;
-}
-
-.theme-grid{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:.625rem;
-}
-
-.theme-option{
-width:100%;
-aspect-ratio:1;
-border-radius:8px;
-border:2px solid var(--border);
-cursor:pointer;
-transition:.3s;
-position:relative;
-overflow:hidden;
-}
-
-.theme-option:hover{
-transform:scale(1.05);
-}
-
-.theme-option.active{
-border-color:var(--primary);
-box-shadow:0 0 0 3px rgba(102,126,234,.2);
-}
-
-.theme-option.active::after{
-content:'✓';
-position:absolute;
-inset:0;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:1.25rem;
-font-weight:900;
-color:#fff;
-background:rgba(0,0,0,.3);
-}
-
+:root{--bg:#f8fafc;--card:#fff;--border:#e2e8f0;--text:#1e293b;--text-dim:#64748b;--primary:#667eea;--secondary:#764ba2;--success:#10b981;--error:#ef4444;--warning:#f59e0b}
+[data-theme="dark"]{--bg:#0f172a;--card:#1e293b;--border:#334155;--text:#f1f5f9;--text-dim:#94a3b8}
+[data-theme="ocean"]{--bg:#0c4a6e;--card:#075985;--border:#0369a1;--text:#e0f2fe;--text-dim:#bae6fd;--primary:#06b6d4;--secondary:#0891b2}
+[data-theme="sunset"]{--bg:#7c2d12;--card:#9a3412;--border:#c2410c;--text:#fed7aa;--text-dim:#fdba74;--primary:#fb923c;--secondary:#f97316}
+[data-theme="forest"]{--bg:#14532d;--card:#166534;--border:#15803d;--text:#d1fae5;--text-dim:#86efac;--primary:#22c55e;--secondary:#16a34a}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px;transition:all .3s}
+.header{background:var(--card);border-bottom:2px solid var(--border);padding:.875rem 1rem;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.header-content{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.header-left{display:flex;align-items:center;gap:.75rem}
+.menu-btn{background:transparent;border:2px solid var(--border);width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text);font-size:1.25rem;transition:.3s}
+.menu-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary);transform:scale(1.05)}
+.logo{display:flex;align-items:center;gap:.625rem;text-decoration:none}
+.logo-icon{width:38px;height:38px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;color:#fff;box-shadow:0 4px 12px rgba(102,126,234,.3)}
+.logo-text{font-size:1.125rem;font-weight:800;color:var(--text)}
+.header-center{flex:1;max-width:400px;position:relative}
+.search-input{width:100%;padding:.75rem 1rem .75rem 2.75rem;background:var(--bg);border:2px solid var(--border);border-radius:10px;color:var(--text);font-size:.875rem;transition:.3s;font-weight:500}
+.search-input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(102,126,234,.1)}
+.search-icon{position:absolute;left:1rem;top:50%;transform:translateY(-50%);font-size:1rem;color:var(--text-dim)}
+.online-badge{position:absolute;right:1rem;top:50%;transform:translateY(-50%);display:flex;align-items:center;gap:.375rem;font-size:.75rem;color:var(--text-dim);font-weight:600;background:var(--card);padding:.375rem .625rem;border-radius:50px}
+.online-dot{width:8px;height:8px;background:var(--success);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.6;transform:scale(1.1)}}
+.header-right{display:flex;align-items:center;gap:.625rem}
+.profile-btn{width:38px;height:38px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;font-size:1.125rem;position:relative;transition:.3s;box-shadow:0 4px 12px rgba(102,126,234,.3)}
+.profile-btn:hover{transform:scale(1.1)}
+.dropdown{position:absolute;top:calc(100% + .625rem);right:0;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:.5rem;min-width:200px;display:none;box-shadow:0 8px 24px rgba(0,0,0,.15);z-index:200}
+.dropdown.show{display:block;animation:slideDown .2s}
+@keyframes slideDown{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+.dropdown-item{padding:.75rem 1rem;border-radius:8px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:.75rem;font-size:.875rem;color:var(--text);font-weight:600}
+.dropdown-item:hover{background:var(--bg)}
+.mobile-search{display:none;padding:.875rem 1rem;background:var(--card);border-bottom:2px solid var(--border)}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:260px;background:var(--card);border-right:2px solid var(--border);padding:1rem;transform:translateX(-100%);transition:.3s;z-index:300;box-shadow:4px 0 12px rgba(0,0,0,.1);overflow-y:auto}
+.sidebar.show{transform:translateX(0)}
+.sidebar-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem;padding:.5rem}
+.sidebar-title{font-size:1.125rem;font-weight:800}
+.close-sidebar{background:transparent;border:none;color:var(--text-dim);font-size:1.5rem;cursor:pointer;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:8px;transition:.3s}
+.close-sidebar:hover{background:var(--bg);color:var(--text)}
+.sidebar-nav{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.5rem}
+.nav-item{padding:.875rem 1rem;border-radius:10px;cursor:pointer;transition:.2s;display:flex;align-items:center;gap:.75rem;font-weight:600;color:var(--text);text-decoration:none;font-size:.9375rem}
+.nav-item:hover{background:var(--bg)}
+.nav-item.active{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;box-shadow:0 4px 12px rgba(102,126,234,.3)}
+.theme-selector{margin-top:auto;padding:1rem;background:var(--bg);border-radius:12px}
+.theme-selector-title{font-size:.8125rem;font-weight:700;margin-bottom:.875rem;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px}
+.theme-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.625rem}
+.theme-option{width:100%;aspect-ratio:1;border-radius:8px;border:2px solid var(--border);cursor:pointer;transition:.3s;position:relative;overflow:hidden}
+.theme-option:hover{transform:scale(1.05)}
+.theme-option.active{border-color:var(--primary);box-shadow:0 0 0 3px rgba(102,126,234,.2)}
+.theme-option.active::after{content:'✓';position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:1.25rem;font-weight:900;color:#fff;background:rgba(0,0,0,.3)}
 .theme-light{background:linear-gradient(135deg,#fff,#f1f5f9)}
 .theme-dark{background:linear-gradient(135deg,#0f172a,#1e293b)}
 .theme-ocean{background:linear-gradient(135deg,#0c4a6e,#0369a1)}
 .theme-sunset{background:linear-gradient(135deg,#7c2d12,#c2410c)}
 .theme-forest{background:linear-gradient(135deg,#14532d,#15803d)}
-
-/* MAIN */
-.main{
-max-width:1200px;
-margin:0 auto;
-padding:1.5rem 1rem 3rem;
-}
-
-.section-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:1.25rem;
-flex-wrap:wrap;
-gap:1rem;
-}
-
-.section-title{
-font-size:1.5rem;
-font-weight:800;
-}
-
-.filter-chips{
-display:flex;
-gap:.5rem;
-flex-wrap:wrap;
-}
-
-.chip{
-background:var(--card);
-border:2px solid var(--border);
-color:var(--text-dim);
-padding:.625rem 1.125rem;
-border-radius:50px;
-cursor:pointer;
-font-weight:600;
-font-size:.8125rem;
-transition:.3s;
-}
-
-.chip.active{
-background:linear-gradient(135deg,var(--primary),var(--secondary));
-border-color:transparent;
-color:#fff;
-box-shadow:0 4px 12px rgba(102,126,234,.3);
-}
-
-.chip:hover:not(.active){
-border-color:var(--primary);
-transform:translateY(-2px);
-}
-
-/* GAMES GRID */
-.games-grid{
-display:grid;
-grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-gap:1rem;
-margin-bottom:2rem;
-}
-
-.game-card{
-background:var(--card);
-border:2px solid var(--border);
-border-radius:14px;
-padding:1.125rem;
-cursor:pointer;
-transition:.3s;
-}
-
-.game-card:hover{
-transform:translateY(-5px);
-border-color:var(--primary);
-box-shadow:0 12px 24px rgba(0,0,0,.12);
-}
-
-.game-top{
-display:flex;
-gap:.875rem;
-margin-bottom:.875rem;
-}
-
-.game-icon{
-width:52px;
-height:52px;
-background:linear-gradient(135deg,var(--primary),var(--secondary));
-border-radius:12px;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:1.75rem;
-flex-shrink:0;
-box-shadow:0 4px 12px rgba(102,126,234,.3);
-}
-
-.game-info{
-flex:1;
-min-width:0;
-}
-
-.game-name{
-font-size:1.0625rem;
-font-weight:800;
-margin-bottom:.375rem;
-color:var(--text);
-white-space:nowrap;
-overflow:hidden;
-text-overflow:ellipsis;
-}
-
-.game-players{
-font-size:.8125rem;
-color:var(--text-dim);
-font-weight:600;
-}
-
-.game-badges{
-display:flex;
-gap:.5rem;
-flex-wrap:wrap;
-margin-bottom:.875rem;
-}
-
-.badge{
-background:var(--bg);
-border:1px solid var(--border);
-padding:.375rem .625rem;
-border-radius:6px;
-font-size:.75rem;
-font-weight:600;
-color:var(--text-dim);
-display:flex;
-align-items:center;
-gap:.375rem;
-}
-
-.badge.online{
-background:rgba(16,185,129,.15);
-border-color:rgba(16,185,129,.3);
-color:var(--success);
-}
-
-.play-btn{
-background:linear-gradient(135deg,var(--primary),var(--secondary));
-color:#fff;
-border:none;
-padding:.75rem;
-border-radius:10px;
-font-weight:700;
-cursor:pointer;
-width:100%;
-font-size:.875rem;
-transition:.3s;
-box-shadow:0 4px 12px rgba(102,126,234,.3);
-}
-
-.play-btn:hover{
-transform:translateY(-2px);
-box-shadow:0 6px 16px rgba(102,126,234,.4);
-}
-
-/* TOAST */
-.toast{
-position:fixed;
-top:5rem;
-right:1rem;
-background:var(--card);
-border:2px solid var(--border);
-border-radius:12px;
-padding:1rem 1.25rem;
-display:none;
-align-items:center;
-gap:.875rem;
-box-shadow:0 8px 24px rgba(0,0,0,.15);
-z-index:1000;
-max-width:calc(100vw - 2rem);
-animation:slideIn .3s;
-}
-
+.main{max-width:1200px;margin:0 auto;padding:1.5rem 1rem 3rem}
+.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem;flex-wrap:wrap;gap:1rem}
+.section-title{font-size:1.5rem;font-weight:800}
+.filter-chips{display:flex;gap:.5rem;flex-wrap:wrap}
+.chip{background:var(--card);border:2px solid var(--border);color:var(--text-dim);padding:.625rem 1.125rem;border-radius:50px;cursor:pointer;font-weight:600;font-size:.8125rem;transition:.3s}
+.chip.active{background:linear-gradient(135deg,var(--primary),var(--secondary));border-color:transparent;color:#fff;box-shadow:0 4px 12px rgba(102,126,234,.3)}
+.chip:hover:not(.active){border-color:var(--primary);transform:translateY(-2px)}
+.games-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1rem;margin-bottom:2rem}
+.game-card{background:var(--card);border:2px solid var(--border);border-radius:14px;padding:1.125rem;cursor:pointer;transition:.3s}
+.game-card:hover{transform:translateY(-5px);border-color:var(--primary);box-shadow:0 12px 24px rgba(0,0,0,.12)}
+.game-top{display:flex;gap:.875rem;margin-bottom:.875rem}
+.game-icon{width:52px;height:52px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.75rem;flex-shrink:0;box-shadow:0 4px 12px rgba(102,126,234,.3)}
+.game-info{flex:1;min-width:0}
+.game-name{font-size:1.0625rem;font-weight:800;margin-bottom:.375rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.game-players{font-size:.8125rem;color:var(--text-dim);font-weight:600}
+.game-badges{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.875rem}
+.badge{background:var(--bg);border:1px solid var(--border);padding:.375rem .625rem;border-radius:6px;font-size:.75rem;font-weight:600;color:var(--text-dim);display:flex;align-items:center;gap:.375rem}
+.badge.online{background:rgba(16,185,129,.15);border-color:rgba(16,185,129,.3);color:var(--success)}
+.play-btn{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;padding:.75rem;border-radius:10px;font-weight:700;cursor:pointer;width:100%;font-size:.875rem;transition:.3s;box-shadow:0 4px 12px rgba(102,126,234,.3)}
+.play-btn:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(102,126,234,.4)}
+.toast{position:fixed;top:5rem;right:1rem;background:var(--card);border:2px solid var(--border);border-radius:12px;padding:1rem 1.25rem;display:none;align-items:center;gap:.875rem;box-shadow:0 8px 24px rgba(0,0,0,.15);z-index:1000;max-width:calc(100vw - 2rem);animation:slideIn .3s}
 .toast.show{display:flex}
-
-@keyframes slideIn{
-from{transform:translateX(400px);opacity:0}
-to{transform:translateX(0);opacity:1}
-}
-
-.toast-icon{
-width:36px;
-height:36px;
-border-radius:50%;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:1.125rem;
-flex-shrink:0;
-}
-
+@keyframes slideIn{from{transform:translateX(400px);opacity:0}to{transform:translateX(0);opacity:1}}
+.toast-icon{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.125rem;flex-shrink:0}
 .toast.success .toast-icon{background:#d1fae5;color:var(--success)}
 .toast.error .toast-icon{background:#fee2e2;color:var(--error)}
 .toast.info .toast-icon{background:#dbeafe;color:#3b82f6}
-
 .toast-content{flex:1;min-width:0}
-
-.toast-title{
-font-weight:700;
-font-size:.9375rem;
-margin-bottom:.25rem;
-}
-
-.toast-message{
-font-size:.8125rem;
-color:var(--text-dim);
-}
-
-.toast-close{
-background:transparent;
-border:none;
-color:var(--text-dim);
-font-size:1.25rem;
-cursor:pointer;
-padding:0;
-width:24px;
-height:24px;
-flex-shrink:0;
-transition:.3s;
-}
-
-.toast-close:hover{
-color:var(--text);
-}
-
-/* MODAL */
-.modal{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.75);
-display:none;
-align-items:center;
-justify-content:center;
-z-index:400;
-padding:1rem;
-backdrop-filter:blur(4px);
-}
-
+.toast-title{font-weight:700;font-size:.9375rem;margin-bottom:.25rem}
+.toast-message{font-size:.8125rem;color:var(--text-dim)}
+.toast-close{background:transparent;border:none;color:var(--text-dim);font-size:1.25rem;cursor:pointer;padding:0;width:24px;height:24px;flex-shrink:0;transition:.3s}
+.toast-close:hover{color:var(--text)}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:400;padding:1rem;backdrop-filter:blur(4px)}
 .modal.show{display:flex}
-
-.modal-box{
-background:var(--card);
-border:2px solid var(--border);
-border-radius:16px;
-padding:1.75rem;
-max-width:520px;
-width:100%;
-position:relative;
-animation:modalIn .3s;
-max-height:90vh;
-overflow-y:auto;
-box-shadow:0 20px 60px rgba(0,0,0,.3);
-}
-
-@keyframes modalIn{
-from{transform:scale(.9);opacity:0}
-to{transform:scale(1);opacity:1}
-}
-
-.modal-header{
-margin-bottom:1.5rem;
-text-align:center;
-}
-
-.modal-header h2{
-font-size:1.5rem;
-font-weight:900;
-margin-bottom:.5rem;
-}
-
-.modal-header p{
-color:var(--text-dim);
-font-size:.9375rem;
-}
-
-.close-modal{
-position:absolute;
-top:1.25rem;
-right:1.25rem;
-background:var(--bg);
-border:none;
-color:var(--text-dim);
-width:36px;
-height:36px;
-border-radius:50%;
-cursor:pointer;
-font-size:1.25rem;
-transition:.3s;
-display:flex;
-align-items:center;
-justify-content:center;
-}
-
-.close-modal:hover{
-background:var(--border);
-transform:rotate(90deg);
-}
-
-.modal-options{
-display:grid;
-gap:.875rem;
-margin-bottom:1.5rem;
-}
-
-.option{
-background:var(--bg);
-border:2px solid var(--border);
-padding:1.125rem;
-border-radius:12px;
-cursor:pointer;
-transition:.3s;
-}
-
-.option:hover{
-border-color:var(--primary);
-transform:translateX(4px);
-box-shadow:0 4px 12px rgba(0,0,0,.08);
-}
-
-.option h3{
-font-size:1.0625rem;
-font-weight:800;
-margin-bottom:.5rem;
-display:flex;
-align-items:center;
-gap:.75rem;
-}
-
-.option p{
-font-size:.875rem;
-color:var(--text-dim);
-}
-
-.input-group{
-margin-bottom:1.125rem;
-}
-
-.input-group label{
-display:block;
-margin-bottom:.625rem;
-font-weight:600;
-font-size:.9375rem;
-}
-
-.input-group input,
-.input-group select{
-width:100%;
-padding:.875rem 1rem;
-background:var(--bg);
-border:2px solid var(--border);
-border-radius:10px;
-color:var(--text);
-font-size:.9375rem;
-transition:.3s;
-font-weight:500;
-}
-
-.input-group input:focus,
-.input-group select:focus{
-outline:none;
-border-color:var(--primary);
-box-shadow:0 0 0 3px rgba(102,126,234,.1);
-}
-
-.modal-footer{
-display:flex;
-gap:.875rem;
-}
-
-.btn{
-padding:.875rem 1.5rem;
-border-radius:10px;
-font-weight:700;
-cursor:pointer;
-border:none;
-font-size:.9375rem;
-flex:1;
-transition:.3s;
-}
-
-.btn-primary{
-background:linear-gradient(135deg,var(--primary),var(--secondary));
-color:#fff;
-box-shadow:0 4px 12px rgba(102,126,234,.3);
-}
-
-.btn-primary:hover{
-transform:translateY(-2px);
-box-shadow:0 6px 16px rgba(102,126,234,.4);
-}
-
-.btn-secondary{
-background:var(--bg);
-color:var(--text);
-border:2px solid var(--border);
-}
-
-.btn-secondary:hover{
-background:var(--border);
-}
-
-/* ROOM LIST */
-.room-list{
-max-height:420px;
-overflow-y:auto;
-}
-
-.room-item{
-background:var(--bg);
-border:2px solid var(--border);
-border-radius:12px;
-padding:1.125rem;
-margin-bottom:.875rem;
-cursor:pointer;
-transition:.3s;
-}
-
-.room-item:hover{
-border-color:var(--primary);
-transform:translateX(4px);
-}
-
-.room-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin-bottom:.625rem;
-}
-
-.room-name{
-font-weight:800;
-font-size:1rem;
-}
-
-.room-privacy{
-display:flex;
-align-items:center;
-gap:.5rem;
-font-size:.8125rem;
-color:var(--text-dim);
-font-weight:600;
-padding:.375rem .75rem;
-background:var(--card);
-border-radius:50px;
-}
-
-.room-privacy.locked{
-color:var(--warning);
-}
-
-.room-meta{
-display:flex;
-gap:1.125rem;
-font-size:.8125rem;
-color:var(--text-dim);
-font-weight:600;
-}
-
-.loader{
-border:3px solid var(--border);
-border-top:3px solid var(--primary);
-border-radius:50%;
-width:36px;
-height:36px;
-animation:spin 1s linear infinite;
-margin:2rem auto;
-}
-
+.modal-box{background:var(--card);border:2px solid var(--border);border-radius:16px;padding:1.75rem;max-width:520px;width:100%;position:relative;animation:modalIn .3s;max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+@keyframes modalIn{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+.modal-header{margin-bottom:1.5rem;text-align:center}
+.modal-header h2{font-size:1.5rem;font-weight:900;margin-bottom:.5rem}
+.modal-header p{color:var(--text-dim);font-size:.9375rem}
+.close-modal{position:absolute;top:1.25rem;right:1.25rem;background:var(--bg);border:none;color:var(--text-dim);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.25rem;transition:.3s;display:flex;align-items:center;justify-content:center}
+.close-modal:hover{background:var(--border);transform:rotate(90deg)}
+.modal-options{display:grid;gap:.875rem;margin-bottom:1.5rem}
+.option{background:var(--bg);border:2px solid var(--border);padding:1.125rem;border-radius:12px;cursor:pointer;transition:.3s}
+.option:hover{border-color:var(--primary);transform:translateX(4px);box-shadow:0 4px 12px rgba(0,0,0,.08)}
+.option h3{font-size:1.0625rem;font-weight:800;margin-bottom:.5rem;display:flex;align-items:center;gap:.75rem}
+.option p{font-size:.875rem;color:var(--text-dim)}
+.input-group{margin-bottom:1.125rem}
+.input-group label{display:block;margin-bottom:.625rem;font-weight:600;font-size:.9375rem}
+.input-group input,.input-group select{width:100%;padding:.875rem 1rem;background:var(--bg);border:2px solid var(--border);border-radius:10px;color:var(--text);font-size:.9375rem;transition:.3s;font-weight:500}
+.input-group input:focus,.input-group select:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(102,126,234,.1)}
+.modal-footer{display:flex;gap:.875rem}
+.btn{padding:.875rem 1.5rem;border-radius:10px;font-weight:700;cursor:pointer;border:none;font-size:.9375rem;flex:1;transition:.3s}
+.btn-primary{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;box-shadow:0 4px 12px rgba(102,126,234,.3)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 16px rgba(102,126,234,.4)}
+.btn-secondary{background:var(--bg);color:var(--text);border:2px solid var(--border)}
+.btn-secondary:hover{background:var(--border)}
+.room-list{max-height:420px;overflow-y:auto;padding:.5rem 0}
+.room-item{background:var(--bg);border:2px solid var(--border);border-radius:12px;padding:1.125rem;margin-bottom:.875rem;cursor:pointer;transition:.3s}
+.room-item:hover{border-color:var(--primary);transform:translateX(4px)}
+.room-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.625rem}
+.room-name{font-weight:800;font-size:1rem}
+.room-privacy{display:flex;align-items:center;gap:.5rem;font-size:.8125rem;color:var(--text-dim);font-weight:600;padding:.375rem .75rem;background:var(--card);border-radius:50px}
+.room-privacy.locked{color:var(--warning)}
+.room-meta{display:flex;gap:1.125rem;font-size:.8125rem;color:var(--text-dim);font-weight:600}
+.loader{border:3px solid var(--border);border-top:3px solid var(--primary);border-radius:50%;width:36px;height:36px;animation:spin 1s linear infinite;margin:2rem auto}
 @keyframes spin{to{transform:rotate(360deg)}}
-
-/* FOOTER */
-.footer{
-background:var(--card);
-border-top:2px solid var(--border);
-padding:1.25rem 1rem;
-text-align:center;
-margin-top:3rem;
-}
-
-.footer-content{
-display:flex;
-justify-content:center;
-align-items:center;
-gap:2rem;
-flex-wrap:wrap;
-font-size:.875rem;
-}
-
-.footer-link{
-color:var(--text-dim);
-text-decoration:none;
-font-weight:600;
-transition:.3s;
-}
-
-.footer-link:hover{
-color:var(--primary);
-}
-
-.footer-text{
-color:var(--text-dim);
-font-weight:500;
-}
-
-/* RESPONSIVE */
+.empty-state{text-align:center;padding:3rem 1rem;color:var(--text-dim)}
+.empty-icon{font-size:4rem;margin-bottom:1rem;opacity:.5}
+.empty-text{font-size:1rem;font-weight:600}
+.footer{background:var(--card);border-top:2px solid var(--border);padding:1.25rem 1rem;text-align:center;margin-top:3rem}
+.footer-content{display:flex;justify-content:center;align-items:center;gap:2rem;flex-wrap:wrap;font-size:.875rem}
+.footer-link{color:var(--text-dim);text-decoration:none;font-weight:600;transition:.3s}
+.footer-link:hover{color:var(--primary)}
+.footer-text{color:var(--text-dim);font-weight:500}
 @media(max-width:768px){
 .header-center{display:none}
 .mobile-search{display:block}
@@ -953,7 +143,6 @@ font-weight:500;
 .section-title{font-size:1.25rem}
 .sidebar{width:280px}
 }
-
 @media(min-width:769px) and (max-width:1024px){
 .games-grid{grid-template-columns:repeat(2,1fr)}
 }
@@ -971,13 +160,11 @@ font-weight:500;
 </a>
 </div>
 <div class="header-center">
-<div class="search-wrapper">
 <span class="search-icon">🔍</span>
 <input type="text" class="search-input" placeholder="Search games..." oninput="searchGames(this.value)">
 <div class="online-badge">
 <span class="online-dot"></span>
 <span id="onlineCount">—</span>
-</div>
 </div>
 </div>
 <div class="header-right">
@@ -994,10 +181,8 @@ font-weight:500;
 </header>
 
 <div class="mobile-search">
-<div class="mobile-search-wrapper">
 <span class="search-icon">🔍</span>
 <input type="text" class="search-input" placeholder="Search games..." oninput="searchGames(this.value)">
-</div>
 </div>
 
 <aside class="sidebar" id="sidebar">
@@ -1018,11 +203,11 @@ font-weight:500;
 <div class="theme-selector">
 <div class="theme-selector-title">🎨 Choose Theme</div>
 <div class="theme-grid">
-<div class="theme-option theme-light active" onclick="setTheme('light')" title="Light"></div>
-<div class="theme-option theme-dark" onclick="setTheme('dark')" title="Dark"></div>
-<div class="theme-option theme-ocean" onclick="setTheme('ocean')" title="Ocean"></div>
-<div class="theme-option theme-sunset" onclick="setTheme('sunset')" title="Sunset"></div>
-<div class="theme-option theme-forest" onclick="setTheme('forest')" title="Forest"></div>
+<div class="theme-option theme-light active" onclick="setTheme('light')"></div>
+<div class="theme-option theme-dark" onclick="setTheme('dark')"></div>
+<div class="theme-option theme-ocean" onclick="setTheme('ocean')"></div>
+<div class="theme-option theme-sunset" onclick="setTheme('sunset')"></div>
+<div class="theme-option theme-forest" onclick="setTheme('forest')"></div>
 </div>
 </div>
 </aside>
@@ -1040,10 +225,10 @@ font-weight:500;
 <div class="section-header">
 <h2 class="section-title">🎮 All Games</h2>
 <div class="filter-chips">
-<div class="chip active" data-filter="all" onclick="filterGames('all')">All</div>
-<div class="chip" data-filter="board" onclick="filterGames('board')">Board</div>
-<div class="chip" data-filter="puzzle" onclick="filterGames('puzzle')">Puzzle</div>
-<div class="chip" data-filter="trivia" onclick="filterGames('trivia')">Trivia</div>
+<div class="chip active" onclick="filterGames('all',this)">All</div>
+<div class="chip" onclick="filterGames('board',this)">Board</div>
+<div class="chip" onclick="filterGames('puzzle',this)">Puzzle</div>
+<div class="chip" onclick="filterGames('trivia',this)">Trivia</div>
 </div>
 </div>
 <div class="games-grid" id="gamesGrid"></div>
@@ -1057,22 +242,17 @@ font-weight:500;
 </div>
 </footer>
 
-<!-- MODALS -->
 <div class="modal" id="gameModeModal">
 <div class="modal-box">
-<button class="close-modal" onclick="closeModal()">×</button>
+<button class="close-modal" onclick="closeAllModals()">×</button>
 <div class="modal-header">
 <h2 id="modalGameName">Select Mode</h2>
 <p>Choose how you want to play</p>
 </div>
 <div class="modal-options">
-<div class="option" onclick="quickMatch()">
-<h3>⚡ Quick Match</h3>
-<p>Instant matchmaking - no waiting!</p>
-</div>
 <div class="option" onclick="showCreateModal()">
 <h3>➕ Create Room</h3>
-<p>Play with friends using room code</p>
+<p>Start a private game with friends</p>
 </div>
 <div class="option" onclick="showJoinModal()">
 <h3>🚪 Join Room</h3>
@@ -1084,26 +264,25 @@ font-weight:500;
 
 <div class="modal" id="createModal">
 <div class="modal-box">
-<button class="close-modal" onclick="closeModal()">×</button>
+<button class="close-modal" onclick="closeAllModals()">×</button>
 <div class="modal-header">
 <h2>Create Room</h2>
-<p>Customize your game room</p>
+<p id="createGameName">Customize your game</p>
 </div>
 <div class="input-group">
 <label>Room Name</label>
 <input type="text" id="roomName" placeholder="My Awesome Room" maxlength="30">
 </div>
 <div class="input-group">
-<label>Password (Optional)</label>
-<input type="text" id="roomPassword" placeholder="Leave empty for public" maxlength="20">
+<label>Password (Optional - leave empty for public)</label>
+<input type="text" id="roomPassword" placeholder="Enter password or leave empty" maxlength="20">
 </div>
 <div class="input-group" id="maxPlayersGroup" style="display:none">
-<label>Max Players</label>
+<label>Maximum Players</label>
 <select id="maxPlayers"></select>
 </div>
-<div id="gameSettings"></div>
 <div class="modal-footer">
-<button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+<button class="btn btn-secondary" onclick="closeAllModals()">Cancel</button>
 <button class="btn btn-primary" onclick="createRoom()">Create Room</button>
 </div>
 </div>
@@ -1111,10 +290,10 @@ font-weight:500;
 
 <div class="modal" id="joinModal">
 <div class="modal-box">
-<button class="close-modal" onclick="closeModal()">×</button>
+<button class="close-modal" onclick="closeAllModals()">×</button>
 <div class="modal-header">
 <h2>Join Room</h2>
-<p>Select a room to join</p>
+<p id="joinGameName">Available rooms</p>
 </div>
 <div class="room-list" id="roomList">
 <div class="loader"></div>
@@ -1124,35 +303,46 @@ font-weight:500;
 
 <div class="modal" id="passwordModal">
 <div class="modal-box">
-<button class="close-modal" onclick="closeModal()">×</button>
+<button class="close-modal" onclick="closeAllModals()">×</button>
 <div class="modal-header">
-<h2>🔒 Enter Password</h2>
-<p id="passwordRoomName">Room Name</p>
+<h2>🔒 Password Required</h2>
+<p id="passwordRoomName">Enter room password</p>
 </div>
 <div class="input-group">
 <label>Password</label>
 <input type="password" id="joinPassword" placeholder="Enter room password">
 </div>
 <div class="modal-footer">
-<button class="btn btn-secondary" onclick="closeModal()">Cancel</button>
-<button class="btn btn-primary" onclick="joinWithPassword()">Join</button>
+<button class="btn btn-secondary" onclick="closeAllModals()">Cancel</button>
+<button class="btn btn-primary" onclick="joinWithPassword()">Join Room</button>
 </div>
 </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-// CONFIG
-const user={username:localStorage.getItem('username')||'Player',id:localStorage.getItem('userId')||'guest',isLoggedIn:localStorage.getItem('isLoggedIn')==='true'};
-if(!user.isLoggedIn)location.href='auth.html';
+// USER & DB CONFIG
+const user={
+username:localStorage.getItem('username')||'Player',
+id:localStorage.getItem('userId')||'user_'+Math.random().toString(36).substr(2,9),
+isLoggedIn:localStorage.getItem('isLoggedIn')==='true'
+};
 
-const db=window.supabase.createClient('https://chcepamgczwfguzroddn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoY2VwYW1nY3p3Zmd1enJvZGRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2OTkxOTYsImV4cCI6MjA4NTI3NTE5Nn0.f5IefTnesklFtFvkjjgK11BBwEEpbvb1anBTEQbNJ18');
+if(!user.isLoggedIn){
+location.href='auth.html';
+}
 
+const SUPABASE_URL='https://chcepamgczwfguzroddn.supabase.co';
+const SUPABASE_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoY2VwYW1nY3p3Zmd1enJvZGRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2OTkxOTYsImV4cCI6MjA4NTI3NTE5Nn0.f5IefTnesklFtFvkjjgK11BBwEEpbvb1anBTEQbNJ18';
+const db=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+// GLOBAL VARS
 let currentGame='';
 let currentRoomCode='';
 let allGames=[];
-let roomRefreshInterval;
+let roomRefreshInterval=null;
 
+// GAMES DATA
 const games=[
 {id:'tictactoe',name:'Tic Tac Toe',icon:'❌',players:'2',time:'1-3m',category:'board',maxPlayers:2},
 {id:'ludo',name:'Ludo King',icon:'🎲',players:'2-4',time:'15-30m',category:'board',maxPlayers:4},
@@ -1168,31 +358,43 @@ const games=[
 {id:'puzzle',name:'Puzzle Slider',icon:'🧩',players:'1-4',time:'5-15m',category:'puzzle',maxPlayers:4}
 ];
 
+// LOAD GAMES
 async function loadGames(filter='all'){
 try{
-const{data:rooms}=await db.from('rooms').select('game_type,status').eq('status','waiting');
-const{count:totalUsers}=await db.from('users').select('*',{count:'exact',head:true});
+const{data:rooms,error}=await db.from('rooms').select('game_type,status').eq('status','waiting');
+if(error)throw error;
+
 const roomCounts={};
-rooms?.forEach(r=>roomCounts[r.game_type]=(roomCounts[r.game_type]||0)+1);
+if(rooms){
+rooms.forEach(r=>{
+roomCounts[r.game_type]=(roomCounts[r.game_type]||0)+1;
+});
+}
+
 allGames=games.map(g=>({...g,rooms:roomCounts[g.id]||0}));
+
+const{count:totalUsers}=await db.from('users').select('*',{count:'exact',head:true});
 document.getElementById('onlineCount').textContent=(totalUsers||0)+' online';
 }catch(e){
+console.error('Load error:',e);
 allGames=games.map(g=>({...g,rooms:0}));
 document.getElementById('onlineCount').textContent='Offline';
 }
 renderGames(filter);
 }
 
+// RENDER GAMES
 function renderGames(filter='all'){
 const grid=document.getElementById('gamesGrid');
 const filtered=filter==='all'?allGames:allGames.filter(g=>g.category===filter);
+
 grid.innerHTML=filtered.map(g=>`
 <div class="game-card" onclick="openGameModal('${g.id}','${g.name}')">
 <div class="game-top">
 <div class="game-icon">${g.icon}</div>
 <div class="game-info">
 <div class="game-name">${g.name}</div>
-<div class="game-players">👥 ${g.players}</div>
+<div class="game-players">👥 ${g.players} Players</div>
 </div>
 </div>
 <div class="game-badges">
@@ -1204,22 +406,30 @@ grid.innerHTML=filtered.map(g=>`
 `).join('');
 }
 
-function filterGames(category){
+// FILTER GAMES
+function filterGames(category,elem){
 document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
-event.target.classList.add('active');
+if(elem)elem.classList.add('active');
 loadGames(category);
 }
 
+// SEARCH GAMES
 function searchGames(query){
 const filtered=allGames.filter(g=>g.name.toLowerCase().includes(query.toLowerCase()));
 const grid=document.getElementById('gamesGrid');
+
+if(filtered.length===0){
+grid.innerHTML='<div class="empty-state"><div class="empty-icon">🔍</div><div class="empty-text">No games found</div></div>';
+return;
+}
+
 grid.innerHTML=filtered.map(g=>`
 <div class="game-card" onclick="openGameModal('${g.id}','${g.name}')">
 <div class="game-top">
 <div class="game-icon">${g.icon}</div>
 <div class="game-info">
 <div class="game-name">${g.name}</div>
-<div class="game-players">👥 ${g.players}</div>
+<div class="game-players">👥 ${g.players} Players</div>
 </div>
 </div>
 <div class="game-badges">
@@ -1231,88 +441,137 @@ grid.innerHTML=filtered.map(g=>`
 `).join('');
 }
 
-async function quickMatch(){
-showToast('info','Searching','Finding players...');
-closeModal();
-try{
-await db.from('matchmaking_queue').insert({
-user_id:user.id,
-username:user.username,
-game_type:currentGame,
-created_at:new Date().toISOString(),
-status:'searching'
-});
-checkMatchmaking();
-}catch(e){
-showToast('error','Error','Failed to join queue');
-}
+// OPEN GAME MODAL
+function openGameModal(gameId,gameName){
+currentGame=gameId;
+document.getElementById('modalGameName').textContent=gameName;
+document.getElementById('gameModeModal').classList.add('show');
 }
 
-async function checkMatchmaking(){
-const interval=setInterval(async()=>{
-try{
-const{data:queue}=await db.from('matchmaking_queue').select('*').eq('game_type',currentGame).eq('status','searching').order('created_at',{ascending:true}).limit(2);
-if(queue&&queue.length===2){
-clearInterval(interval);
-const sessionId=Math.random().toString(36).substr(2,10).toUpperCase();
-await db.from('game_sessions').insert({
-session_id:sessionId,
-game_type:currentGame,
-players:queue.map(q=>({id:q.user_id,username:q.username})),
-player_count:2,
-status:'active',
-created_at:new Date().toISOString()
-});
-await db.from('matchmaking_queue').delete().in('id',queue.map(q=>q.id));
-showToast('success','Match Found','Starting game...');
-setTimeout(()=>location.href=`games/${currentGame}/${currentGame}.html?session=${sessionId}`,800);
-}
-}catch(e){}
-},2000);
-setTimeout(()=>clearInterval(interval),30000);
-}
+// SHOW CREATE MODAL
+function showCreateModal(){
+closeAllModals();
 
-async function createRoom(){
-const code=Math.random().toString(36).substr(2,6).toUpperCase();
-const name=document.getElementById('roomName').value.trim()||`Room ${code}`;
-const pwd=document.getElementById('roomPassword').value.trim();
 const gameConfig=games.find(g=>g.id===currentGame);
-const maxPlayers=gameConfig.maxPlayers>2?parseInt(document.getElementById('maxPlayers').value):gameConfig.maxPlayers;
-try{
-await db.from('rooms').insert({
-code,game_type:currentGame,host_id:user.id,
-players:[{id:user.id,username:user.username,joined_at:new Date().toISOString()}],
-player_count:1,max_players:maxPlayers,is_private:pwd?true:false,password:pwd||null,
-room_name:name,status:'waiting',game_state:{},created_at:new Date().toISOString(),
-last_activity:new Date().toISOString()
-});
-showToast('success','Room Created',`Code: ${code}`);
-setTimeout(()=>location.href=`games/${currentGame}/${currentGame}.html?room=${code}`,1000);
-}catch(e){
-showToast('error','Error','Failed to create room');
+document.getElementById('createGameName').textContent=gameConfig.name;
+
+const maxPlayersGroup=document.getElementById('maxPlayersGroup');
+const maxPlayersSelect=document.getElementById('maxPlayers');
+
+if(gameConfig.maxPlayers>2){
+maxPlayersGroup.style.display='block';
+maxPlayersSelect.innerHTML='';
+for(let i=2;i<=gameConfig.maxPlayers;i++){
+maxPlayersSelect.innerHTML+=`<option value="${i}">${i} Players</option>`;
 }
-closeModal();
+}else{
+maxPlayersGroup.style.display='none';
 }
 
-async function showJoinModal(){
-closeModal();
-document.getElementById('joinModal').classList.add('show');
-refreshRoomList();
-if(roomRefreshInterval)clearInterval(roomRefreshInterval);
-roomRefreshInterval=setInterval(refreshRoomList,3000);
+document.getElementById('roomName').value='';
+document.getElementById('roomPassword').value='';
+document.getElementById('createModal').classList.add('show');
 }
 
-async function refreshRoomList(){
-const listDiv=document.getElementById('roomList');
-if(!document.getElementById('joinModal').classList.contains('show'))return;
-try{
-const{data:rooms}=await db.from('rooms').select('*').eq('game_type',currentGame).eq('status','waiting').order('created_at',{ascending:false});
-if(!rooms||rooms.length===0){
-listDiv.innerHTML='<p style="text-align:center;color:var(--text-dim);padding:2rem">No rooms available. Create one!</p>';
+// CREATE ROOM
+async function createRoom(){
+const roomName=document.getElementById('roomName').value.trim();
+const roomPassword=document.getElementById('roomPassword').value.trim();
+const gameConfig=games.find(g=>g.id===currentGame);
+
+if(!roomName){
+showToast('error','Error','Please enter a room name');
 return;
 }
+
+const maxPlayers=gameConfig.maxPlayers>2?parseInt(document.getElementById('maxPlayers').value):gameConfig.maxPlayers;
+const code=generateRoomCode();
+
+try{
+const{data,error}=await db.from('rooms').insert({
+code:code,
+game_type:currentGame,
+host_id:user.id,
+players:[{id:user.id,username:user.username,joined_at:new Date().toISOString()}],
+player_count:1,
+max_players:maxPlayers,
+is_private:roomPassword?true:false,
+password:roomPassword||null,
+room_name:roomName,
+status:'waiting',
+game_state:{},
+created_at:new Date().toISOString(),
+last_activity:new Date().toISOString()
+}).select();
+
+if(error)throw error;
+
+showToast('success','Room Created',`Code: ${code}`);
+closeAllModals();
+setTimeout(()=>{
+location.href=`games/${currentGame}/${currentGame}.html?room=${code}`;
+},1000);
+}catch(e){
+console.error('Create room error:',e);
+showToast('error','Error','Failed to create room: '+e.message);
+}
+}
+
+// GENERATE UNIQUE ROOM CODE
+function generateRoomCode(){
+const chars='ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+let code='';
+for(let i=0;i<6;i++){
+code+=chars.charAt(Math.floor(Math.random()*chars.length));
+}
+return code;
+}
+
+// SHOW JOIN MODAL
+async function showJoinModal(){
+closeAllModals();
+
+const gameConfig=games.find(g=>g.id===currentGame);
+document.getElementById('joinGameName').textContent=gameConfig.name+' Rooms';
+document.getElementById('joinModal').classList.add('show');
+
+await loadRoomList();
+
+if(roomRefreshInterval)clearInterval(roomRefreshInterval);
+roomRefreshInterval=setInterval(loadRoomList,3000);
+}
+
+// LOAD ROOM LIST
+async function loadRoomList(){
+const listDiv=document.getElementById('roomList');
+
+if(!document.getElementById('joinModal').classList.contains('show')){
+if(roomRefreshInterval)clearInterval(roomRefreshInterval);
+return;
+}
+
+try{
+const{data:rooms,error}=await db
+.from('rooms')
+.select('*')
+.eq('game_type',currentGame)
+.eq('status','waiting')
+.order('created_at',{ascending:false});
+
+if(error)throw error;
+
+if(!rooms||rooms.length===0){
+listDiv.innerHTML=`
+<div class="empty-state">
+<div class="empty-icon">🚪</div>
+<div class="empty-text">No rooms available<br>Create one to play!</div>
+</div>
+`;
+return;
+}
+
 listDiv.innerHTML=rooms.map(r=>`
-<div class="room-item" onclick="joinRoom('${r.code}',${r.password?`'${r.password}'`:null})">
+<div class="room-item" onclick="attemptJoinRoom('${r.code}','${r.password||''}','${r.room_name}')">
 <div class="room-header">
 <div class="room-name">${r.room_name}</div>
 <div class="room-privacy ${r.password?'locked':''}">
@@ -1320,96 +579,116 @@ ${r.password?'🔒 Private':'🌐 Public'}
 </div>
 </div>
 <div class="room-meta">
-<span>👥 ${r.player_count}/${r.max_players}</span>
-<span>🎮 ${r.code}</span>
+<span>👥 ${r.player_count}/${r.max_players} Players</span>
+<span>🎮 Code: ${r.code}</span>
 </div>
 </div>
 `).join('');
 }catch(e){
-listDiv.innerHTML='<p style="text-align:center;color:var(--text-dim)">Error loading rooms</p>';
+console.error('Load rooms error:',e);
+listDiv.innerHTML='<div class="empty-state"><div class="empty-icon">❌</div><div class="empty-text">Error loading rooms</div></div>';
 }
 }
 
-function joinRoom(code,requiredPwd){
-if(requiredPwd){
+// ATTEMPT JOIN ROOM
+function attemptJoinRoom(code,hasPassword,roomName){
 currentRoomCode=code;
-document.getElementById('passwordRoomName').textContent='Room '+code;
-closeModal();
+
+if(hasPassword){
+document.getElementById('passwordRoomName').textContent=roomName;
+closeAllModals();
+document.getElementById('joinPassword').value='';
 document.getElementById('passwordModal').classList.add('show');
 }else{
-joinExistingRoom(code);
+joinRoom(code,null);
 }
 }
 
+// JOIN WITH PASSWORD
 async function joinWithPassword(){
-const pwd=document.getElementById('joinPassword').value.trim();
-const{data:room}=await db.from('rooms').select('*').eq('code',currentRoomCode).single();
-if(room&&room.password===pwd){
-joinExistingRoom(currentRoomCode);
-closeModal();
-}else{
-showToast('error','Wrong Password','Please try again');
-}
+const enteredPassword=document.getElementById('joinPassword').value.trim();
+joinRoom(currentRoomCode,enteredPassword);
 }
 
-async function joinExistingRoom(code){
+// JOIN ROOM
+async function joinRoom(code,password){
 try{
-const{data:room}=await db.from('rooms').select('*').eq('code',code).single();
-if(!room)return showToast('error','Not Found','Room does not exist');
-if(room.status!=='waiting')return showToast('error','Game Started','Room already playing');
-if(room.player_count>=room.max_players)return showToast('error','Room Full','Maximum players reached');
+const{data:room,error}=await db.from('rooms').select('*').eq('code',code).single();
+
+if(error||!room){
+showToast('error','Not Found','Room does not exist');
+return;
+}
+
+if(room.status!=='waiting'){
+showToast('error','Already Started','This game has already started');
+return;
+}
+
+if(room.player_count>=room.max_players){
+showToast('error','Room Full','This room is full');
+return;
+}
+
+if(room.password&&room.password!==password){
+showToast('error','Wrong Password','Incorrect password');
+return;
+}
+
 if(room.players.some(p=>p.id===user.id)){
+closeAllModals();
 location.href=`games/${room.game_type}/${room.game_type}.html?room=${code}`;
 return;
 }
-const updatedPlayers=[...room.players,{id:user.id,username:user.username,joined_at:new Date().toISOString()}];
-await db.from('rooms').update({
-players:updatedPlayers,player_count:updatedPlayers.length,
-status:updatedPlayers.length===room.max_players?'playing':'waiting',
+
+const updatedPlayers=[...room.players,{
+id:user.id,
+username:user.username,
+joined_at:new Date().toISOString()
+}];
+
+const{error:updateError}=await db.from('rooms').update({
+players:updatedPlayers,
+player_count:updatedPlayers.length,
+status:updatedPlayers.length>=room.max_players?'playing':'waiting',
 last_activity:new Date().toISOString()
 }).eq('code',code);
+
+if(updateError)throw updateError;
+
 showToast('success','Joined','Joining room...');
-setTimeout(()=>location.href=`games/${room.game_type}/${room.game_type}.html?room=${code}`,800);
+closeAllModals();
+setTimeout(()=>{
+location.href=`games/${room.game_type}/${room.game_type}.html?room=${code}`;
+},800);
 }catch(e){
-showToast('error','Error','Failed to join');
+console.error('Join room error:',e);
+showToast('error','Error','Failed to join room: '+e.message);
 }
-closeModal();
 }
 
-function toggleSidebar(){document.getElementById('sidebar').classList.toggle('show')}
-function toggleDropdown(){document.getElementById('dropdown').classList.toggle('show')}
-function closeModal(){
+// UI FUNCTIONS
+function toggleSidebar(){
+document.getElementById('sidebar').classList.toggle('show');
+}
+
+function toggleDropdown(){
+document.getElementById('dropdown').classList.toggle('show');
+}
+
+function closeAllModals(){
 document.querySelectorAll('.modal').forEach(m=>m.classList.remove('show'));
-if(roomRefreshInterval)clearInterval(roomRefreshInterval);
+if(roomRefreshInterval){
+clearInterval(roomRefreshInterval);
+roomRefreshInterval=null;
 }
-function openGameModal(id,name){
-currentGame=id;
-document.getElementById('modalGameName').textContent=name;
-document.getElementById('gameModeModal').classList.add('show');
-}
-
-function showCreateModal(){
-closeModal();
-const gameConfig=games.find(g=>g.id===currentGame);
-const maxPlayersGroup=document.getElementById('maxPlayersGroup');
-if(gameConfig.maxPlayers>2){
-maxPlayersGroup.style.display='block';
-const select=document.getElementById('maxPlayers');
-select.innerHTML='';
-for(let i=2;i<=gameConfig.maxPlayers;i++){
-select.innerHTML+=`<option value="${i}">${i} Players</option>`;
-}
-}else{
-maxPlayersGroup.style.display='none';
-}
-document.getElementById('createModal').classList.add('show');
 }
 
 function setTheme(theme){
 document.body.setAttribute('data-theme',theme);
 document.querySelectorAll('.theme-option').forEach(b=>b.classList.remove('active'));
-const t=document.querySelector('.theme-'+theme);
-if(t)t.classList.add('active');
+const selectedTheme=document.querySelector('.theme-'+theme);
+if(selectedTheme)selectedTheme.classList.add('active');
 localStorage.setItem('theme',theme);
 }
 
@@ -1421,17 +700,35 @@ document.getElementById('toastMessage').textContent=message;
 setTimeout(hideToast,4000);
 }
 
-function hideToast(){document.getElementById('toast').classList.remove('show')}
-function confirmLogout(){if(confirm('Logout?')){localStorage.clear();location.href='index.html'}}
+function hideToast(){
+document.getElementById('toast').classList.remove('show');
+}
 
+function confirmLogout(){
+if(confirm('Are you sure you want to logout?')){
+localStorage.clear();
+location.href='index.html';
+}
+}
+
+// EVENT LISTENERS
 document.addEventListener('click',e=>{
-if(!e.target.closest('.profile-btn'))document.getElementById('dropdown').classList.remove('show');
-if(!e.target.closest('.sidebar')&&!e.target.closest('.menu-btn'))document.getElementById('sidebar').classList.remove('show');
+if(!e.target.closest('.profile-btn')){
+document.getElementById('dropdown').classList.remove('show');
+}
+if(!e.target.closest('.sidebar')&&!e.target.closest('.menu-btn')){
+document.getElementById('sidebar').classList.remove('show');
+}
 });
 
+window.addEventListener('beforeunload',()=>{
+if(roomRefreshInterval)clearInterval(roomRefreshInterval);
+});
+
+// INIT
 loadGames();
 setTheme(localStorage.getItem('theme')||'light');
-setInterval(loadGames,15000);
+setInterval(()=>loadGames(),30000);
 </script>
 </body>
 </html>
