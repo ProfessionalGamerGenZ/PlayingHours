@@ -2,114 +2,174 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>My Profile - PlayingHours</title>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{--bg:#f8fafc;--card:#fff;--border:#e2e8f0;--text:#1e293b;--text-dim:#64748b;--primary:#667eea;--secondary:#764ba2}
-[data-theme="dark"]{--bg:#0f172a;--card:#1e293b;--border:rgba(255,255,255,.1);--text:#fff;--text-dim:rgba(255,255,255,.6)}
-body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
-.header{background:var(--card);border-bottom:2px solid var(--border);padding:.875rem 1rem;box-shadow:0 2px 4px rgba(0,0,0,.05)}
-.header-content{max-width:1000px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
-.back-btn{background:transparent;border:2px solid var(--border);color:var(--text);padding:.5rem 1rem;border-radius:8px;text-decoration:none;font-weight:700;font-size:.875rem;display:flex;align-items:center;gap:.5rem;transition:.3s}
-.back-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
-.page-title{font-size:1.125rem;font-weight:900}
-.container{max-width:1000px;margin:0 auto;padding:1rem}
+:root{--bg:#f8fafc;--card:#fff;--border:#e2e8f0;--text:#1e293b;--dim:#64748b;--primary:#667eea;--secondary:#764ba2}
+[data-theme="dark"]{--bg:#0f172a;--card:#1e293b;--border:#334155;--text:#f1f5f9;--dim:#94a3b8}
+[data-theme="ocean"]{--bg:#0c4a6e;--card:#075985;--border:#0369a1;--text:#e0f2fe;--dim:#bae6fd;--primary:#06b6d4;--secondary:#0891b2}
+[data-theme="sunset"]{--bg:#7c2d12;--card:#9a3412;--border:#c2410c;--text:#fed7aa;--dim:#fdba74;--primary:#fb923c;--secondary:#f97316}
+[data-theme="forest"]{--bg:#14532d;--card:#166534;--border:#15803d;--text:#d1fae5;--dim:#86efac;--primary:#22c55e;--secondary:#16a34a}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem;transition:.3s}
 
-.profile-card{background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:12px;padding:1.5rem;margin-bottom:1rem;text-align:center;color:#fff}
-.avatar{width:70px;height:70px;background:#fff;border-radius:50%;margin:0 auto .75rem;display:flex;align-items:center;justify-content:center;font-size:2rem;box-shadow:0 4px 15px rgba(0,0,0,.2)}
-.username{font-size:1.5rem;font-weight:900;margin-bottom:.25rem}
-.user-id{font-size:.75rem;opacity:.8;margin-bottom:.75rem}
-.level-badge{display:inline-block;background:rgba(255,255,255,.2);padding:.375rem .875rem;border-radius:50px;font-weight:700;font-size:.875rem;backdrop-filter:blur(10px)}
+/* GLASS MODAL */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;z-index:1000;padding:1rem;backdrop-filter:blur(8px);animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
-.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1rem}
-.stat-card{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:.875rem;text-align:center;transition:.3s}
-.stat-card:hover{transform:translateY(-3px);border-color:var(--primary)}
+.box{background:rgba(255,255,255,.95);backdrop-filter:blur(30px);border:2px solid rgba(255,255,255,.5);border-radius:20px;max-width:480px;width:100%;position:relative;animation:zoomIn .4s;box-shadow:0 25px 80px rgba(0,0,0,.25),0 0 0 1px rgba(255,255,255,.1) inset;overflow:hidden}
+@keyframes zoomIn{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+
+[data-theme="dark"] .box{background:rgba(30,41,59,.95);border:2px solid rgba(255,255,255,.1)}
+
+/* CLOSE BTN */
+.close{position:absolute;top:1rem;right:1rem;width:40px;height:40px;background:rgba(248,250,252,.9);backdrop-filter:blur(10px);border:2px solid rgba(226,232,240,.5);border-radius:50%;cursor:pointer;font-size:1.5rem;color:var(--dim);z-index:10;display:flex;align-items:center;justify-content:center;transition:.3s;box-shadow:0 4px 12px rgba(0,0,0,.1)}
+.close:hover{background:var(--primary);color:#fff;border-color:var(--primary);transform:rotate(90deg) scale(1.1)}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,var(--primary),var(--secondary));padding:2rem 1.5rem 1.5rem;text-align:center;color:#fff;position:relative}
+.header::after{content:'';position:absolute;bottom:0;left:0;right:0;height:30px;background:linear-gradient(to bottom,transparent,rgba(0,0,0,.05))}
+
+.avatar{width:80px;height:80px;background:#fff;border-radius:50%;margin:0 auto .75rem;display:flex;align-items:center;justify-content:center;font-size:2.5rem;box-shadow:0 8px 20px rgba(0,0,0,.2),0 0 0 4px rgba(255,255,255,.3)}
+
+.username{font-size:1.5rem;font-weight:900;margin-bottom:.25rem;text-shadow:0 2px 8px rgba(0,0,0,.2)}
+
+.user-id{font-size:.75rem;opacity:.9;margin-bottom:.75rem;font-weight:600}
+
+.level{display:inline-block;background:rgba(255,255,255,.25);backdrop-filter:blur(10px);padding:.375rem 1rem;border-radius:50px;font-weight:800;font-size:.875rem;box-shadow:0 4px 12px rgba(0,0,0,.15);border:1px solid rgba(255,255,255,.3)}
+
+/* CONTENT */
+.content{padding:1.5rem;max-height:450px;overflow-y:auto}
+.content::-webkit-scrollbar{width:6px}
+.content::-webkit-scrollbar-track{background:rgba(0,0,0,.05);border-radius:10px}
+.content::-webkit-scrollbar-thumb{background:var(--primary);border-radius:10px}
+
+/* STATS GRID */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:.75rem;margin-bottom:1.25rem}
+
+.stat{background:rgba(255,255,255,.8);backdrop-filter:blur(10px);border:2px solid rgba(226,232,240,.8);border-radius:12px;padding:.875rem;text-align:center;transition:.3s;box-shadow:0 4px 12px rgba(0,0,0,.05)}
+.stat:hover{transform:translateY(-4px);border-color:var(--primary);box-shadow:0 8px 20px rgba(0,0,0,.1)}
+
+[data-theme="dark"] .stat{background:rgba(51,65,85,.8);border-color:rgba(255,255,255,.1)}
+
 .stat-icon{font-size:1.5rem;margin-bottom:.375rem}
+
 .stat-value{font-size:1.375rem;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:.125rem}
-.stat-label{font-size:.75rem;color:var(--text-dim)}
 
-.section{background:var(--card);border:2px solid var(--border);border-radius:10px;padding:1rem;margin-bottom:1rem}
-.section-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem}
-.section-title{font-size:1rem;font-weight:800;display:flex;align-items:center;gap:.5rem}
-.collapse-btn{background:transparent;border:none;color:var(--text-dim);cursor:pointer;font-size:1.125rem;transition:.3s}
-.collapse-btn:hover{color:var(--text)}
-.section-content{overflow:hidden;transition:.3s}
-.section-content.collapsed{max-height:0;opacity:0}
-.section-content.expanded{max-height:500px;opacity:1}
+.stat-label{font-size:.75rem;color:var(--dim);font-weight:600}
 
-.xp-bar{background:var(--bg);border-radius:50px;height:10px;overflow:hidden;margin-bottom:.5rem}
-.xp-fill{background:linear-gradient(90deg,var(--primary),var(--secondary));height:100%;border-radius:50px;transition:.3s}
-.xp-text{display:flex;justify-content:space-between;font-size:.75rem;color:var(--text-dim)}
+/* SECTIONS */
+.section{background:rgba(255,255,255,.8);backdrop-filter:blur(10px);border:2px solid rgba(226,232,240,.8);border-radius:14px;margin-bottom:1rem;overflow:hidden;transition:.3s;box-shadow:0 4px 12px rgba(0,0,0,.05)}
 
-.wallet-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.75rem}
-.wallet-item{background:var(--bg);border-radius:8px;padding:.875rem;display:flex;align-items:center;gap:.75rem}
-.wallet-icon{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem;background:linear-gradient(135deg,var(--primary),var(--secondary))}
+[data-theme="dark"] .section{background:rgba(51,65,85,.8);border-color:rgba(255,255,255,.1)}
+
+.section-head{padding:1rem 1.25rem;cursor:pointer;user-select:none;display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.02);transition:.3s}
+.section-head:hover{background:rgba(102,126,234,.1)}
+
+.section-title{font-size:.9375rem;font-weight:800;display:flex;align-items:center;gap:.625rem}
+
+.toggle{background:transparent;border:none;color:var(--dim);cursor:pointer;font-size:1.125rem;transition:.3s;width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:50%}
+.toggle:hover{background:rgba(0,0,0,.05);color:var(--text)}
+
+.section-body{transition:max-height .3s ease,padding .3s ease,opacity .3s ease;overflow:hidden}
+.section-body.collapsed{max-height:0!important;padding:0!important;opacity:0}
+.section-body.expanded{padding:1rem 1.25rem}
+
+/* XP BAR */
+.xp-bar{background:rgba(0,0,0,.1);border-radius:50px;height:10px;overflow:hidden;margin-bottom:.625rem;position:relative}
+.xp-bar::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.3),transparent);animation:shimmer 2s infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+
+.xp-fill{background:linear-gradient(90deg,var(--primary),var(--secondary));height:100%;border-radius:50px;transition:.5s;box-shadow:0 0 10px rgba(102,126,234,.5)}
+
+.xp-text{display:flex;justify-content:space-between;font-size:.8125rem;color:var(--dim);font-weight:600}
+
+/* WALLET */
+.wallet{display:grid;grid-template-columns:repeat(2,1fr);gap:.875rem}
+
+.wallet-item{background:rgba(248,250,252,.9);backdrop-filter:blur(10px);border-radius:10px;padding:1rem;display:flex;align-items:center;gap:.875rem;transition:.3s}
+.wallet-item:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,.08)}
+
+[data-theme="dark"] .wallet-item{background:rgba(15,23,42,.9)}
+
+.wallet-icon{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.375rem;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;box-shadow:0 4px 12px rgba(102,126,234,.3)}
+
 .wallet-info{flex:1}
-.wallet-label{font-size:.75rem;color:var(--text-dim);margin-bottom:.125rem}
-.wallet-value{font-size:1.125rem;font-weight:900}
+.wallet-label{font-size:.75rem;color:var(--dim);margin-bottom:.25rem;font-weight:600}
+.wallet-value{font-size:1.25rem;font-weight:900}
 
-.match-list{display:flex;flex-direction:column;gap:.625rem;max-height:300px;overflow-y:auto}
-.match-item{background:var(--bg);border-radius:8px;padding:.875rem;display:flex;justify-content:space-between;align-items:center;transition:.3s}
-.match-item:hover{background:var(--border)}
-.match-info{display:flex;align-items:center;gap:.75rem}
-.match-icon{width:35px;height:35px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.125rem}
-.match-details h4{font-size:.875rem;font-weight:700;margin-bottom:.125rem}
-.match-details p{font-size:.6875rem;color:var(--text-dim)}
-.match-result{text-align:right}
-.result-badge{display:inline-block;padding:.25rem .625rem;border-radius:5px;font-weight:700;font-size:.6875rem}
-.result-badge.win{background:rgba(16,185,129,.15);color:#10b981}
-.result-badge.loss{background:rgba(239,68,68,.15);color:#ef4444}
-.result-badge.draw{background:rgba(245,158,11,.15);color:#f59e0b}
-.match-time{font-size:.625rem;color:var(--text-dim);margin-top:.125rem}
+/* MATCHES */
+.matches{display:flex;flex-direction:column;gap:.625rem;max-height:240px;overflow-y:auto}
+.matches::-webkit-scrollbar{width:5px}
+.matches::-webkit-scrollbar-track{background:rgba(0,0,0,.05);border-radius:10px}
+.matches::-webkit-scrollbar-thumb{background:var(--primary);border-radius:10px}
 
-.empty-state{text-align:center;padding:2rem 1rem;color:var(--text-dim)}
-.empty-icon{font-size:3rem;margin-bottom:.75rem;opacity:.5}
-.empty-text{font-size:.875rem;font-weight:600}
+.match{background:rgba(248,250,252,.9);backdrop-filter:blur(10px);border-radius:10px;padding:.875rem;display:flex;justify-content:space-between;align-items:center;transition:.3s}
+.match:hover{background:rgba(226,232,240,.9);transform:translateX(4px)}
+
+[data-theme="dark"] .match{background:rgba(15,23,42,.9)}
+[data-theme="dark"] .match:hover{background:rgba(30,41,59,.9)}
+
+.match-left{display:flex;align-items:center;gap:.75rem}
+
+.match-icon{width:36px;height:36px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.125rem;color:#fff;box-shadow:0 4px 12px rgba(102,126,234,.3)}
+
+.match-info h4{font-size:.875rem;font-weight:800;margin-bottom:.125rem}
+.match-info p{font-size:.75rem;color:var(--dim)}
+
+.match-right{text-align:right}
+
+.result{display:inline-block;padding:.3rem .625rem;border-radius:6px;font-weight:800;font-size:.75rem;backdrop-filter:blur(10px)}
+.result.win{background:rgba(16,185,129,.2);color:#10b981;border:1px solid rgba(16,185,129,.4)}
+.result.loss{background:rgba(239,68,68,.2);color:#ef4444;border:1px solid rgba(239,68,68,.4)}
+.result.draw{background:rgba(245,158,11,.2);color:#f59e0b;border:1px solid rgba(245,158,11,.4)}
+
+.match-time{font-size:.6875rem;color:var(--dim);margin-top:.25rem;font-weight:600}
+
+/* EMPTY */
+.empty{text-align:center;padding:2.5rem 1rem;color:var(--dim)}
+.empty-icon{font-size:3rem;margin-bottom:.875rem;opacity:.4}
+.empty-text{font-size:.9375rem;font-weight:600}
 
 @media(max-width:768px){
-.stats-grid{grid-template-columns:repeat(2,1fr)}
-.wallet-grid{grid-template-columns:1fr}
+.stats{grid-template-columns:repeat(2,1fr)}
+.wallet{grid-template-columns:1fr}
+.box{max-width:100%}
 }
 </style>
 </head>
 <body data-theme="light">
 
-<header class="header">
-<div class="header-content">
-<a href="../lobby.html" class="back-btn">← Back</a>
-<div class="page-title">👤 My Profile</div>
-<div style="width:70px"></div>
-</div>
-</header>
+<div class="modal">
+<div class="box">
+<button class="close" onclick="closeProfile()">×</button>
 
-<div class="container">
-
-<div class="profile-card">
-<div class="avatar" id="userAvatar">👤</div>
+<div class="header">
+<div class="avatar">👤</div>
 <h1 class="username" id="username">Loading...</h1>
 <p class="user-id">ID: <span id="userId">—</span></p>
-<div class="level-badge">⭐ Level <span id="userLevel">1</span></div>
+<div class="level">⭐ Level <span id="userLevel">1</span></div>
 </div>
 
-<div class="stats-grid">
-<div class="stat-card">
+<div class="content">
+<div class="stats">
+<div class="stat">
 <div class="stat-icon">🎮</div>
 <div class="stat-value" id="totalGames">0</div>
 <div class="stat-label">Games</div>
 </div>
-<div class="stat-card">
+<div class="stat">
 <div class="stat-icon">🏆</div>
 <div class="stat-value" id="totalWins">0</div>
 <div class="stat-label">Wins</div>
 </div>
-<div class="stat-card">
+<div class="stat">
 <div class="stat-icon">📊</div>
 <div class="stat-value" id="winRate">0%</div>
-<div class="stat-label">Win Rate</div>
+<div class="stat-label">Rate</div>
 </div>
-<div class="stat-card">
+<div class="stat">
 <div class="stat-icon">🔥</div>
 <div class="stat-value" id="winStreak">0</div>
 <div class="stat-label">Streak</div>
@@ -117,28 +177,28 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 </div>
 
 <div class="section">
-<div class="section-header">
+<div class="section-head" onclick="toggle('xp')">
 <div class="section-title">📈 Experience</div>
-<button class="collapse-btn" onclick="toggleSection('xp')">▼</button>
+<button class="toggle" id="xp-btn">▼</button>
 </div>
-<div class="section-content expanded" id="xp-content">
+<div class="section-body expanded" id="xp-body">
 <div class="xp-bar">
 <div class="xp-fill" id="xpFill" style="width:0%"></div>
 </div>
 <div class="xp-text">
 <span>Level <span id="currentLevel">1</span></span>
-<span><span id="currentXP">0</span>/<span id="nextLevelXP">100</span> XP</span>
+<span><span id="currentXP">0</span>/<span id="nextXP">100</span> XP</span>
 </div>
 </div>
 </div>
 
 <div class="section">
-<div class="section-header">
+<div class="section-head" onclick="toggle('wallet')">
 <div class="section-title">💰 Wallet</div>
-<button class="collapse-btn" onclick="toggleSection('wallet')">▼</button>
+<button class="toggle" id="wallet-btn">▼</button>
 </div>
-<div class="section-content expanded" id="wallet-content">
-<div class="wallet-grid">
+<div class="section-body expanded" id="wallet-body">
+<div class="wallet">
 <div class="wallet-item">
 <div class="wallet-icon">💰</div>
 <div class="wallet-info">
@@ -158,13 +218,13 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 </div>
 
 <div class="section">
-<div class="section-header">
+<div class="section-head" onclick="toggle('history')">
 <div class="section-title">📜 Match History</div>
-<button class="collapse-btn" onclick="toggleSection('history')">▼</button>
+<button class="toggle" id="history-btn">▼</button>
 </div>
-<div class="section-content expanded" id="history-content">
-<div class="match-list" id="matchList">
-<div class="empty-state">
+<div class="section-body expanded" id="history-body">
+<div class="matches" id="matchList">
+<div class="empty">
 <div class="empty-icon">🎮</div>
 <div class="empty-text">No matches yet</div>
 </div>
@@ -172,6 +232,8 @@ body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min
 </div>
 </div>
 
+</div>
+</div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -194,13 +256,13 @@ try{
 const{data:matches}=await db.from('matches').select('*').or(`winner_id.eq.${user.id},players.cs.{${user.id}}`).order('created_at',{ascending:false}).limit(10);
 
 if(matches&&matches.length>0){
-const totalGames=matches.length;
+const total=matches.length;
 const wins=matches.filter(m=>m.winner_id===user.id).length;
-const winRate=Math.round((wins/totalGames)*100);
+const rate=Math.round((wins/total)*100);
 
-document.getElementById('totalGames').textContent=totalGames;
+document.getElementById('totalGames').textContent=total;
 document.getElementById('totalWins').textContent=wins;
-document.getElementById('winRate').textContent=winRate+'%';
+document.getElementById('winRate').textContent=rate+'%';
 
 let streak=0;
 for(let m of matches){
@@ -209,88 +271,85 @@ else break;
 }
 document.getElementById('winStreak').textContent=streak;
 
-const xp=totalGames*10+wins*25;
+const xp=total*10+wins*25;
 const level=Math.floor(xp/100)+1;
-const currentXP=xp%100;
+const currXP=xp%100;
 document.getElementById('userLevel').textContent=level;
 document.getElementById('currentLevel').textContent=level;
-document.getElementById('currentXP').textContent=currentXP;
-document.getElementById('nextLevelXP').textContent='100';
-document.getElementById('xpFill').style.width=currentXP+'%';
+document.getElementById('currentXP').textContent=currXP;
+document.getElementById('nextXP').textContent='100';
+document.getElementById('xpFill').style.width=currXP+'%';
 
-renderMatchHistory(matches);
+renderMatches(matches);
 }
 }catch(e){
 console.error(e);
 }
 }
 
-function renderMatchHistory(matches){
-if(!matches||matches.length===0)return;
-
+function renderMatches(matches){
+if(!matches||!matches.length)return;
 const html=matches.map(m=>{
 const isWin=m.winner_id===user.id;
 const isDraw=!m.winner_id;
 const result=isDraw?'draw':isWin?'win':'loss';
-const timeAgo=getTimeAgo(m.created_at);
-
 return`
-<div class="match-item">
+<div class="match">
+<div class="match-left">
+<div class="match-icon">${getIcon(m.game_type)}</div>
 <div class="match-info">
-<div class="match-icon">${getGameIcon(m.game_type)}</div>
-<div class="match-details">
-<h4>${getGameName(m.game_type)}</h4>
-<p>vs ${getOpponent(m)}</p>
+<h4>${getName(m.game_type)}</h4>
+<p>vs ${getOpp(m)}</p>
 </div>
 </div>
-<div class="match-result">
-<div class="result-badge ${result}">${result.toUpperCase()}</div>
-<div class="match-time">${timeAgo}</div>
+<div class="match-right">
+<div class="result ${result}">${result.toUpperCase()}</div>
+<div class="match-time">${getTime(m.created_at)}</div>
 </div>
 </div>
 `;
 }).join('');
-
 document.getElementById('matchList').innerHTML=html;
 }
 
-function toggleSection(id){
-const content=document.getElementById(id+'-content');
-const btn=event.target;
-content.classList.toggle('collapsed');
-content.classList.toggle('expanded');
-btn.textContent=content.classList.contains('expanded')?'▼':'▶';
+function toggle(id){
+const body=document.getElementById(id+'-body');
+const btn=document.getElementById(id+'-btn');
+body.classList.toggle('collapsed');
+body.classList.toggle('expanded');
+btn.textContent=body.classList.contains('expanded')?'▼':'▶';
 }
 
-function getGameIcon(type){
+function getIcon(type){
 const icons={tictactoe:'❌',ludo:'🎲',chess:'♟️',snake:'🐍'};
 return icons[type]||'🎮';
 }
 
-function getGameName(type){
-const names={tictactoe:'Tic Tac Toe',ludo:'Ludo King',chess:'Chess',snake:'Snake Battle'};
+function getName(type){
+const names={tictactoe:'Tic Tac Toe',ludo:'Ludo',chess:'Chess',snake:'Snake'};
 return names[type]||type;
 }
 
-function getOpponent(match){
+function getOpp(m){
 try{
-const players=Array.isArray(match.players)?match.players:JSON.parse(match.players||'[]');
-return players.find(p=>p!==user.username)||'Opponent';
-}catch{
-return'Opponent';
-}
+const p=Array.isArray(m.players)?m.players:JSON.parse(m.players||'[]');
+return p.find(x=>x!==user.username)||'Opponent';
+}catch{return'Opponent'}
 }
 
-function getTimeAgo(date){
-const seconds=Math.floor((new Date()-new Date(date))/1000);
-if(seconds<60)return'Just now';
-if(seconds<3600)return Math.floor(seconds/60)+'m ago';
-if(seconds<86400)return Math.floor(seconds/3600)+'h ago';
-return Math.floor(seconds/86400)+'d ago';
+function getTime(date){
+const s=Math.floor((new Date()-new Date(date))/1000);
+if(s<60)return'Just now';
+if(s<3600)return Math.floor(s/60)+'m ago';
+if(s<86400)return Math.floor(s/3600)+'h ago';
+return Math.floor(s/86400)+'d ago';
 }
 
-const savedTheme=localStorage.getItem('theme')||'light';
-document.body.setAttribute('data-theme',savedTheme);
+function closeProfile(){
+window.history.back();
+}
+
+document.body.setAttribute('data-theme',localStorage.getItem('theme')||'light');
 loadProfile();
 </script>
 </body>
