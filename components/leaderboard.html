@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Leaderboard Sidebar - PlayingHours</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#f8fafc;--card:#fff;--border:#e2e8f0;--text:#1e293b;--dim:#64748b;--primary:#667eea;--secondary:#764ba2}
+[data-theme="dark"]{--bg:#0f172a;--card:#1e293b;--border:#334155;--text:#f1f5f9;--dim:#94a3b8}
+[data-theme="ocean"]{--bg:#0c4a6e;--card:#075985;--border:#0369a1;--text:#e0f2fe;--dim:#bae6fd;--primary:#06b6d4;--secondary:#0891b2}
+[data-theme="sunset"]{--bg:#7c2d12;--card:#9a3412;--border:#c2410c;--text:#fed7aa;--dim:#fdba74;--primary:#fb923c;--secondary:#f97316}
+[data-theme="forest"]{--bg:#14532d;--card:#166534;--border:#15803d;--text:#d1fae5;--dim:#86efac;--primary:#22c55e;--secondary:#16a34a}
+body{font-family:'Poppins',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;padding:2rem;transition:.3s}
+
+/* DEMO BUTTON */
+.demo-btn{position:fixed;top:2rem;left:2rem;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none;padding:.875rem 1.5rem;border-radius:10px;font-weight:700;cursor:pointer;z-index:10;box-shadow:0 4px 12px rgba(102,126,234,.4);transition:.3s}
+.demo-btn:hover{transform:translateY(-2px)}
+
+/* OVERLAY */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);backdrop-filter:blur(4px);display:none;z-index:999;transition:.3s}
+.overlay.show{display:block;animation:fadeIn .3s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* SIDEBAR */
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:380px;max-width:90vw;background:var(--card);border-right:2px solid var(--border);transform:translateX(-100%);transition:.3s;z-index:1000;display:flex;flex-direction:column;box-shadow:4px 0 20px rgba(0,0,0,.15)}
+.sidebar.show{transform:translateX(0)}
+
+/* HEADER */
+.header{padding:1.25rem 1.5rem;border-bottom:2px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff}
+.header h2{font-size:1.25rem;font-weight:900;display:flex;align-items:center;gap:.625rem}
+.close-btn{background:rgba(255,255,255,.2);border:none;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:1.25rem;color:#fff;backdrop-filter:blur(10px);transition:.3s}
+.close-btn:hover{background:rgba(255,255,255,.3);transform:rotate(90deg)}
+
+/* TABS */
+.tabs{display:flex;gap:.5rem;padding:1rem;border-bottom:2px solid var(--border);background:var(--bg);overflow-x:auto}
+.tabs::-webkit-scrollbar{height:4px}
+.tabs::-webkit-scrollbar-track{background:transparent}
+.tabs::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px}
+.tab{background:var(--card);border:2px solid var(--border);padding:.625rem 1rem;border-radius:50px;cursor:pointer;font-weight:700;font-size:.8125rem;color:var(--dim);transition:.3s;white-space:nowrap;display:flex;align-items:center;gap:.5rem}
+.tab.active{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border-color:transparent;box-shadow:0 4px 12px rgba(102,126,234,.3)}
+.tab:hover:not(.active){border-color:var(--primary)}
+
+/* CONTENT */
+.content{flex:1;overflow-y:auto;padding:1rem}
+.content::-webkit-scrollbar{width:6px}
+.content::-webkit-scrollbar-track{background:transparent}
+.content::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+/* GAME SELECTOR (for Games tab) */
+.game-selector{margin-bottom:1rem}
+.game-select{width:100%;padding:.75rem 1rem;background:var(--bg);border:2px solid var(--border);border-radius:10px;font-size:.875rem;font-weight:600;color:var(--text);cursor:pointer;transition:.3s}
+.game-select:hover{border-color:var(--primary)}
+.game-select:focus{outline:none;border-color:var(--primary)}
+
+/* PODIUM */
+.podium{display:flex;gap:.75rem;margin-bottom:1.25rem;align-items:flex-end;justify-content:center}
+.pod{flex:1;text-align:center;padding:1rem .75rem;border-radius:12px;background:var(--bg);border:2px solid var(--border);transition:.3s;position:relative}
+.pod:hover{transform:translateY(-3px)}
+.pod.first{order:2;background:linear-gradient(135deg,rgba(245,158,11,.15),rgba(217,119,6,.15));border-color:#f59e0b;padding-top:1.5rem}
+.pod.second{order:1;margin-top:1rem}
+.pod.third{order:3;margin-top:1rem}
+.medal{font-size:2rem;margin-bottom:.5rem}
+.pod-avatar{width:48px;height:48px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:50%;margin:0 auto .5rem;display:flex;align-items:center;justify-content:center;font-size:1.25rem;color:#fff;box-shadow:0 4px 12px rgba(102,126,234,.3)}
+.pod.first .pod-avatar{width:56px;height:56px;font-size:1.5rem}
+.pod-name{font-size:.875rem;font-weight:800;margin-bottom:.25rem;color:var(--text)}
+.pod-score{font-size:1.125rem;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.pod-label{font-size:.6875rem;color:var(--dim);margin-top:.25rem;font-weight:600}
+
+/* LIST */
+.list{display:flex;flex-direction:column;gap:.625rem}
+.item{padding:.875rem;background:var(--bg);border-radius:10px;display:flex;align-items:center;gap:.75rem;transition:.3s;border:2px solid transparent}
+.item:hover{background:var(--border);border-color:var(--primary)}
+.item.me{background:rgba(102,126,234,.1);border-color:var(--primary)}
+.rank{width:32px;height:32px;background:var(--card);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:.875rem;color:var(--text);flex-shrink:0;border:2px solid var(--border)}
+.rank.top{background:linear-gradient(135deg,var(--primary),var(--secondary));color:#fff;border:none}
+.avatar{width:40px;height:40px;background:linear-gradient(135deg,var(--primary),var(--secondary));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.125rem;color:#fff;flex-shrink:0}
+.info{flex:1;min-width:0}
+.name{font-size:.875rem;font-weight:800;margin-bottom:.125rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.stats{font-size:.75rem;color:var(--dim);font-weight:600}
+.score{text-align:right}
+.score-value{font-size:1rem;font-weight:900;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.score-label{font-size:.6875rem;color:var(--dim);margin-top:.125rem}
+
+/* LOADING */
+.loader{border:3px solid var(--border);border-top:3px solid var(--primary);border-radius:50%;width:40px;height:40px;animation:spin 1s linear infinite;margin:3rem auto}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* EMPTY */
+.empty{text-align:center;padding:3rem 1.5rem;color:var(--dim)}
+.empty-icon{font-size:3rem;margin-bottom:1rem;opacity:.4}
+.empty-text{font-size:.9375rem;font-weight:600}
+
+@media(max-width:768px){
+.sidebar{width:100%;max-width:100vw}
+.podium{flex-direction:column;align-items:stretch}
+.pod{order:unset!important;margin-top:0!important}
+}
+</style>
+</head>
+<body data-theme="light">
+
+<!-- DEMO BUTTON -->
+<button class="demo-btn" onclick="openLeaderboard()">🏆 Open Leaderboard</button>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeLeaderboard()"></div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+<!-- HEADER -->
+<div class="header">
+<h2>🏆 Leaderboard</h2>
+<button class="close-btn" onclick="closeLeaderboard()">×</button>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+<div class="tab active" data-tab="games" onclick="switchTab('games',this)">🎮 Games</div>
+<div class="tab" data-tab="coins" onclick="switchTab('coins',this)">💰 Coins</div>
+<div class="tab" data-tab="gems" onclick="switchTab('gems',this)">💎 Gems</div>
+<div class="tab" data-tab="wins" onclick="switchTab('wins',this)">🏆 Wins</div>
+</div>
+
+<!-- CONTENT -->
+<div class="content" id="content">
+
+<!-- GAMES TAB -->
+<div class="tab-content" id="games-content">
+<div class="game-selector">
+<select class="game-select" onchange="loadGameLeaderboard(this.value)">
+<option value="">Select a game...</option>
+<option value="tictactoe">❌ Tic Tac Toe</option>
+<option value="ludo">🎲 Ludo King</option>
+<option value="scribble">🎨 Scribble.io</option>
+<option value="chess">♟️ Chess</option>
+<option value="snake">🐍 Snake Battle</option>
+<option value="quiz">🧠 Quiz Master</option>
+<option value="memory">🃏 Memory Match</option>
+<option value="wordfight">📝 Word Fight</option>
+<option value="riddles">💡 Riddles</option>
+<option value="wordsearch">🔍 Word Search</option>
+<option value="checkers">🏁 Checkers</option>
+<option value="puzzle">🧩 Puzzle Slider</option>
+</select>
+</div>
+<div id="game-leaderboard">
+<div class="empty">
+<div class="empty-icon">🎮</div>
+<div class="empty-text">Select a game to view leaderboard</div>
+</div>
+</div>
+</div>
+
+<!-- COINS TAB -->
+<div class="tab-content" id="coins-content" style="display:none">
+<div class="loader"></div>
+</div>
+
+<!-- GEMS TAB -->
+<div class="tab-content" id="gems-content" style="display:none">
+<div class="loader"></div>
+</div>
+
+<!-- WINS TAB -->
+<div class="tab-content" id="wins-content" style="display:none">
+<div class="loader"></div>
+</div>
+
+</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const db=window.supabase.createClient('https://chcepamgczwfguzroddn.supabase.co','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNoY2VwYW1nY3p3Zmd1enJvZGRuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njk2OTkxOTYsImV4cCI6MjA4NTI3NTE5Nn0.f5IefTnesklFtFvkjjgK11BBwEEpbvb1anBTEQbNJ18');
+
+const user={
+id:localStorage.getItem('userId')||'guest',
+username:localStorage.getItem('username')||'Player'
+};
+
+let currentTab='games';
+
+// OPEN/CLOSE
+function openLeaderboard(){
+document.getElementById('sidebar').classList.add('show');
+document.getElementById('overlay').classList.add('show');
+loadCurrentTab();
+}
+
+function closeLeaderboard(){
+document.getElementById('sidebar').classList.remove('show');
+document.getElementById('overlay').classList.remove('show');
+}
+
+// SWITCH TABS
+function switchTab(tab,el){
+currentTab=tab;
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+if(el)el.classList.add('active');
+document.querySelectorAll('.tab-content').forEach(c=>c.style.display='none');
+document.getElementById(tab+'-content').style.display='block';
+loadCurrentTab();
+}
+
+// LOAD TAB DATA
+async function loadCurrentTab(){
+switch(currentTab){
+case'coins':await loadCoinsLeaderboard();break;
+case'gems':await loadGemsLeaderboard();break;
+case'wins':await loadWinsLeaderboard();break;
+}
+}
+
+// GAME LEADERBOARD
+async function loadGameLeaderboard(game){
+if(!game){
+document.getElementById('game-leaderboard').innerHTML='<div class="empty"><div class="empty-icon">🎮</div><div class="empty-text">Select a game</div></div>';
+return;
+}
+
+document.getElementById('game-leaderboard').innerHTML='<div class="loader"></div>';
+
+try{
+const{data:matches}=await db.from('matches').select('*').eq('game_type',game);
+
+if(!matches||!matches.length){
+document.getElementById('game-leaderboard').innerHTML='<div class="empty"><div class="empty-icon">🎮</div><div class="empty-text">No matches for this game yet</div></div>';
+return;
+}
+
+const stats={};
+matches.forEach(m=>{
+if(m.winner_id){
+if(!stats[m.winner_id])stats[m.winner_id]={id:m.winner_id,username:'Player',wins:0,games:0};
+stats[m.winner_id].wins++;
+stats[m.winner_id].games++;
+}
+if(m.players){
+const players=Array.isArray(m.players)?m.players:JSON.parse(m.players||'[]');
+players.forEach(p=>{
+const id=p.id||p;
+if(!stats[id])stats[id]={id,username:p.username||'Player',wins:0,games:0};
+stats[id].games++;
+});
+}
+});
+
+const leaders=Object.values(stats).sort((a,b)=>b.wins-a.wins).slice(0,20);
+
+renderLeaderboard(leaders,{
+valueKey:'wins',
+label:'wins',
+container:'game-leaderboard'
+});
+}catch(e){
+console.error(e);
+document.getElementById('game-leaderboard').innerHTML='<div class="empty"><div class="empty-icon">❌</div><div class="empty-text">Error loading data</div></div>';
+}
+}
+
+// COINS LEADERBOARD
+async function loadCoinsLeaderboard(){
+document.getElementById('coins-content').innerHTML='<div class="loader"></div>';
+
+try{
+const{data:users}=await db.from('users').select('*').order('coins',{ascending:false}).limit(20);
+
+if(!users||!users.length){
+document.getElementById('coins-content').innerHTML='<div class="empty"><div class="empty-icon">💰</div><div class="empty-text">No data yet</div></div>';
+return;
+}
+
+const leaders=users.map(u=>({
+id:u.id,
+username:u.username||'Player',
+coins:u.coins||0,
+games:0
+}));
+
+renderLeaderboard(leaders,{
+valueKey:'coins',
+label:'coins',
+container:'coins-content'
+});
+}catch(e){
+console.error(e);
+document.getElementById('coins-content').innerHTML='<div class="empty"><div class="empty-icon">❌</div><div class="empty-text">Error loading</div></div>';
+}
+}
+
+// GEMS LEADERBOARD
+async function loadGemsLeaderboard(){
+document.getElementById('gems-content').innerHTML='<div class="loader"></div>';
+
+try{
+const{data:users}=await db.from('users').select('*').order('gems',{ascending:false}).limit(20);
+
+if(!users||!users.length){
+document.getElementById('gems-content').innerHTML='<div class="empty"><div class="empty-icon">💎</div><div class="empty-text">No data yet</div></div>';
+return;
+}
+
+const leaders=users.map(u=>({
+id:u.id,
+username:u.username||'Player',
+gems:u.gems||0,
+games:0
+}));
+
+renderLeaderboard(leaders,{
+valueKey:'gems',
+label:'gems',
+container:'gems-content'
+});
+}catch(e){
+console.error(e);
+document.getElementById('gems-content').innerHTML='<div class="empty"><div class="empty-icon">❌</div><div class="empty-text">Error loading</div></div>';
+}
+}
+
+// WINS LEADERBOARD
+async function loadWinsLeaderboard(){
+document.getElementById('wins-content').innerHTML='<div class="loader"></div>';
+
+try{
+const{data:matches}=await db.from('matches').select('*');
+
+if(!matches||!matches.length){
+document.getElementById('wins-content').innerHTML='<div class="empty"><div class="empty-icon">🏆</div><div class="empty-text">No matches yet</div></div>';
+return;
+}
+
+const stats={};
+matches.forEach(m=>{
+if(m.winner_id){
+if(!stats[m.winner_id])stats[m.winner_id]={id:m.winner_id,username:'Player',wins:0,games:0};
+stats[m.winner_id].wins++;
+stats[m.winner_id].games++;
+}
+});
+
+const leaders=Object.values(stats).sort((a,b)=>b.wins-a.wins).slice(0,20);
+
+renderLeaderboard(leaders,{
+valueKey:'wins',
+label:'wins',
+container:'wins-content'
+});
+}catch(e){
+console.error(e);
+document.getElementById('wins-content').innerHTML='<div class="empty"><div class="empty-icon">❌</div><div class="empty-text">Error loading</div></div>';
+}
+}
+
+// RENDER LEADERBOARD
+function renderLeaderboard(leaders,opts){
+if(!leaders||!leaders.length){
+document.getElementById(opts.container).innerHTML='<div class="empty"><div class="empty-icon">🏆</div><div class="empty-text">No data</div></div>';
+return;
+}
+
+const top3=leaders.slice(0,3);
+const rest=leaders.slice(3);
+
+let html='';
+
+// PODIUM
+if(top3.length===3){
+html+=`<div class="podium">`;
+top3.forEach((p,i)=>{
+const medals=['🥇','🥈','🥉'];
+const classes=['first','second','third'];
+html+=`
+<div class="pod ${classes[i]}">
+<div class="medal">${medals[i]}</div>
+<div class="pod-avatar">👤</div>
+<div class="pod-name">${p.username}${p.id===user.id?' (You)':''}</div>
+<div class="pod-score">${p[opts.valueKey]}</div>
+<div class="pod-label">${opts.label}</div>
+</div>
+`;
+});
+html+=`</div>`;
+}
+
+// LIST
+html+=`<div class="list">`;
+rest.forEach((p,i)=>{
+const rank=i+4;
+html+=`
+<div class="item ${p.id===user.id?'me':''}">
+<div class="rank ${rank<=3?'top':''}">${rank}</div>
+<div class="avatar">👤</div>
+<div class="info">
+<div class="name">${p.username}${p.id===user.id?' (You)':''}</div>
+<div class="stats">${p.games||0} games played</div>
+</div>
+<div class="score">
+<div class="score-value">${p[opts.valueKey]}</div>
+<div class="score-label">${opts.label}</div>
+</div>
+</div>
+`;
+});
+html+=`</div>`;
+
+document.getElementById(opts.container).innerHTML=html;
+}
+
+// APPLY THEME
+document.body.setAttribute('data-theme',localStorage.getItem('theme')||'light');
+</script>
+</body>
+</html>
